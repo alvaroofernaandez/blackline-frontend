@@ -6,7 +6,7 @@ const AnadirNoticia = () => {
         const noticia = {
             titulo: document.getElementById('titulo').value,
             descripcion: document.getElementById('descripcion').value,
-            imagen: "https://example.com/imagen.jpg"
+            imagen: document.getElementById('imagen').value
         };
         try {
             const respuesta = await fetch('http://127.0.0.1:8000/noticias/', {

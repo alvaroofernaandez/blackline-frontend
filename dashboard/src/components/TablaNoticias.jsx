@@ -35,6 +35,7 @@ const TablaNoticias = () => {
             alert("Error al eliminar la noticia.");
         }
     }
+    
 
     return (
         <table className="w-full border-collapse border border-gray-300">
@@ -56,14 +57,22 @@ const TablaNoticias = () => {
                             <img src={fila.imagen} className="w-24" alt="Imagen de noticia"/>
                         </td>
                         <td>
-                            <button className="bg-blue-950 text-white rounded-lg p-2 hover:bg-blue-700 transition-colors" onClick={() => eliminarNoticia(fila.id)}>Editar</button>
-                            <button className="bg-red-500 text-white rounded-lg p-2 ml-2 hover:bg-red-400 transition-colors" onClick={() => eliminarNoticia(fila.id)}>Borrar</button>
+                        <a 
+                            className="bg-blue-950 text-white rounded-lg p-2 hover:bg-blue-700 transition-colors" 
+                            href={`/ActualizarNoticia/${fila.id}`}
+                        >
+                            Editar
+                        </a>
+                        <button className="bg-red-500 text-white rounded-lg p-2 ml-2 hover:bg-red-400 transition-colors" onClick={() => eliminarNoticia(fila.id)}>Borrar</button>
                         </td>
                     </tr>
                 ))}
             </tbody>
         </table>
+
     );
 }
+
+
 
 export default TablaNoticias;

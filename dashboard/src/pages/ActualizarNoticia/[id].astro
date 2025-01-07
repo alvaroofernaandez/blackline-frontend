@@ -1,0 +1,12 @@
+---
+// Ruta: /ActualizarNoticia/[id].astro
+import Layout from '../../layouts/Layout.astro';
+import EditarNoticia from '../../components/EditarNoticia.jsx';
+export const prerender = false;
+const { id } = Astro.params;
+---
+<Layout title="Editar Noticia">
+    <div>
+        <EditarNoticia id={id} client:load />
+    </div>
+</Layout>
