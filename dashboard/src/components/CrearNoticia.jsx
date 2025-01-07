@@ -1,15 +1,30 @@
 import React from 'react';
 
 const AnadirNoticia = () => {
-    const enviar = (e) => {
-        e.preventDefault(); // Previene el comportamiento por defecto del formulario (refrescar la página)
-        console.log('Enviando noticia...');
-        console.log('Título:', document.getElementById('titulo').value);
-        console.log('Descripción:', document.getElementById('descripcion').value);
-        console.log('Fecha:', document.getElementById('fecha').value);
-        console.log('Imagen:', document.getElementById('imagen').value);
-        alert("Enviado...");
-        window.location.href = '/Noticias';
+    const enviar = async (e) => {
+        e.preventDefault();
+        const noticia = {
+            titulo: document.getElementById('titulo').value,
+            descripcion: document.getElementById('descripcion').value,
+            imagen: "https://example.com/imagen.jpg"
+        };
+        try {
+            const respuesta = await fetch('http://127.0.0.1:8000/noticias/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(noticia)
+            });
+            if (respuesta.ok) {
+                console.log('Noticia enviada:', await respuesta.json());
+                alert("Noticia enviada con éxito.");
+                window.location.href = '/Noticias';
+            }
+        } catch (error) {
+            console.error('Error al enviar la noticia:', error);
+            alert("Error al enviar la noticia.");
+        }
     }
 
     return (    
@@ -26,7 +41,7 @@ const AnadirNoticia = () => {
                 <input type="date" id="fecha" name="fecha" className="border border-gray-300 p-2 w-full mb-4" required />
 
                 <label htmlFor="imagen" className="block mb-2">Imagen URL:</label>
-                <input type="url" id="imagen" name="imagen" className="border border-gray-300 p-2 w-full mb-4" required />
+                <input id="imagen" name="imagen" className="border border-gray-300 p-2 w-full mb-4"  />
 
                 <button type="submit" className="bg-blue-950 text-white rounded-lg p-2 hover:bg-blue-700 transition-colors">Enviar</button>
             </form>
