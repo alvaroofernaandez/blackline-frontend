@@ -1,0 +1,13 @@
+---
+import TablaSorteos from "../components/Sorteos/TablaSorteos";
+import Layout from "../layouts/Layout.astro";
+
+---
+<Layout title="Sorteos">
+    <div class=" flex justify-between">
+        <h1 class="text-3xl font-bold">Sorteos</h1>
+        <a class="bg-blue-950 text-white rounded-lg text-2xl text-center  items-center hover:scale-110 transition-transform duration-200 ease-in-out hover:shadow-xl shadow-md p-2" href="/AnadirSorteo">+</a>
+    </div>
+    <hr class="my-4 border-gray-300" />
+    <TablaSorteos client:load/>
+</Layout>
