@@ -2,7 +2,6 @@
 interface Props {
 	title: string;
 }
-
 const { title } = Astro.props;
 ---
 
@@ -16,7 +15,35 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-[#101113] text-white">
-		<slot />
+	<body class="bg-gray-800 text-white h-screen ">	
+
+		<header class='flex bg-gradient-to-b from-black to-transparent p-4 items-center h-32 w-screen fixed '>
+			<img src='/logomaezink.png' alt='Logo' loading='lazy' class='my-0 mx-auto w-20 h-32 '/>
+		</header>
+		<div class="h-32"></div>
+		
+		<section class="w-screen h-[60%] max-w-screen-lg mx-auto bg-black">
+			<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN HERO</h1>
+		</section>
+
+
+			<section class="w-screen h-96 max-w-screen-lg mx-auto bg-red-500">
+				<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN QUIÉN SOY</h1>
+			</section>
+			
+			<section class="w-screen h-96 max-w-screen-lg mx-auto bg-yellow-600">
+				<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN DISEÑOS</h1>
+			</section>
+
+			<section class="w-screen h-96 max-w-screen-lg mx-auto bg-blue-500">
+				<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN SORTEOS</h1>
+			</section>
+
+			<section class="h-80 w-screen mx-auto bg-black">
+				<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN FOOTER</h1>
+			</section>			
+	
+			<slot />
+		
 	</body>
 </html>
