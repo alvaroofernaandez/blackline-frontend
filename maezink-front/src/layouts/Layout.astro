@@ -1,49 +1,28 @@
 ---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
 interface Props {
-	title: string;
+  title: string;
 }
 const { title } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body class="bg-gray-800 text-white h-screen ">	
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-gray-800 overflow-x-hidden">
+		<Header />
 
-		<header class='flex bg-gradient-to-b from-black to-transparent p-4 items-center h-32 w-screen fixed '>
-			<img src='/logomaezink.png' alt='Logo' loading='lazy' class='my-0 mx-auto w-20 h-32 '/>
-		</header>
-		<div class="h-32"></div>
-		
-		<section class="w-screen h-[60%] max-w-screen-lg mx-auto bg-black">
-			<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN HERO</h1>
-		</section>
+    <slot class="min-h-full"/>
 
-
-			<section class="w-screen h-96 max-w-screen-lg mx-auto bg-red-500">
-				<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN QUIÉN SOY</h1>
-			</section>
-			
-			<section class="w-screen h-96 max-w-screen-lg mx-auto bg-yellow-600">
-				<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN DISEÑOS</h1>
-			</section>
-
-			<section class="w-screen h-96 max-w-screen-lg mx-auto bg-blue-500">
-				<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN SORTEOS</h1>
-			</section>
-
-			<section class="h-80 w-screen mx-auto bg-black">
-				<h1 class=" text-white font-bold text-4xl text-center pt-40">SECCIÓN FOOTER</h1>
-			</section>			
-	
-			<slot />
-		
-	</body>
+		<Footer />
+  </body>
 </html>
