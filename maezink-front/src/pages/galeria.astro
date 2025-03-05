@@ -1,5 +1,6 @@
 ---
 import BentoGrid from "../components/BentoGrid.astro";
+import Layout from "../layouts/Layout.astro";
 
 // Lista de URLs de imágenes
 const images = [
@@ -25,13 +26,9 @@ const images = [
 ];
 ---
 
-<html>
-  <head>
-    <title>Bento Grid Ajustado</title>
-  </head>
-  <body class="bg-black">
-    <div class="max-w-7xl mx-auto">
-        <BentoGrid images={images} />
-    </div>
-  </body>
-</html>
+<Layout title="Maez Ink - Galería">
+  <div class="max-w-7xl mx-auto">
+    <BentoGrid images={images} />
+  </div>
+</Layout>
+
