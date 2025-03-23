@@ -1,16 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Noticia from './Noticia';
 
 const noticiasPorPagina = 3; // Número de noticias por página
 
 const Noticiero = () => {
     const [paginaActual, setPaginaActual] = useState(1);
-    const noticias = [
-        { id: 1, titulo: "Título 1", descripcion: "Descripción 1", fecha: "Fecha 1" },
-        { id: 2, titulo: "Título 2", descripcion: "Descripción 2", fecha: "Fecha 2" },
-        { id: 3, titulo: "Título 3", descripcion: "Descripción 3", fecha: "Fecha 3" },
-        { id: 4, titulo: "Título 4", descripcion: "Descripción 4", fecha: "Fecha 4" }
-    ];
+    const [noticias, setNoticias] = useState([]);
+
+    const formatearFecha = (fechaISO) => {
+        const fecha = new Date(fechaISO);
+        const dia = fecha.getDate().toString().padStart(2, '0');
+        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+        const anio = fecha.getFullYear();
+        const horas = fecha.getHours().toString().padStart(2, '0');
+        const minutos = fecha.getMinutes().toString().padStart(2, '0');
+    
+        return `${dia}/${mes}/${anio} - ${horas}:${minutos}`;
+    };
+    
+
+
+    useEffect(() => {
+        const fetchNoticias = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/noticias');
+                const data = await response.json();
+                setNoticias(data);
+            } catch (error) {
+                console.error('Error al obtener las noticias:', error);
+            }
+        };
+        fetchNoticias();
+    }, []);
+    
 
     const totalPaginas = Math.ceil(noticias.length / noticiasPorPagina);
     const inicio = (paginaActual - 1) * noticiasPorPagina;
@@ -21,7 +43,7 @@ const Noticiero = () => {
             <h1 className='text-4xl text-white font-bold'>Noticias</h1>
             <hr />
             {noticiasPaginadas.map(noticia => (
-                <Noticia key={noticia.id} titulo={noticia.titulo} descripcion={noticia.descripcion} fecha={noticia.fecha} />
+                <Noticia key={noticia.id} titulo={noticia.titulo} descripcion={noticia.descripcion}  fecha={formatearFecha(noticia.fecha)} />
             ))}
             
             <div className='flex justify-center gap-4'>
