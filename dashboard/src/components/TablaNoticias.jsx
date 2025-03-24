@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
+import Alert from "./Alert";
 
 const TablaNoticias = () => {
   const [data, setData] = useState([]);
+  const [alerta, setAlerta] = useState(null);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/noticias")
@@ -24,18 +27,25 @@ const TablaNoticias = () => {
         method: "DELETE",
       });
       if (respuesta.ok) {
-        alert("Noticia eliminada con éxito.");
+        setAlerta({ type: "success", message: "Noticia eliminada con éxito." });
         setData(data.filter((noticia) => noticia.id !== id));
       } else {
-        alert("Error al eliminar la noticia.");
+        setAlerta({ type: "error", message: "Error al eliminar la noticia." });
       }
     } catch (e) {
-      alert("Error al eliminar la noticia.");
+      setAlerta({ type: "error", message: "Error al eliminar la noticia." });
     }
   };
 
   return (
     <div className="container mx-auto p-4">
+      {alerta && (
+        <Alert
+          type={alerta.type}
+          message={alerta.message}
+          onClose={() => setAlerta(null)}
+        />
+      )}
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
         Lista de Noticias
       </h2>
@@ -69,16 +79,16 @@ const TablaNoticias = () => {
                 </td>
                 <td className="p-3 text-center flex justify-center gap-2">
                   <a
-                    className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-500 transition"
+                    className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500 transition flex items-center justify-center"
                     href={`/ActualizarNoticia/${fila.id}`}
                   >
-                    Editar
+                    <Pencil size={20} />
                   </a>
                   <button
-                    className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-500 transition"
+                    className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-500 transition flex items-center justify-center"
                     onClick={() => eliminarNoticia(fila.id)}
                   >
-                    Borrar
+                    <Trash2 size={20} />
                   </button>
                 </td>
               </tr>
