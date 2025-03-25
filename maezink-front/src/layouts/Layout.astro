@@ -18,19 +18,22 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <style>
-      body{
+      body {
         display: grid;
-        min-height: 100dvh;
+        min-height: 100vh; /* Corregido de 100dvh a 100vh para asegurar que el footer se mantenga en la parte inferior */
         grid-template-rows: auto 1fr auto;
-        font-family:cursive;
+        font-family: cursive;
       }
     </style>
   </head>
-  <body class="bg-neutral-800 overflow-x-hidden">
-		<Header />
-
-    <slot class="min-h-full"/>
-
-		<Footer />
-  </body>
+  <body class="bg-neutral-800 overflow-x-hidden grid min-h-screen grid-rows-[auto_1fr_auto] font-cursive">
+    <Header />
+  
+    <main class="px-4 py-6">
+      <slot />
+    </main>
+  
+    <Footer />
+  </body>  
+  
 </html>
