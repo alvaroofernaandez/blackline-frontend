@@ -2,26 +2,19 @@
 import fs from 'fs';
 import path from 'path';
 import Layout from '../layouts/Layout.astro';
+import GaleriaComponent from '../components/Galeria.jsx';
 
 const galeriaDir = path.resolve('./public/galeria');
 const files = fs.readdirSync(galeriaDir).filter(file =>
   /\.(jpg|jpeg|png|webp)$/i.test(file)
 );
+
 ---
 
 <Layout title="Maez Ink - Galería">
-  <section class="px-4 py-12 bg-neutral-800 text-white max-w-4xl mx-auto my-14">
+  <section class="px-4 py-12 bg-neutral-800 text-white max-w-4xl mx-auto my-14 ">
     <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-      {
-        files.map((file, index) => (
-          <img
-            src={`/galeria/${file}`}
-            alt={`Tatuaje ${index + 1}`}
-            class="w-full rounded-xl shadow-2xl break-inside-avoid object-cover  hover:scale-110 transition-all duration-300"
-            loading="lazy"
-          />
-        ))
-      }
+      <GaleriaComponent images={files} client:load/>
     </div>
   </section>
 </Layout>
