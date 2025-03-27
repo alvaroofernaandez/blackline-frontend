@@ -43,7 +43,7 @@ const Noticiero = () => {
             <h1 className='text-4xl text-white font-bold'>Noticias</h1>
             <hr />
             {noticiasPaginadas.map(noticia => (
-                <Noticia key={noticia.id} titulo={noticia.titulo} descripcion={noticia.descripcion}  fecha={formatearFecha(noticia.fecha)} />
+                <Noticia key={noticia.id} titulo={noticia.titulo} descripcion={noticia.descripcion}  fecha={formatearFecha(noticia.fecha)} imagen={noticia.imagen} />
             ))}
             
             <div className='flex justify-center gap-4'>
