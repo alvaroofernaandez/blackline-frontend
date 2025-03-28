@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Pencil, Trash2 } from "lucide-react";
-import Alert from "./Alert";
+import Alert from "../Alert";
 
 const TablaNoticias = () => {
   const [data, setData] = useState([]);
   const [alerta, setAlerta] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/noticias")
+    fetch("http://127.0.0.1:8000/api/noticias")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -23,7 +22,7 @@ const TablaNoticias = () => {
 
   const eliminarNoticia = async (id) => {
     try {
-      const respuesta = await fetch(`http://127.0.0.1:8000/noticias/${id}/`, {
+      const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias/${id}/`, {
         method: "DELETE",
       });
       if (respuesta.ok) {
@@ -51,7 +50,7 @@ const TablaNoticias = () => {
       </h2>
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
-          <thead className="bg-blue-900 text-white">
+          <thead className="bg-neutral-800 text-white">
             <tr>
               <th className="p-3 text-left">Título</th>
               <th className="p-3 text-left">Descripción</th>
@@ -82,13 +81,13 @@ const TablaNoticias = () => {
                     className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500 transition flex items-center justify-center"
                     href={`/ActualizarNoticia/${fila.id}`}
                   >
-                    <Pencil size={20} />
+                    <img alt="editar" src="/icons/pencil.svg" className="w-4 h-4 text-white"/>
                   </a>
                   <button
                     className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-500 transition flex items-center justify-center"
                     onClick={() => eliminarNoticia(fila.id)}
                   >
-                    <Trash2 size={20} />
+                    <img alt="eliminar" src="/icons/trash.svg" className="w-4 h-4 text-white"/>
                   </button>
                 </td>
               </tr>

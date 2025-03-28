@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Alert from "./Alert";
+import Alert from "../Alert";
 
 const AnadirNoticia = () => {
   const [alerta, setAlerta] = useState(null);
@@ -12,7 +12,7 @@ const AnadirNoticia = () => {
       imagen: document.getElementById("imagen").value,
     };
     try {
-      const respuesta = await fetch("http://127.0.0.1:8000/noticias/", {
+      const respuesta = await fetch("http://127.0.0.1:8000/api/noticias/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

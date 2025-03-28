@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Alert from "./Alert";
+import Alert from "../Alert";
 
 const ActualizarNoticia = ({ id }) => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ const ActualizarNoticia = ({ id }) => {
   useEffect(() => {
     const obtenerNoticia = async () => {
       try {
-        const respuesta = await fetch(`http://127.0.0.1:8000/noticias/${id}/`);
+        const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias/${id}/`);
         if (respuesta.ok) {
           const datos = await respuesta.json();
           setFormData(datos);
@@ -40,7 +40,7 @@ const ActualizarNoticia = ({ id }) => {
   const actualizar = async (e) => {
     e.preventDefault();
     try {
-      const respuesta = await fetch(`http://127.0.0.1:8000/noticias/${id}/`, {
+      const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias/${id}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

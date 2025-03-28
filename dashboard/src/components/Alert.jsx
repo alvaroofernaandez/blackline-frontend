@@ -1,5 +1,4 @@
 import React from "react";
-import { XCircle, CheckCircle, AlertTriangle } from "lucide-react";
 
 const Alert = ({ type = "info", message, onClose }) => {
   const alertStyles = {
@@ -10,10 +9,10 @@ const Alert = ({ type = "info", message, onClose }) => {
   };
 
   const icons = {
-    success: <CheckCircle className="text-green-600" size={20} />,
-    error: <XCircle className="text-red-600" size={20} />,
-    warning: <AlertTriangle className="text-yellow-600" size={20} />,
-    info: <AlertTriangle className="text-blue-600" size={20} />,
+    success: "✔️",
+    error: "❌",
+    warning: "⚠️",
+    info: "ℹ️",
   };
 
   return (

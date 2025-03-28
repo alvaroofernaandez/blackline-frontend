@@ -16,6 +16,13 @@ const { title } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>{title}</title>
+		<style>
+			body {
+				display: grid;
+				min-height: 100dvh;
+				grid-template-rows: auto 1fr auto;
+			}
+		</style>
 	</head>
 	<body class="h-screen w-screen flex">
 		<Sidebar />
