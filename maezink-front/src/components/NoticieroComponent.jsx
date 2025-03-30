@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Noticia from './Noticia';
 
-const noticiasPorPagina = 3; // Número de noticias por página
+const noticiasPorPagina = 5; // Número de noticias por página
 
 const Noticiero = () => {
     const [paginaActual, setPaginaActual] = useState(1);

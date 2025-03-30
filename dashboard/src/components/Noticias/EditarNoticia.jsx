@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Alert from "../Alert";
 
 const ActualizarNoticia = ({ id }) => {
+
   const [formData, setFormData] = useState({
     titulo: "",
     descripcion: "",
@@ -10,10 +11,18 @@ const ActualizarNoticia = ({ id }) => {
   });
   const [alerta, setAlerta] = useState(null);
 
+  const formatearFecha = (fecha) => {
+    // Si ya viene con hora, no hacemos nada
+    if (fecha.includes("T")) return fecha;
+    // Agrega hora por defecto (puedes cambiarla si quieres)
+    return `${fecha}T00:00:00`;
+  };
+
+
   useEffect(() => {
     const obtenerNoticia = async () => {
       try {
-        const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias/${id}/`);
+        const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias_por_id/${id}/`);
         if (respuesta.ok) {
           const datos = await respuesta.json();
           setFormData(datos);
@@ -40,6 +49,7 @@ const ActualizarNoticia = ({ id }) => {
   const actualizar = async (e) => {
     e.preventDefault();
     try {
+      formData.fecha = formatearFecha(formData.fecha);
       const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias/${id}/`, {
         method: "PUT",
         headers: {
@@ -56,6 +66,8 @@ const ActualizarNoticia = ({ id }) => {
           window.location.href = "/Noticias";
         }, 2000);
       } else {
+        console.error("Error al actualizar la noticia:", respuesta.statusText);
+        console.log("Datos enviados:", formData);
         throw new Error("Error al actualizar la noticia.");
       }
     } catch (error) {
