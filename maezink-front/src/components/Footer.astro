@@ -1,46 +1,37 @@
----
-import instagram from '/instagram-brands.svg';
+<footer class="w-full bg-gradient-to-t from-black via-neutral-900 to-neutral-800 text-gray-400 px-6 py-10">
+  <hr class="w-full border-gray-600 mb-6" />
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-12 text-sm">
+    <!-- Logo y créditos -->
+    <div class="flex flex-col items-start space-y-3 min-w-[180px]">
+      <img src="/logomaezink.png" alt="Maez Ink Logo" class="h-16 w-auto opacity-90" />
+      <p class="text-xs text-gray-600">© 2025 Maez Ink Studio</p>
+    </div>
 
----
-
-<section class="h-72 w-screen bg-black bottom-0 space-y-4 justify-between items-center text-white px-32">
-  <div class="flex gap-10 h-52 items-center mx-auto justify-between">
-      <img
-      src="/logomaezink.png"
-      alt="Logo"
-      loading="lazy"
-      class="w-40 h-52"
-    />
-    <div class=" h-40" >
-      <h1 class="text-4xl text-center">Contacto</h1>
-      <hr class="max-w-[60%] border mx-auto my-2"/>
-      <p>Plaza del Escultor Ruiz Olmos, 14014 Córdoba</p>
-      <p>903847509</p>
+    <!-- Información de contacto -->
+    <div class="space-y-1">
+      <p>Plaza del Escultor Ruiz Olmos, Córdoba</p>
+      <p>903 847 509</p>
       <p>email@email.com</p>
     </div>
-    <div class="h-40">
-      <h1 class="text-4xl text-center">Horario</h1>
-      <hr class="max-w-[60%] border mx-auto my-2" />
-      <p>Lunes a viernes: 10:00 - 14:00 y 17:00 - 21:00</p>
-      <p>Sábados: 10:00 - 14:00</p>
+
+    <!-- Horario -->
+    <div class="space-y-1">
+      <p>Lunes a viernes: 10:00 – 14:00 / 17:00 – 21:00</p>
+      <p>Sábados: 10:00 – 14:00</p>
     </div>
-    <div class="h-40">
-      <h1 class="text-4xl text-center ">Ubicación</h1>
-      <hr class="max-w-[60%] border mx-auto my-2" />
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.676472213827!2d-4.766354024727916!3d37.899156104986425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6cdf994c7cecd1%3A0xea0d457dd77354da!2sPl.%20del%20Escultor%20Ruiz%20Olmos%2C%20Levante%2C%2014014%20C%C3%B3rdoba!5e0!3m2!1ses!2ses!4v1742049044555!5m2!1ses!2ses" width="250" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded transition-all duration-300 hover:scale-110"></iframe>
+
+    <!-- Redes -->
+    <div class="flex gap-4 items-center">
+      <a href="/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 opacity-60 transition-opacity">
+        <img src="/svg/whatsapp.svg" alt="WhatsApp" class="h-5 w-5" />
+      </a>
+      <a href="https://www.instagram.com/maez_ink_/" target="_blank" class="hover:opacity-100 opacity-60 transition-opacity">
+        <img src="/svg/instagram.svg" alt="Instagram" class="h-5 w-5" />
+      </a>
+      <a href="/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 opacity-60 transition-opacity">
+        <img src="/svg/tiktok.svg" alt="TikTok" class="h-5 w-5" />
+      </a>
     </div>
   </div>
-  <div class="flex flex-col w-auto text-center items-center justify-center h-auto">
-    <div class="flex gap-4">
-      <a href="/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 transition-all duration-300">
-        <img src="/svg/whatsapp.svg" alt="WhatsApp" loading="lazy" class="h-8 w-8" />
-      </a>
-      <a href="https://www.instagram.com/maez_ink_/" target="_blank" class="hover:scale-110 transition-all duration-300" rel="noopener noreferrer">
-        <img src=/svg/instagram.svg alt="Logo" class="h-8 w-8" />
-      </a>
-      </a>
-      <a href="/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 transition-all duration-300">
-        <img src="/svg/tiktok.svg" alt="TikTok" loading="lazy" class="h-8 w-8" />
-      </a>
-  </div>
-</section>
+</footer>
+
