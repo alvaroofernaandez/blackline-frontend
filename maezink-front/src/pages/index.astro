@@ -1,4 +1,5 @@
 ---
+import Carrousel from '../components/Carousel';
 import Layout from '../layouts/Layout.astro';
 
 ---
@@ -14,7 +15,7 @@ import Layout from '../layouts/Layout.astro';
 		<section class="w-screen min-h-[1000px] mx-auto bg-gradient-to-b from-black via-neutral-900 to-neutral-800 py-24 px-6 relative overflow-hidden">
 			<h1 class="text-center text-whitem mx-auto">
 				<span class="text-6xl ">¿Quien soy?</span>
-				<hr class="w-20 h-1 bg-yellow-500 mx-auto my-4">
+				<hr class="w-20 border border-yellow-400 mx-auto my-4">
 			</h1>
 			<div class="flex flex-col lg:flex-row items-center justify-between gap-16 max-w-4xl mx-auto z-10 relative">
 				<div class="text-center lg:text-left text-white flex-1">
@@ -32,10 +33,12 @@ import Layout from '../layouts/Layout.astro';
 		</section>
 		
 		
-		<section class="w-screen h-[1000px] max-w-screen-lg mx-auto bg-yellow-600">
+		<section class="w-screen h-[1000px] max-w-screen-lg mx-auto ">
 			<h1 class="text-white font-bold text-4xl text-center pt-40">
 				SECCIÓN DISEÑOS
+				<hr class="w-20 border border-yellow-400 mx-auto my-4">
 			</h1>
+			<Carrousel client:load />
 		</section>
 
 		<section class="w-screen h-[1000px] max-w-screen-lg mx-auto bg-blue-500">
