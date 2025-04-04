@@ -12,27 +12,36 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="ee">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Maez Ink - Blackwork - Anime Tattoo. Arte y diseño de tatuajes personalizados y de alta calidad." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Maez Ink" />
+    <meta name="keywords" content="Maez Ink, Tatuajes, Blackwork, Anime Tattoo, Arte, Diseño, Personalización, Alta Calidad, Tatuajes Personalizados" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Maez Ink - Blackwork - Anime Tattoo. Arte y diseño de tatuajes personalizados y de alta calidad." />
+    <meta property="og:image" content="/logomaezink.png" />
+    <meta property="og:url" content="https://maezink.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content="Maez Ink - Blackwork - Anime Tattoo. Arte y diseño de tatuajes personalizados y de alta calidad." />
+    <meta name="twitter:image" content="/logomaezink.png" />
     <link rel="icon" type="image/svg+xml" href="/logomaezink.png" />
+    <link rel="canonical" href="https://maezink.com" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ClientRouter />
-    <style>
-
-    </style>
   </head>
+
   <body class="bg-neutral-800 overflow-x-hidden grid min-h-screen grid-rows-[auto_1fr_auto] text-white">
     <Header />
-  
     <main>
       <slot />
     </main>
     <BackToTop />
     <Footer />
   </body>  
-  
 </html>
