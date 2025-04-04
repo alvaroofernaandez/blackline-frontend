@@ -1,0 +1,59 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "flatpickr/dist/flatpickr.min.css";
+---
+
+<Layout title="Maez Ink - Pide tu cita">
+  <img src="/logomaezink.png" transition:name="vtImg" alt="logo" class="mt-10 mx-auto w-32 xl:w-48 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg" loading="lazy">
+
+  <form class="mt-8 mx-auto max-w-lg p-6 border border-gray-700 rounded-lg shadow-lg bg-white text-center">
+    <div class="mb-6">
+      <label for="name" class="block text-sm font-semibold text-black">Nombre</label>
+      <input type="text" id="name" name="name" class="mt-2 block w-full border-gray-600 rounded-lg shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm p-2 text-black placeholder-gray-400" placeholder="Tu nombre" required>
+    </div>
+    <div class="mb-6">
+      <label for="email" class="block text-sm font-semibold text-black">Correo Electrónico</label>
+      <input type="email" id="email" name="email" class="mt-2 block w-full border-gray-600 rounded-lg shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm p-2 text-black placeholder-gray-400" placeholder="Tu correo" required>
+    </div>
+    <div class="mb-6 justify-items-center">
+      <label for="date" class="block text-sm font-semibold text-black">Fecha de la cita</label>
+      <div id="calendar" class="mt-2"></div>
+      <input type="hidden" id="date" name="date" required>
+    </div>      
+    <div class="mb-6">
+      <label for="message" class="block text-sm font-semibold text-black">Mensaje</label>
+      <textarea id="message" name="message" rows="4" class="mt-2 block w-full border-gray-600 rounded-lg shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm p-2 text-black placeholder-gray-400 resize-none" placeholder="Detalles adicionales"></textarea>
+    </div>
+    <button type="submit" class="w-full bg-gray-900 text-white py-3 px-4 rounded-lg shadow-md hover:bg-gray-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+      Enviar
+    </button>
+  </form>
+
+  <script>
+    import flatpickr from "flatpickr";
+
+    const calendarElement = document.getElementById("calendar") as HTMLElement | null;
+    const hiddenInput = document.getElementById("date") as HTMLInputElement | null;
+
+    if (calendarElement && hiddenInput) {
+      flatpickr(calendarElement, {
+      inline: true,
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+      locale: "es",
+      disable: [
+        function(date) {
+          return (date.getDay() === 0 || date.getDay() === 6);
+        },
+        "2023-12-25", 
+      ],
+      onChange: function(selectedDates) {
+          if (hiddenInput) {
+            hiddenInput.value = selectedDates[0].toISOString();
+          }
+        }
+      });
+    }
+  </script>
+
+</Layout>
