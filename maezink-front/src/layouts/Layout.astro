@@ -1,6 +1,9 @@
 ---
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import BackToTop from "../components/BackToTop.astro"
+import '../styles/global.css'
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -9,7 +12,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ee">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -17,22 +20,18 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/logomaezink.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
     <style>
-      body {
-        display: grid;
-        min-height: 100dvh;
-        grid-template-rows: auto 1fr auto;
-        font-family: 'Inter', sans-serif;
-      }
+
     </style>
   </head>
-  <body class="bg-neutral-800 overflow-x-hidden grid min-h-screen ">
+  <body class="bg-neutral-800 overflow-x-hidden grid min-h-screen grid-rows-[auto_1fr_auto] text-white">
     <Header />
   
-    <main >
+    <main>
       <slot />
     </main>
-  
+    <BackToTop />
     <Footer />
   </body>  
   
