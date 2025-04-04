@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ImagenModal from './ImagenModal';
-import Image from 'astro/components/Image.astro';
 
 const Galeria = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(null);
