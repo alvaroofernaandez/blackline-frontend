@@ -12,7 +12,8 @@ const files = fs.readdirSync(galeriaDir).filter(file =>
 ---
 
 <Layout title="Maez Ink - Galería">
-  <section class="px-4 py-12 bg-neutral-800 text-white max-w-4xl mx-auto my-14 ">
+  <img src="/logomaezink.png" transition:name="vtImg" alt="logo" class="mt-10 mx-auto w-32 xl:w-48 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg" loading="lazy"/>
+  <section class="px-4 py-12 bg-neutral-800 text-white max-w-4xl mx-auto  ">
     <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
       <GaleriaComponent images={files} client:load/>
     </div>
