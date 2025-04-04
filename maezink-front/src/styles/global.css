@@ -1,6 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+
+
 .img-gradient {
-  mask-image: linear-gradient(
-      black 90%,
-      transparent
-  );
+    mask-image: linear-gradient(
+        black 90%,
+        transparent
+    );
+}
+
+
+body {
+    font-family: 'Geist', sans-serif;
+}
+
+.titleMarta {
+    font-family: 'Satisfy';
+}
+
+.titleMarta2 {
+    font-family: 'Geist';
+    font-weight: 800;
 }
