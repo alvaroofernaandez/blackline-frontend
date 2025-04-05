@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ImagenModal from './ImagenModal';
+import ImagenModal from '../ImagenModal';
 
 const Galeria = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(null);

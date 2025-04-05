@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import Layout from '../layouts/Layout.astro';
-import GaleriaComponent from '../components/Galeria.jsx';
+import GaleriaComponent from '../components/galeria/Galeria.jsx';
 
 const galeriaDir = path.resolve('./public/galeria');
 const files = fs.readdirSync(galeriaDir).filter(file =>
