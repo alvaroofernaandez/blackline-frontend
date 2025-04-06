@@ -6,15 +6,15 @@ import GaleriaComponent from '../components/galeria/Galeria.jsx';
 
 const galeriaDir = path.resolve('./public/galeria');
 const files = fs.readdirSync(galeriaDir).filter(file =>
-  /\.(jpg|jpeg|png|webp)$/i.test(file)
+  /\.(jpg|jpeg|png|webp|avif)$/i.test(file)
 );
 
 ---
 
 <Layout title="Maez Ink - Galería">
-  <img src="/logomaezink.png" transition:name="vtImg" alt="logo" class="mt-10 mx-auto w-32 xl:w-48 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg" loading="lazy"/>
-  <section class="px-4 py-12 bg-neutral-800 text-white max-w-4xl mx-auto  ">
-    <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+  <img src="/logomaezink.avif" transition:name="vtImg" alt="logo" class="mt-10 mx-auto w-32 xl:w-48 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg" loading="lazy"/>
+  <section class="px-4 py-12 text-white max-w-4xl mx-auto  ">
+    <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-5 gap-4 space-y-4">
       <GaleriaComponent images={files} client:load/>
     </div>
   </section>
