@@ -7,30 +7,35 @@ const reviews = [
     title: "Car Lu",
     description: "El trato en Maez Ink Tattoo es simplemente inmejorable: cercano, profesional y siempre pendiente de que te sientas a gusto durante todo el proceso. Su atención al detalle y la calidad de su trabajo son impresionantes, desde el diseño inicial hasta el resultado final. Estoy encantado con el tatuaje que me hizo, y no tengo ninguna duda de que volveré. Si estás buscando un lugar en Córdoba para hacerte un tatuaje, Maez Ink Tattoo es la mejor opción. ¡Muy recomendable! Si pudiera, le pondría más de cinco estrellas.",
     rating: 5,
+    href: "https://g.co/kgs/fuHoRW1",
   },
   {
     id: 2,
     title: "RUBEN RAMIREZ",
     description: "He perdido la cuenta de los tatuajes que llevo hechos con Marta y no me arrepiento de ninguno. Muy maja, profesional, máxima calidad y precios económicos. Google no me deja dar mas de 5 estrellas, si no le daría 100 👍🏼",
     rating: 5,
+    href: "https://g.co/kgs/jC5a7Rj",
   },
   {
     id: 3,
     title: "Francisco José González ruiz",
     description: "Tatuaje anime de uzui tengen, contento con el trato recibido y con la calidad. 10/10 repetiré.",
     rating: 5,
+    href: "https://g.co/kgs/VYuc9zX",
   },
   {
     id: 4,
     title: "Alejandro Arévalo",
     description: "El trabajo fue rápido y de alta calidad. ¡Definitivamente volveré!Marta es súper agradable y tatúa de 10, además sus diseños son increíbles. En cuanto pueda me tatuó de nuevo con ella",
     rating: 5,
+    href: "https://g.co/kgs/vRk439c",
   },
   {
     id: 5,
     title: "Alberto Rodriguez",
     description: "Excelente trabajo, muy buen trato y bastante profesional, además Marta es muy simpática y agradable.",
     rating: 5,
+    href: "https://g.co/kgs/rra3QS3",
   },
 ];
 ---
@@ -73,7 +78,7 @@ const reviews = [
   
   <div class="flex gap-5 flex-wrap justify-center mt-10">
     {reviews.map((review) => (
-      <CardReview key={review.id} title={review.title} description={review.description} rating={review.rating} />
+      <CardReview key={review.id} title={review.title} description={review.description} rating={review.rating} href={review.href} />
     ))}
   </div>
 </section>

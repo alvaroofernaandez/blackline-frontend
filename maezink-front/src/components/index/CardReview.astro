@@ -3,12 +3,13 @@ export interface CardReviewProps {
   title: string;
   description: string;
   rating: number;
+  href: string; 
 }
 
-const { title, description, rating } = Astro.props;
+const { title, description, rating, href } = Astro.props;
 ---
 
-<div
+<a href={href}
   class="max-w-xs overflow-hidden bg-transparent border border-gray-200 rounded-xl shadow-md transform transition-all duration-500 hover:shadow-lg hover:scale-105 relative group"
 >
   <div
@@ -53,4 +54,4 @@ const { title, description, rating } = Astro.props;
       </span> 
     </div>
   </div>
-</div>
+</a>
