@@ -23,3 +23,7 @@ body {
     font-family: 'Geist';
     font-weight: 800;
 }
+
+textarea {
+    resize: none;
+}
