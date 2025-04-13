@@ -1,42 +1,44 @@
-import {useEffect, useState} from 'react';
-import CardSorteo from './CardSorteo';
+import { useEffect, useState } from "react";
+import CardSorteo from "./CardSorteo";
 
 const TablaSorteos = () => {
+  const [sorteos, setSorteos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
 
-    const [data, setData] = useState([]);
+  useEffect(() => {
+    const obtenerSorteos = async () => {
+      try {
+        const respuesta = await fetch("http://127.0.0.1:8000/api/sorteos/");
+        if (!respuesta.ok) throw new Error("Error al obtener los sorteos");
+        const datos = await respuesta.json();
+        setSorteos(datos);
+      } catch (err) {
+        console.error("Error:", err);
+        setError("No se pudieron cargar los sorteos.");
+      } finally {
+        setCargando(false);
+      }
+    };
 
-    useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/sorteos/")
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            setData(data)
-        })
-        .catch(error => console.error('Error:', error));
+    obtenerSorteos();
+  }, []);
 
-    }, []);
-    
+  if (cargando) return <p className="text-center">Cargando sorteos...</p>;
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
 
-    return (
-        <div>
-            <h2 className="text-2xl font-bold mb-4">Sorteos</h2>
-            <div className="w-full border border-gray-300">
-                    {data.map((fila, index) => (
-                        <div key={index}>
-                            <CardSorteo 
-                                titulo={fila.titulo} 
-                                descripcion={fila.descripcion} 
-                                fecha_inicio={fila.fecha_inicio} 
-                                fecha_fin={fila.fecha_fin} 
-                                ganador={fila.ganador} 
-                                premios={Array.isArray(fila.premios) ? fila.premios : []} 
-                                participantes={fila.participantes || []} 
-                            />
-                        </div>
-                    ))}
-            </div>
-        </div>
-    );
-}
+  return (
+    <div className="p-4 h-full overflow-y-auto">
+      <h2 className="text-2xl font-bold mb-6 text-center">
+        Listado de Sorteos
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sorteos.map((sorteo, index) => (
+          <CardSorteo key={index} {...sorteo} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default TablaSorteos;

@@ -22,9 +22,12 @@ const TablaNoticias = () => {
 
   const eliminarNoticia = async (id) => {
     try {
-      const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias/${id}/`, {
-        method: "DELETE",
-      });
+      const respuesta = await fetch(
+        `http://127.0.0.1:8000/api/noticias/${id}/`,
+        {
+          method: "DELETE",
+        }
+      );
       if (respuesta.ok) {
         setAlerta({ type: "success", message: "Noticia eliminada con éxito." });
         setData(data.filter((noticia) => noticia.id !== id));
@@ -81,13 +84,21 @@ const TablaNoticias = () => {
                     className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500 transition flex items-center justify-center"
                     href={`/ActualizarNoticia/${fila.id}`}
                   >
-                    <img alt="editar" src="/icons/pencil.svg" className="w-4 h-4 text-white"/>
+                    <img
+                      alt="editar"
+                      src="/icons/pencil.svg"
+                      className="w-4 h-4 text-white"
+                    />
                   </a>
                   <button
                     className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-500 transition flex items-center justify-center"
                     onClick={() => eliminarNoticia(fila.id)}
                   >
-                    <img alt="eliminar" src="/icons/trash.svg" className="w-4 h-4 text-white"/>
+                    <img
+                      alt="eliminar"
+                      src="/icons/trash.svg"
+                      className="w-4 h-4 text-white"
+                    />
                   </button>
                 </td>
               </tr>
