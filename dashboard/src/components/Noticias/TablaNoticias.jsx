@@ -51,9 +51,9 @@ const TablaNoticias = () => {
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
         Lista de Noticias
       </h2>
-      <div className="overflow-x-auto">
+      <div className="max-h-96 overflow-y-auto">
         <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
-          <thead className="bg-neutral-800 text-white">
+          <thead className="bg-neutral-800 text-white sticky top-0 z-10">
             <tr>
               <th className="p-3 text-left">Título</th>
               <th className="p-3 text-left">Descripción</th>
@@ -64,7 +64,12 @@ const TablaNoticias = () => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {data.map((fila, index) => (
-              <tr key={index} className="hover:bg-gray-100 transition">
+              <tr
+                key={index}
+                className={`hover:bg-gray-100 transition ${
+                  index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                }`}
+              >
                 <td className="p-3 text-gray-700">{fila.titulo}</td>
                 <td className="p-3 text-gray-600 truncate max-w-xs">
                   {fila.descripcion}
