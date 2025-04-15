@@ -64,7 +64,7 @@ const ActualizarNoticia = ({ id }) => {
         });
         setTimeout(() => {
           window.location.href = "/Noticias";
-        }, 2000);
+        }, 500);
       } else {
         console.error("Error al actualizar la noticia:", respuesta.statusText);
         console.log("Datos enviados:", formData);
