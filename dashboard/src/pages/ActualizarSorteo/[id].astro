@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EditarSorteo from '../../components/Sorteos/EditarSorteo';
+export const prerender = false;
+const { id } = Astro.params;
+---
+<Layout title="Editar Noticia">
+    <div>
+        <EditarSorteo id={id} client:load />
+    </div>
+</Layout>
