@@ -1,20 +1,10 @@
 ---
-<<<<<<< HEAD
-import EditarSorteo from "../../components/Sorteos/EditarSorteo";
-import Layout from "../../layouts/Layout.astro";
-export const prerender = false;
-const { id } = Astro.params;
-
----
-<Layout title="Editar Sorteo">
-=======
 import Layout from '../../layouts/Layout.astro';
 import EditarSorteo from '../../components/Sorteos/EditarSorteo';
 export const prerender = false;
 const { id } = Astro.params;
 ---
 <Layout title="Editar Noticia">
->>>>>>> b31c20baaed9b7c6b6136cac36deca69020b1e9d
     <div>
         <EditarSorteo id={id} client:load />
     </div>
