@@ -42,7 +42,7 @@ const CardSorteo = ({
   };
 
   return (
-    <div className="bg-[#262626] rounded-2xl shadow-md p-6 border border-gray-700 hover:shadow-lg transition-shadow">
+    <div className="bg-[#262626] rounded-2xl shadow-md p-6 border border-gray-700 hover:shadow-lg transition-shadow flex flex-col justify-between h-full">
       {alerta && (
         <Alert
           type={alerta.type}
@@ -50,51 +50,53 @@ const CardSorteo = ({
           onClose={() => setAlerta(null)}
         />
       )}
-      <h2 className="text-xl font-bold text-white mb-2">{titulo}</h2>
-      <p className="text-gray-300 mb-4">{descripcion}</p>
-
-      <div className="flex justify-between text-sm text-gray-400 mb-4">
-        <span>
-          🕒 Inicio:{" "}
-          <strong className="text-gray-200">{formatDate(fecha_inicio)}</strong>
-        </span>
-        <span>
-          🕛 Fin:{" "}
-          <strong className="text-gray-200">{formatDate(fecha_fin)}</strong>
-        </span>
-      </div>
-
-      <p className="text-gray-200 font-medium mb-4">
-        🎉 Ganador:{" "}
-        <span className="text-green-400 font-semibold">
-          {ganador || "Pendiente"}
-        </span>
-      </p>
-
-      <div className="mb-4">
-        <h3 className="text-md font-semibold text-white mb-1">🎁 Premios</h3>
-        <ul className="list-disc list-inside text-gray-300">
-          {premios.length > 0 ? (
-            premios.map((premio, index) => <li key={index}>{premio}</li>)
-          ) : (
-            <li>No hay premios disponibles</li>
-          )}
-        </ul>
-      </div>
-
       <div>
-        <h3 className="text-md font-semibold text-white mb-1">
-          👥 Participantes
-        </h3>
-        <ul className="list-disc list-inside text-gray-300">
-          {participantes.length > 0 ? (
-            participantes.map((p, index) => (
-              <li key={index}>{p.instagram_username}</li>
-            ))
-          ) : (
-            <li>No hay participantes</li>
-          )}
-        </ul>
+        <h2 className="text-xl font-bold text-white mb-2">{titulo}</h2>
+        <p className="text-gray-300 mb-4">{descripcion}</p>
+
+        <div className="flex justify-between text-sm text-gray-400 mb-4">
+          <span>
+            🕒 Inicio:{" "}
+            <strong className="text-gray-200">{formatDate(fecha_inicio)}</strong>
+          </span>
+          <span>
+            🕛 Fin:{" "}
+            <strong className="text-gray-200">{formatDate(fecha_fin)}</strong>
+          </span>
+        </div>
+
+        <p className="text-gray-200 font-medium mb-4">
+          🎉 Ganador:{" "}
+          <span className="text-green-400 font-semibold">
+            {ganador || "Pendiente"}
+          </span>
+        </p>
+
+        <div className="mb-4">
+          <h3 className="text-md font-semibold text-white mb-1">🎁 Premios</h3>
+          <ul className="list-disc list-inside text-gray-300">
+            {premios.length > 0 ? (
+              premios.map((premio, index) => <li key={index}>{premio}</li>)
+            ) : (
+              <li>No hay premios disponibles</li>
+            )}
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-md font-semibold text-white mb-1">
+            👥 Participantes
+          </h3>
+          <ul className="list-disc list-inside text-gray-300">
+            {participantes.length > 0 ? (
+              participantes.map((p, index) => (
+                <li key={index}>{p.instagram_username}</li>
+              ))
+            ) : (
+              <li>No hay participantes</li>
+            )}
+          </ul>
+        </div>
       </div>
 
       <div className="flex justify-center gap-4 mt-4">
@@ -108,7 +110,6 @@ const CardSorteo = ({
             className="w-4 h-4 text-white"
           />
         </button>
-        {/* Puedes agregar un botón de editar si es necesario */}
         <a
           href={`/ActualizarSorteo/${id}`}
           className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500 transition flex items-center justify-center"
