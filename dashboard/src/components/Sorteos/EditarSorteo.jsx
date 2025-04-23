@@ -80,7 +80,7 @@ const EditarSorteo = ({ id }) => {
   };
 
   return (
-    <div className="p-4 text-black">
+    <div className="p-4">
       {alerta && (
         <Alert
           type={alerta.type}
@@ -88,8 +88,9 @@ const EditarSorteo = ({ id }) => {
           onClose={() => setAlerta(null)}
         />
       )}
-      <h2 className="text-2xl font-bold mb-4">Editar Sorteo</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 className="text-4xl text-center font-bold mb-4">Editar Sorteo</h2>
+      <hr />
+      <form onSubmit={handleSubmit} className="max-w-[50%] mx-auto mt-10">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -97,7 +98,7 @@ const EditarSorteo = ({ id }) => {
           type="text"
           value={formData.titulo}
           id="titulo"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300  text-black rounded-lg p-2 w-full mb-4"
           required
           onChange={handleChange}
         />
@@ -108,7 +109,7 @@ const EditarSorteo = ({ id }) => {
         <textarea
           id="descripcion"
           value={formData.descripcion}
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
           onChange={handleChange}
         ></textarea>
@@ -122,7 +123,7 @@ const EditarSorteo = ({ id }) => {
           value={
             formData.fecha_inicio ? formData.fecha_inicio.split("T")[0] : ""
           }
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
           onChange={handleChange}
         />
@@ -134,7 +135,7 @@ const EditarSorteo = ({ id }) => {
           type="date"
           id="fecha_fin"
           value={formData.fecha_fin ? formData.fecha_fin.split("T")[0] : ""}
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
           onChange={handleChange}
         />
@@ -145,13 +146,13 @@ const EditarSorteo = ({ id }) => {
         <textarea
           id="premios"
           value={formData.premios.join("\n")}
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           onChange={handleChange}
         ></textarea>
 
         <button
           type="submit"
-          className="bg-blue-950 text-white rounded-lg p-2 hover:bg-blue-700 transition-colors"
+          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 w-full mt-10 transition-all"
         >
           Editar Sorteo
         </button>

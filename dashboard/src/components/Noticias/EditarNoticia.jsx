@@ -85,8 +85,9 @@ const ActualizarNoticia = ({ id }) => {
           onClose={() => setAlerta(null)}
         />
       )}
-      <h2 className="text-2xl font-bold mb-4">Actualizar Noticia</h2>
-      <form onSubmit={actualizar}>
+      <h2 className="text-4xl text-center font-bold mb-4">Actualizar Noticia</h2>
+      <hr />
+      <form onSubmit={actualizar} className="max-w-[50%] mx-auto mt-20">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -96,7 +97,7 @@ const ActualizarNoticia = ({ id }) => {
           name="titulo"
           value={formData.titulo}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
         />
 
@@ -108,7 +109,7 @@ const ActualizarNoticia = ({ id }) => {
           name="descripcion"
           value={formData.descripcion}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
         ></textarea>
 
@@ -121,7 +122,7 @@ const ActualizarNoticia = ({ id }) => {
           name="fecha"
           value={formData.fecha.split("T")[0]}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
         />
 
@@ -133,12 +134,12 @@ const ActualizarNoticia = ({ id }) => {
           name="imagen"
           value={formData.imagen}
           onChange={handleChange}
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
         />
 
         <button
           type="submit"
-          className="bg-blue-950 text-white rounded-lg p-2 hover:bg-blue-700 transition-colors"
+          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 w-full mt-10 transition-all"
         >
           Actualizar
         </button>

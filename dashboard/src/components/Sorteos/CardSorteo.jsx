@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Alert from "../Alert";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { AiFillEdit } from "react-icons/ai";
 
 const CardSorteo = ({
   id,
@@ -51,10 +53,11 @@ const CardSorteo = ({
         />
       )}
       <div>
-        <h2 className="text-xl font-bold text-white mb-2">{titulo}</h2>
-        <p className="text-gray-300 mb-4">{descripcion}</p>
+        <h2 className="text-4xl font-bold text-white text-center mb-2">{titulo}</h2>
+        <hr class="border-neutral-700 mb-6" />
+        <p className="text-gray-300 mb-4">Descripción: {descripcion}</p>
 
-        <div className="flex justify-between text-sm text-gray-400 mb-4">
+        <div className="grid gap-3 justify-between text-sm text-gray-400 mb-4">
           <span>
             🕒 Inicio:{" "}
             <strong className="text-gray-200">{formatDate(fecha_inicio)}</strong>
@@ -99,27 +102,19 @@ const CardSorteo = ({
         </div>
       </div>
 
-      <div className="flex justify-center gap-4 mt-4">
+      <div className="flex justify-center gap-4 mt-10">
         <button
-          className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-500 transition flex items-center justify-center"
+          onClick={() => window.location.href = `/ActualizarSorteo/${id}`}
+          className="bg-neutral-400 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
+        >
+          <AiFillEdit className="size-6"/>
+        </button>
+        <button
+          className="bg-neutral-900 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
           onClick={() => eliminarSorteo(id)}
         >
-          <img
-            alt="eliminar"
-            src="/icons/trash.svg"
-            className="w-4 h-4 text-white"
-          />
+          <FaRegTrashAlt className="size-6" />
         </button>
-        <a
-          href={`/ActualizarSorteo/${id}`}
-          className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500 transition flex items-center justify-center"
-        >
-          <img
-            alt="editar"
-            src="/icons/pencil.svg"
-            className="w-4 h-4 text-white"
-          />
-        </a>
       </div>
     </div>
   );
