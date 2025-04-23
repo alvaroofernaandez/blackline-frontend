@@ -13,21 +13,11 @@ const CrearSorteo = () => {
       fecha_inicio: document.getElementById("fecha_inicio").value + " 00:00:00",
       fecha_fin: document.getElementById("fecha_fin").value + " 23:59:00",
       estado: document.getElementById("estado").value.trim(),
-      ganador: document.getElementById("ganador").value.trim() || null,
       premios: document
         .getElementById("premios")
         .value.split("\n")
         .map((p) => p.trim())
         .filter((p) => p.length > 0),
-      participantes: document.getElementById("participante").value.trim()
-        ? [
-            {
-              instagram_username: document
-                .getElementById("participante")
-                .value.trim(),
-            },
-          ]
-        : [],
     };
 
     try {
@@ -106,19 +96,15 @@ const CrearSorteo = () => {
         <label htmlFor="estado" className="block mb-2">
           Estado:
         </label>
-        <select id="estado" className="border border-gray-300 p-2 w-full mb-4">
-          <option value=""></option>
-          <option value="finalizado">finalizado</option>
-        </select>
-
-        <label htmlFor="ganador" className="block mb-2">
-          Ganador (usuario de Instagram):
-        </label>
-        <input
-          type="text"
-          id="ganador"
+        <select
+          id="estado"
           className="border border-gray-300 p-2 w-full mb-4"
-        />
+          required
+        >
+          <option value="">Seleccionar estado</option>
+          <option value="activo">Activo</option>
+          <option value="finalizado">Finalizado</option>
+        </select>
 
         <label htmlFor="premios" className="block mb-2">
           Premios (uno por línea):
@@ -127,15 +113,6 @@ const CrearSorteo = () => {
           id="premios"
           className="border border-gray-300 p-2 w-full mb-4"
         ></textarea>
-
-        <label htmlFor="participante" className="block mb-2">
-          Participante (usuario de Instagram):
-        </label>
-        <input
-          type="text"
-          id="participante"
-          className="border border-gray-300 p-2 w-full mb-4"
-        />
 
         <button
           type="submit"
