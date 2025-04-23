@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Alert from "../Alert"; // Asegurate que la ruta sea correcta
 
 const EditarSorteo = ({ id }) => {
   const [formData, setFormData] = useState({
@@ -12,27 +13,34 @@ const EditarSorteo = ({ id }) => {
     participantes: [],
   });
 
+  const [alerta, setAlerta] = useState(null);
+
   const obtenerSorteo = async () => {
     try {
       const respuesta = await fetch(
         `http://localhost:8000/api/sorteo_por_id/${id}/`
       );
-      if (respuesta.ok) {
-        const datos = await respuesta.json();
-        setFormData(datos);
+
+      const datos = await respuesta.json();
+      console.log("Datos recibidos:", datos); // 👈 Ver qué estás recibiendo
+
+      if (respuesta.ok && datos && typeof datos === "object") {
+        setFormData({
+          ...datos,
+          premios: Array.isArray(datos.premios) ? datos.premios : [],
+        });
       } else {
-        throw new Error("Error al cargar el sorteo.");
+        throw new Error("Respuesta no válida del servidor");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error al obtener el sorteo:", error);
+      setAlerta({ type: "error", message: "Error al cargar el sorteo." });
     }
   };
 
   useEffect(() => {
     obtenerSorteo();
   }, [id]);
-
-  const [alerta, setAlerta] = useState(null);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -42,8 +50,37 @@ const EditarSorteo = ({ id }) => {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const respuesta = await fetch(
+        `http://localhost:8000/api/sorteos/${id}/`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (respuesta.ok) {
+        setAlerta({ type: "success", message: "Sorteo editado con éxito." });
+        setTimeout(() => {
+          window.location.href = "/Sorteos";
+        }, 2000);
+      } else {
+        throw new Error("Error al editar el sorteo.");
+      }
+    } catch (error) {
+      console.error(error);
+      setAlerta({ type: "error", message: "Error al editar el sorteo." });
+    }
+  };
+
   return (
-    <div className="p-4">
+    <div className="p-4 text-black">
       {alerta && (
         <Alert
           type={alerta.type}
@@ -52,7 +89,7 @@ const EditarSorteo = ({ id }) => {
         />
       )}
       <h2 className="text-2xl font-bold mb-4">Editar Sorteo</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -82,7 +119,9 @@ const EditarSorteo = ({ id }) => {
         <input
           type="date"
           id="fecha_inicio"
-          value={formData.fecha_inicio.split("T")[0]}
+          value={
+            formData.fecha_inicio ? formData.fecha_inicio.split("T")[0] : ""
+          }
           className="border border-gray-300 p-2 w-full mb-4"
           required
           onChange={handleChange}
@@ -94,39 +133,11 @@ const EditarSorteo = ({ id }) => {
         <input
           type="date"
           id="fecha_fin"
-          value={formData.fecha_fin.split("T")[0]}
+          value={formData.fecha_fin ? formData.fecha_fin.split("T")[0] : ""}
           className="border border-gray-300 p-2 w-full mb-4"
           required
           onChange={handleChange}
         />
-
-        {/**
-                <label htmlFor="estado" className="block mb-2">
-                    Estado:
-                </label>
-                <select
-                    id="estado"
-                    value={formData.estado}
-                    className="border border-gray-300 p-2 w-full mb-4"
-                    onChange={handleChange}
-                >
-                    <option value=""></option>
-                    <option value="finalizado">finalizado</option>
-                </select>
-
-
-
-                <label htmlFor="ganador" className="block mb-2">
-                    Ganador (usuario de Instagram):
-                </label>
-                <input
-                    type="text"
-                    id="ganador"
-                    value={formData.ganador}
-                    className="border border-gray-300 p-2 w-full mb-4"
-                    onChange={handleChange}
-                />
-*/}
 
         <label htmlFor="premios" className="block mb-2">
           Premios (uno por línea):
@@ -137,21 +148,6 @@ const EditarSorteo = ({ id }) => {
           className="border border-gray-300 p-2 w-full mb-4"
           onChange={handleChange}
         ></textarea>
-
-        {/*
-        <label htmlFor="participante" className="block mb-2">
-          Participante (usuario de Instagram):
-        </label>
-        <input
-          type="text"
-          id="participante"
-          value={formData.participantes
-            .map((p) => p.instagram_username)
-            .join(", ")}
-          className="border border-gray-300 p-2 w-full mb-4"
-          readOnly
-        />
-    */}
 
         <button
           type="submit"

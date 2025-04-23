@@ -12,7 +12,7 @@ const CrearSorteo = () => {
       descripcion: document.getElementById("descripcion").value.trim(),
       fecha_inicio: document.getElementById("fecha_inicio").value + " 00:00:00",
       fecha_fin: document.getElementById("fecha_fin").value + " 23:59:00",
-      estado: document.getElementById("estado").value.trim(),
+      estado: "activo",
       premios: document
         .getElementById("premios")
         .value.split("\n")
@@ -31,9 +31,9 @@ const CrearSorteo = () => {
 
       if (respuesta.ok) {
         setAlerta({ type: "success", message: "Sorteo creado con éxito." });
-        // setTimeout(() => {
-        //   window.location.href = "/Noticias";
-        // }, 2000);
+        setTimeout(() => {
+          window.location.href = "/Sorteos";
+        }, 2000);
       } else {
         throw new Error("Error al crear el sorteo.");
       }
@@ -44,7 +44,7 @@ const CrearSorteo = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 text-black">
       {alerta && (
         <Alert
           type={alerta.type}
@@ -92,19 +92,6 @@ const CrearSorteo = () => {
           className="border border-gray-300 p-2 w-full mb-4"
           required
         />
-
-        <label htmlFor="estado" className="block mb-2">
-          Estado:
-        </label>
-        <select
-          id="estado"
-          className="border border-gray-300 p-2 w-full mb-4"
-          required
-        >
-          <option value="">Seleccionar estado</option>
-          <option value="activo">Activo</option>
-          <option value="finalizado">Finalizado</option>
-        </select>
 
         <label htmlFor="premios" className="block mb-2">
           Premios (uno por línea):

@@ -20,10 +20,12 @@ const AnadirNoticia = () => {
         body: JSON.stringify(noticia),
       });
       if (respuesta.ok) {
-        setAlerta({ type: "success", message: "Noticia enviada con éxito." });
         setTimeout(() => {
+          setAlerta({ type: "success", message: "Noticia enviada con éxito." });
+          window.location.href = "/Noticias";
           window.location.href = "/Noticias";
         }, 2000);
+
       } else {
         throw new Error("Error al enviar la noticia.");
       }
@@ -65,6 +67,8 @@ const AnadirNoticia = () => {
           required
         ></textarea>
 
+{
+  /* 
         <label htmlFor="fecha" className="block mb-2">
           Fecha:
         </label>
@@ -75,6 +79,8 @@ const AnadirNoticia = () => {
           className="border border-gray-300 p-2 w-full mb-4"
           required
         />
+  */
+}
 
         <label htmlFor="imagen" className="block mb-2">
           Imagen URL:
