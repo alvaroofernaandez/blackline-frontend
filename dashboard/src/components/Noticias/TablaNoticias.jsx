@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Alert from "../Alert";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { AiFillEdit } from "react-icons/ai";
+
 
 const TablaNoticias = () => {
   const [data, setData] = useState([]);
@@ -51,7 +54,7 @@ const TablaNoticias = () => {
       <h2 className="text-2xl font-semibold text-white mb-4">
         Lista de Noticias
       </h2>
-      <div className="max-h-96 overflow-y-auto">
+      <div className="max-h-[700px] overflow-y-auto rounded-xl">
         <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
           <thead className="bg-neutral-800 text-white sticky top-0 z-10">
             <tr>
@@ -84,26 +87,18 @@ const TablaNoticias = () => {
                     alt="Imagen de noticia"
                   />
                 </td>
-                <td className="p-3 text-center flex justify-center gap-2">
-                  <a
-                    className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500 transition flex items-center justify-center"
-                    href={`/ActualizarNoticia/${fila.id}`}
-                  >
-                    <img
-                      alt="editar"
-                      src="/icons/pencil.svg"
-                      className="w-4 h-4 text-white"
-                    />
-                  </a>
+                <td className="flex gap-3 justify-center items-center p-8">
                   <button
-                    className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-500 transition flex items-center justify-center"
+                    className="bg-neutral-400 hover:scale-105 transition-all duration-500 text-white size-10 items-center justify-items-center rounded-lg"
+                    onClick={() => window.location.href = `/ActualizarNoticia/${fila.id}`}
+                  >
+                    <AiFillEdit className="size-6"/>
+                  </button>
+                  <button
+                    className="bg-neutral-800 hover:scale-105 transition-all duration-500  text-white size-10 items-center justify-items-center rounded-lg"
                     onClick={() => eliminarNoticia(fila.id)}
                   >
-                    <img
-                      alt="eliminar"
-                      src="/icons/trash.svg"
-                      className="w-4 h-4 text-white"
-                    />
+                    <FaRegTrashAlt className="size-6"/>
                   </button>
                 </td>
               </tr>

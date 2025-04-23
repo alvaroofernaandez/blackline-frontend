@@ -44,7 +44,7 @@ const CrearSorteo = () => {
   };
 
   return (
-    <div className="p-4 text-black">
+    <div className="p-4">
       {alerta && (
         <Alert
           type={alerta.type}
@@ -52,15 +52,16 @@ const CrearSorteo = () => {
           onClose={() => setAlerta(null)}
         />
       )}
-      <h2 className="text-2xl font-bold mb-4">Crear Sorteo</h2>
-      <form onSubmit={enviar}>
-        <label htmlFor="titulo" className="block mb-2">
+      <h2 className="text-4xl font-bold mb-4 text-center w-full">Crear Sorteo</h2>
+      <hr />
+      <form onSubmit={enviar} className="max-w-[50%] mx-auto mt-20">
+        <label htmlFor="titulo" className="block mb-2 ">
           Título:
         </label>
         <input
           type="text"
           id="titulo"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 p-2 rounded-lg text-black w-full mb-4"
           required
         />
 
@@ -69,7 +70,7 @@ const CrearSorteo = () => {
         </label>
         <textarea
           id="descripcion"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         ></textarea>
 
@@ -79,7 +80,7 @@ const CrearSorteo = () => {
         <input
           type="date"
           id="fecha_inicio"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         />
 
@@ -89,7 +90,7 @@ const CrearSorteo = () => {
         <input
           type="date"
           id="fecha_fin"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         />
 
@@ -98,12 +99,12 @@ const CrearSorteo = () => {
         </label>
         <textarea
           id="premios"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         ></textarea>
 
         <button
           type="submit"
-          className="bg-blue-950 text-white rounded-lg p-2 hover:bg-blue-700 transition-colors"
+          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 transition-all w-full"
         >
           Crear Sorteo
         </button>

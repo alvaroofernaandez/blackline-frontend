@@ -44,8 +44,9 @@ const AnadirNoticia = () => {
           onClose={() => setAlerta(null)}
         />
       )}
-      <h2 className="text-2xl font-bold mb-4">Añadir Noticia</h2>
-      <form onSubmit={enviar}>
+      <h2 className="text-4xl font-bold mb-4 text-center ">Añadir Noticia</h2>
+      <hr />
+      <form onSubmit={enviar} className="max-w-[50%] mx-auto mt-20">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -53,7 +54,7 @@ const AnadirNoticia = () => {
           type="text"
           id="titulo"
           name="titulo"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         />
 
@@ -63,37 +64,22 @@ const AnadirNoticia = () => {
         <textarea
           id="descripcion"
           name="descripcion"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         ></textarea>
 
-{
-  /* 
-        <label htmlFor="fecha" className="block mb-2">
-          Fecha:
-        </label>
-        <input
-          type="date"
-          id="fecha"
-          name="fecha"
-          className="border border-gray-300 p-2 w-full mb-4"
-          required
-        />
-  */
-}
-
-        <label htmlFor="imagen" className="block mb-2">
+        <label htmlFor="imagen" className="block mb-2 ">
           Imagen URL:
         </label>
         <input
           id="imagen"
           name="imagen"
-          className="border border-gray-300 p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         />
 
         <button
           type="submit"
-          className="bg-blue-950 text-white rounded-lg p-2 hover:bg-blue-700 transition-colors"
+          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 transition-all mt-10 w-full"
         >
           Enviar
         </button>
