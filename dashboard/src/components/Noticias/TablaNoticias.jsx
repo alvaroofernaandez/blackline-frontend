@@ -48,7 +48,7 @@ const TablaNoticias = () => {
           onClose={() => setAlerta(null)}
         />
       )}
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+      <h2 className="text-2xl font-semibold text-white mb-4">
         Lista de Noticias
       </h2>
       <div className="max-h-96 overflow-y-auto">
