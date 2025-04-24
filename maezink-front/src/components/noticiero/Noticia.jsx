@@ -3,7 +3,7 @@ import React from 'react';
 const Noticia = ({ titulo, descripcion, fecha, imagen }) => {
     return (
         <div className="flex flex-col md:flex-row items-center gap-6 border-2 border-white p-6 rounded-2xl bg-black bg-opacity-20 w-full transition duration-500 ease-in-out shadow-xl hover:scale-[1.02] hover:bg-opacity-40 hover:border-gray-400">
-           {imagen && (
+            {imagen && (
                 <img
                     src={imagen}
                     alt="Imagen de la noticia"

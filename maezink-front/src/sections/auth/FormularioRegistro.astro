@@ -1,26 +1,33 @@
 ---
+import '../../styles/global.css';
 ---
 
-<form>
-  <div class="flex flex-col items-center justify-center h-screen">
-      <div class="w-96 p-12 text-white">
-          <div class="flex justify-center">
-            <img src="/logomaezink.avif" transition:name="vtImg" alt="Logo" class="w-40" />
-          </div>
+<section class="grid lg:flex justify-center items-center min-h-screen">
+  <div class="flex justify-center items-center">
+    <img src="/logomaezink.avif" transition:name="vtImg" alt="Logo" class="w-96" />
+  </div>
 
-          <input type="text" placeholder="Email" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
-          <input type="text" placeholder="Nombre" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
-          <input type="text" placeholder="Apellidos" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
-          <input type="password" placeholder="Contraseña" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
-          <input type="password" placeholder="Repite la contraseña" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
+  <form>
+    <div class="flex items-center justify-center">
+      <div class="w-96 p-8 text-white">
+          <h1 class="titleMarta2 text-2xl text-center m-6">Registro de usuario</h1>
+            <input type="text" placeholder="Email" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
+            <input type="text" placeholder="Nombre" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
+            <input type="text" placeholder="Apellidos" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
+            <input type="password" placeholder="Contraseña" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
+            <input type="password" placeholder="Repite la contraseña" class="border border-neutral-400 p-2 mb-4 w-full bg-transparent rounded-md" required />
             <label class="flex items-center mb-4">
             <input type="checkbox" class="border border-neutral-400 p-2 bg-transparent rounded-md" />
             <span class="ml-2 text-neutral-400 text-sm">Quiero recibir notificaciones por correo</span>
             </label>
 
-          <button type="submit" class="mt-7 bg-neutral-500 hover:bg-neutral-600 transition-all duration-300 text-white p-2 rounded w-full">
-            Registrarse
-          </button>
-      </div>
-  </div>
-</form>
+            <span class="text-sm mt-2">¿No tienes cuenta?</span>
+            <a href="/login" class="text-blue-400 text-sm hover:underline">Inicia sesión</a>
+  
+            <button type="submit" class="mt-7 bg-neutral-500 hover:bg-neutral-600 transition-all duration-300 text-white p-2 rounded w-full">
+              Registrarse
+            </button>
+        </div>
+    </div>
+  </form>
+</section>
