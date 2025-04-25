@@ -1,0 +1,10 @@
+---
+import { FaPlus } from "react-icons/fa6";
+import TablaSorteos from "../components/Sorteos/TablaSorteos";
+import Layout from "../layouts/Layout.astro";
+import SorteosSection from "../sections/SorteosSection.astro";
+
+---
+<Layout title="Sorteos">
+    <SorteosSection client:load />
+</Layout>

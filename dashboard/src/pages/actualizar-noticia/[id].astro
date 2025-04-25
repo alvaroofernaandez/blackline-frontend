@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EditarNoticia from '../../components/Noticias/EditarNoticia.jsx';
+export const prerender = false;
+const { id } = Astro.params;
+---
+<Layout title="Editar Noticia">
+    <EditarNoticia id={id} client:load />
+</Layout>
