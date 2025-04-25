@@ -4,35 +4,44 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { GiPodiumWinner } from "react-icons/gi";
 import Modal from "../General/Modal";
+import { z } from "zod";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
-const CardSorteo = ({
-  id,
-  titulo,
-  descripcion,
-  fecha_inicio,
-  fecha_fin,
-  estado,
-  ganador,
-  premios = [],
-  participantes = [],
-}) => {
+const SorteoSchema = z.object({
+  id: z.string(),
+  titulo: z.string(),
+  descripcion: z.string(),
+  fecha_inicio: z.string(),
+  fecha_fin: z.string(),
+  estado: z.string(),
+  ganador: z.string().nullable(),
+  premios: z.array(z.string()).optional(),
+  participantes: z.array(z.any()).optional(),
+});
+
+const CardSorteo = (props) => {
+  const {
+    id,
+    titulo,
+    descripcion,
+    fecha_inicio,
+    fecha_fin,
+    estado,
+    ganador,
+    premios = [],
+    participantes = [],
+  } = SorteoSchema.parse(props);
+
   const [showModal, setShowModal] = useState(false);
 
-  const formatDate = (fecha) =>
-    new Date(fecha).toLocaleDateString("es-ES", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
+  const formatDate = (fecha) => format(new Date(fecha), "dd 'de' MMMM 'de' yyyy", { locale: es });
 
   const eliminarSorteo = async (id) => {
     try {
-      const respuesta = await fetch(
-        `http://127.0.0.1:8000/api/sorteos/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
+      const respuesta = await fetch(`http://127.0.0.1:8000/api/sorteos/${id}/`, {
+        method: "DELETE",
+      });
       if (respuesta.ok) {
         toast.success("Sorteo eliminado con éxito.");
         setTimeout(() => {
@@ -60,7 +69,11 @@ const CardSorteo = ({
           window.location.reload();
         }, 1000);
       } else {
-        toast.error("Error al seleccionar el ganador.");
+        const errorData = await respuesta.json();
+        toast.error(
+          "Error al seleccionar el ganador: " +
+          (errorData.error ? errorData.error : "Error desconocido.")
+        );
       }
     } catch (e) {
       toast.error("Error al seleccionar el ganador.");

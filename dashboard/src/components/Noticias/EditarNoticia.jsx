@@ -1,5 +1,16 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
+import { parseISO, formatISO } from "date-fns";
+
+const noticiaSchema = z.object({
+  titulo: z.string().min(1),
+  descripcion: z.string().min(1),
+  imagen: z.string().url().optional(),
+  fecha: z.string().refine((fecha) => !isNaN(Date.parse(fecha)), {
+    message: "Fecha inválida",
+  }),
+});
 
 const ActualizarNoticia = ({ id }) => {
   const [formData, setFormData] = useState({
@@ -10,8 +21,7 @@ const ActualizarNoticia = ({ id }) => {
   });
 
   const formatearFecha = (fecha) => {
-    if (fecha.includes("T")) return fecha;
-    return `${fecha}T00:00:00`;
+    return formatISO(parseISO(fecha));
   };
 
   useEffect(() => {
@@ -45,6 +55,7 @@ const ActualizarNoticia = ({ id }) => {
     e.preventDefault();
     try {
       formData.fecha = formatearFecha(formData.fecha);
+      noticiaSchema.parse(formData);
       const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias/${id}/`, {
         method: "PUT",
         headers: {
@@ -64,7 +75,7 @@ const ActualizarNoticia = ({ id }) => {
       }
     } catch (error) {
       console.error(error);
-      toast.error("Error al actualizar la noticia.");
+      toast.error(error.message || "Error al actualizar la noticia.");
     }
   };
 

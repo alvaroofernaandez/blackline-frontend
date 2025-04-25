@@ -67,7 +67,7 @@ const EditarSorteo = ({ id }) => {
         toast.success("Sorteo editado con éxito.");
         setTimeout(() => {
           window.location.href = "/sorteos";
-        }, 2000);
+        }, 1000);
       } else {
         throw new Error("Error al editar el sorteo.");
       }
