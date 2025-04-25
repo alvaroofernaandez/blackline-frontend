@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { toast } from "sonner"; // 👈 Añadimos Sonner
+import { toast } from "sonner";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
+import Modal from "../General/Modal";
 
 const TablaNoticias = () => {
   const [data, setData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [noticiaSeleccionada, setNoticiaSeleccionada] = useState(null);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/noticias")
@@ -30,15 +33,25 @@ const TablaNoticias = () => {
         }
       );
       if (respuesta.ok) {
-        toast.success("Noticia eliminada con éxito."); // 👈 
+        toast.success("Noticia eliminada con éxito.");
         setData(data.filter((noticia) => noticia.id !== id));
+        setShowModal(false);
       } else {
-        toast.error("Error al eliminar la noticia."); // 👈 
+        toast.error("Error al eliminar la noticia.");
       }
     } catch (e) {
-      toast.error("Error al eliminar la noticia."); // 👈 
+      toast.error("Error al eliminar la noticia.");
     }
   };
+
+  const abrirModal = (id) => {
+    setNoticiaSeleccionada(id);
+    setShowModal(true);
+  };
+
+  if (data.length === 0)
+    return <p className="text-red-500 text-center">No hay noticias actualmente, añade una noticia</p>;
+
 
   return (
     <div className="container mx-auto p-4">
@@ -81,15 +94,17 @@ const TablaNoticias = () => {
                 <td className="flex gap-3 justify-center items-center p-8">
                   <button
                     className="bg-neutral-400 hover:scale-105 transition-all duration-500 text-white size-10 items-center justify-items-center rounded-lg"
-                    onClick={() => window.location.href = `/actualizar-noticia/${fila.id}`}
+                    onClick={() =>
+                      (window.location.href = `/actualizar-noticia/${fila.id}`)
+                    }
                   >
-                    <AiFillEdit className="size-6"/>
+                    <AiFillEdit className="size-6" />
                   </button>
                   <button
                     className="bg-neutral-800 hover:scale-105 transition-all duration-500 text-white size-10 items-center justify-items-center rounded-lg"
-                    onClick={() => eliminarNoticia(fila.id)}
+                    onClick={() => abrirModal(fila.id)}
                   >
-                    <FaRegTrashAlt className="size-6"/>
+                    <FaRegTrashAlt className="size-6" />
                   </button>
                 </td>
               </tr>
@@ -97,6 +112,14 @@ const TablaNoticias = () => {
           </tbody>
         </table>
       </div>
+
+      {showModal && (
+        <Modal
+          setShowModal={setShowModal}
+          eliminarObjeto={eliminarNoticia}
+          id={noticiaSeleccionada}
+        />
+      )}
     </div>
   );
 };
