@@ -1,0 +1,13 @@
+---
+import { FaPlus } from "react-icons/fa6";
+import TablaNoticias from "../components/Noticias/TablaNoticias";
+---
+
+<section class="flex flex-col gap-4">
+  <div class="flex justify-between">
+      <h1 class="text-3xl font-bold">Noticias</h1>
+      <a class="bg-neutral-800 text-white rounded-2xl text-sm text-center items-center hover:scale-110 transition-transform duration-200 ease-in-out hover:shadow-xl shadow-md p-4" href="/añadir-noticia"><FaPlus /></a>
+  </div>
+  <hr class="border-gray-300" />
+  <TablaNoticias client:load/>
+</section>

@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Alert from "../Alert";
+import { useEffect, useState } from "react";
+import { toast } from "sonner"; // 👈 Añadimos Sonner
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 
-
 const TablaNoticias = () => {
   const [data, setData] = useState([]);
-  const [alerta, setAlerta] = useState(null);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/noticias")
@@ -32,25 +30,18 @@ const TablaNoticias = () => {
         }
       );
       if (respuesta.ok) {
-        setAlerta({ type: "success", message: "Noticia eliminada con éxito." });
+        toast.success("Noticia eliminada con éxito."); // 👈 
         setData(data.filter((noticia) => noticia.id !== id));
       } else {
-        setAlerta({ type: "error", message: "Error al eliminar la noticia." });
+        toast.error("Error al eliminar la noticia."); // 👈 
       }
     } catch (e) {
-      setAlerta({ type: "error", message: "Error al eliminar la noticia." });
+      toast.error("Error al eliminar la noticia."); // 👈 
     }
   };
 
   return (
     <div className="container mx-auto p-4">
-      {alerta && (
-        <Alert
-          type={alerta.type}
-          message={alerta.message}
-          onClose={() => setAlerta(null)}
-        />
-      )}
       <h2 className="text-2xl font-semibold text-white mb-4">
         Lista de Noticias
       </h2>
@@ -90,12 +81,12 @@ const TablaNoticias = () => {
                 <td className="flex gap-3 justify-center items-center p-8">
                   <button
                     className="bg-neutral-400 hover:scale-105 transition-all duration-500 text-white size-10 items-center justify-items-center rounded-lg"
-                    onClick={() => window.location.href = `/ActualizarNoticia/${fila.id}`}
+                    onClick={() => window.location.href = `/actualizar-noticia/${fila.id}`}
                   >
                     <AiFillEdit className="size-6"/>
                   </button>
                   <button
-                    className="bg-neutral-800 hover:scale-105 transition-all duration-500  text-white size-10 items-center justify-items-center rounded-lg"
+                    className="bg-neutral-800 hover:scale-105 transition-all duration-500 text-white size-10 items-center justify-items-center rounded-lg"
                     onClick={() => eliminarNoticia(fila.id)}
                   >
                     <FaRegTrashAlt className="size-6"/>

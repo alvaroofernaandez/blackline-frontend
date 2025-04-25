@@ -4,8 +4,6 @@ import EditarSorteo from '../../components/Sorteos/EditarSorteo';
 export const prerender = false;
 const { id } = Astro.params;
 ---
-<Layout title="Editar Noticia">
-    <div>
-        <EditarSorteo id={id} client:load />
-    </div>
+<Layout title="Editar Sorteo">
+    <EditarSorteo id={id} client:load />
 </Layout>

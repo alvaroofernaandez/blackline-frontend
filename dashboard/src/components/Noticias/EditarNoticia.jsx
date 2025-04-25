@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Alert from "../Alert";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 const ActualizarNoticia = ({ id }) => {
-
   const [formData, setFormData] = useState({
     titulo: "",
     descripcion: "",
     imagen: "",
     fecha: "",
   });
-  const [alerta, setAlerta] = useState(null);
 
   const formatearFecha = (fecha) => {
-    // Si ya viene con hora, no hacemos nada
     if (fecha.includes("T")) return fecha;
-    // Agrega hora por defecto (puedes cambiarla si quieres)
     return `${fecha}T00:00:00`;
   };
-
 
   useEffect(() => {
     const obtenerNoticia = async () => {
@@ -31,7 +26,7 @@ const ActualizarNoticia = ({ id }) => {
         }
       } catch (error) {
         console.error(error);
-        setAlerta({ type: "error", message: "No se pudo cargar la noticia." });
+        toast.error("No se pudo cargar la noticia.");
       }
     };
 
@@ -58,12 +53,9 @@ const ActualizarNoticia = ({ id }) => {
         body: JSON.stringify(formData),
       });
       if (respuesta.ok) {
-        setAlerta({
-          type: "success",
-          message: "Noticia actualizada con éxito.",
-        });
+        toast.success("Noticia actualizada con éxito.");
         setTimeout(() => {
-          window.location.href = "/Noticias";
+          window.location.href = "/noticias";
         }, 500);
       } else {
         console.error("Error al actualizar la noticia:", respuesta.statusText);
@@ -72,19 +64,12 @@ const ActualizarNoticia = ({ id }) => {
       }
     } catch (error) {
       console.error(error);
-      setAlerta({ type: "error", message: "Error al actualizar la noticia." });
+      toast.error("Error al actualizar la noticia.");
     }
   };
 
   return (
     <div className="p-4">
-      {alerta && (
-        <Alert
-          type={alerta.type}
-          message={alerta.message}
-          onClose={() => setAlerta(null)}
-        />
-      )}
       <h2 className="text-4xl text-center font-bold mb-4">Actualizar Noticia</h2>
       <hr />
       <form onSubmit={actualizar} className="max-w-[50%] mx-auto mt-20">
@@ -112,19 +97,6 @@ const ActualizarNoticia = ({ id }) => {
           className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
         ></textarea>
-
-        <label htmlFor="fecha" className="block mb-2">
-          Fecha:
-        </label>
-        <input
-          type="date"
-          id="fecha"
-          name="fecha"
-          value={formData.fecha.split("T")[0]}
-          onChange={handleChange}
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
-          required
-        />
 
         <label htmlFor="imagen" className="block mb-2">
           Imagen URL:

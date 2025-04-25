@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Alert from "../Alert"; // Asegurate que la ruta sea correcta
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const EditarSorteo = ({ id }) => {
   const [formData, setFormData] = useState({
@@ -12,8 +12,6 @@ const EditarSorteo = ({ id }) => {
     premios: [],
     participantes: [],
   });
-
-  const [alerta, setAlerta] = useState(null);
 
   const obtenerSorteo = async () => {
     try {
@@ -34,7 +32,7 @@ const EditarSorteo = ({ id }) => {
       }
     } catch (error) {
       console.error("Error al obtener el sorteo:", error);
-      setAlerta({ type: "error", message: "Error al cargar el sorteo." });
+      toast.error("Error al cargar el sorteo.");
     }
   };
 
@@ -66,28 +64,21 @@ const EditarSorteo = ({ id }) => {
       );
 
       if (respuesta.ok) {
-        setAlerta({ type: "success", message: "Sorteo editado con éxito." });
+        toast.success("Sorteo editado con éxito.");
         setTimeout(() => {
-          window.location.href = "/Sorteos";
+          window.location.href = "/sorteos";
         }, 2000);
       } else {
         throw new Error("Error al editar el sorteo.");
       }
     } catch (error) {
       console.error(error);
-      setAlerta({ type: "error", message: "Error al editar el sorteo." });
+      toast.error("Error al editar el sorteo.");
     }
   };
 
   return (
     <div className="p-4">
-      {alerta && (
-        <Alert
-          type={alerta.type}
-          message={alerta.message}
-          onClose={() => setAlerta(null)}
-        />
-      )}
       <h2 className="text-4xl text-center font-bold mb-4">Editar Sorteo</h2>
       <hr />
       <form onSubmit={handleSubmit} className="max-w-[50%] mx-auto mt-10">

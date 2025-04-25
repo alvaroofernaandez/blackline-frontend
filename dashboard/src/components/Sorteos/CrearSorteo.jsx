@@ -1,23 +1,21 @@
-import React, { useState } from "react";
-import Alert from "../Alert";
+import React from "react";
+import { toast } from "sonner";
 
 const CrearSorteo = () => {
-  const [alerta, setAlerta] = useState(null);
-
   const enviar = async (e) => {
     e.preventDefault();
 
     const sorteo = {
       titulo: document.getElementById("titulo").value.trim(),
       descripcion: document.getElementById("descripcion").value.trim(),
-      fecha_inicio: document.getElementById("fecha_inicio").value + " 00:00:00",
+      fecha_inicio: new Date().toISOString().split("T")[0] + " 00:00:00",
       fecha_fin: document.getElementById("fecha_fin").value + " 23:59:00",
       estado: "activo",
       premios: document
-        .getElementById("premios")
-        .value.split("\n")
-        .map((p) => p.trim())
-        .filter((p) => p.length > 0),
+      .getElementById("premios")
+      .value.split("\n")
+      .map((p) => p.trim())
+      .filter((p) => p.length > 0),
     };
 
     try {
@@ -30,28 +28,22 @@ const CrearSorteo = () => {
       });
 
       if (respuesta.ok) {
-        setAlerta({ type: "success", message: "Sorteo creado con éxito." });
+        toast.success("Sorteo creado con éxito.");
         setTimeout(() => {
-          window.location.href = "/Sorteos";
+          window.location.href = "/sorteos";
         }, 2000);
       } else {
+        toast.error("Error al crear el sorteo.");
         throw new Error("Error al crear el sorteo.");
       }
     } catch (error) {
       console.error("Error:", error);
-      setAlerta({ type: "error", message: "Error al crear el sorteo." });
+      toast.error("Error al crear el sorteo.");
     }
   };
 
   return (
     <div className="p-4">
-      {alerta && (
-        <Alert
-          type={alerta.type}
-          message={alerta.message}
-          onClose={() => setAlerta(null)}
-        />
-      )}
       <h2 className="text-4xl font-bold mb-4 text-center w-full">Crear Sorteo</h2>
       <hr />
       <form onSubmit={enviar} className="max-w-[50%] mx-auto mt-20">
@@ -73,17 +65,7 @@ const CrearSorteo = () => {
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         ></textarea>
-
-        <label htmlFor="fecha_inicio" className="block mb-2">
-          Fecha de inicio:
-        </label>
-        <input
-          type="date"
-          id="fecha_inicio"
-          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-          required
-        />
-
+        
         <label htmlFor="fecha_fin" className="block mb-2">
           Fecha de fin:
         </label>

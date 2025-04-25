@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Alert from "../Alert";
+import { toast } from "sonner";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { GiPodiumWinner } from "react-icons/gi";
@@ -15,8 +14,6 @@ const CardSorteo = ({
   premios = [],
   participantes = [],
 }) => {
-  const [alerta, setAlerta] = useState(null);
-
   const formatDate = (fecha) =>
     new Date(fecha).toLocaleDateString("es-ES", {
       day: "2-digit",
@@ -33,14 +30,15 @@ const CardSorteo = ({
         }
       );
       if (respuesta.ok) {
+        toast.success("Sorteo eliminado con éxito.");
         setTimeout(() => {
           window.location.reload();
-        }, 0);
+        }, 1000);
       } else {
-        setAlerta({ type: "error", message: "Error al eliminar el sorteo." });
+        toast.error("Error al eliminar el sorteo.");
       }
     } catch (e) {
-      setAlerta({ type: "error", message: "Error al eliminar el sorteo." });
+      toast.error("Error al eliminar el sorteo.");
     }
   };
 
@@ -53,31 +51,25 @@ const CardSorteo = ({
         }
       );
       if (respuesta.ok) {
+        toast.success("Ganador seleccionado con éxito.");
         setTimeout(() => {
           window.location.reload();
-        }, 0);
+        }, 1000);
       } else {
-        setAlerta({ type: "error", message: "Error al seleccionar el ganador." });
+        toast.error("Error al seleccionar el ganador.");
       }
     } catch (e) {
-      setAlerta({ type: "error", message: "Error al seleccionar el ganador." });
+      toast.error("Error al seleccionar el ganador.");
     }
-  }
+  };
 
   return (
     <div className="bg-[#262626] rounded-2xl shadow-md p-6 border border-gray-700 hover:shadow-lg transition-shadow flex flex-col justify-between h-full">
-      {alerta && (
-        <Alert
-          type={alerta.type}
-          message={alerta.message}
-          onClose={() => setAlerta(null)}
-        />
-      )}
       <div>
         <h2 className="text-4xl font-bold text-white text-center mb-2">{titulo}</h2>
-        <hr class="border-neutral-700 mb-6" />
+        <hr className="border-neutral-700 mb-6" />
         <p className="text-gray-300 mb-4">Descripción: {descripcion}</p>
-        <hr class="border-neutral-700 mb-6" />
+        <hr className="border-neutral-700 mb-6" />
 
         <div className="grid gap-3 justify-between text-sm text-gray-400 mb-4">
           <span>
@@ -91,10 +83,8 @@ const CardSorteo = ({
         </div>
 
         <p className="text-gray-200 font-medium mb-4">
-          🔷 Estado del sorteo: {" "}
-          <span className="text-green-400 font-semibold">
-            {estado}
-          </span>
+          🔷 Estado del sorteo:{" "}
+          <span className="text-green-400 font-semibold">{estado}</span>
         </p>
 
         <p className="text-gray-200 font-medium mb-4">
@@ -124,10 +114,10 @@ const CardSorteo = ({
 
       <div className="flex justify-center gap-4 mt-10">
         <button
-          onClick={() => window.location.href = `/ActualizarSorteo/${id}`}
+          onClick={() => (window.location.href = `/actualizar-sorteo/${id}`)}
           className="bg-neutral-400 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
         >
-          <AiFillEdit className="size-6"/>
+          <AiFillEdit className="size-6" />
         </button>
         <button
           className="bg-neutral-900 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
