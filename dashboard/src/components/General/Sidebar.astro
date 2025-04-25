@@ -1,3 +1,12 @@
+---
+import { FaNewspaper } from "react-icons/fa6";
+import { IoIosGift } from "react-icons/io";
+import { MdOutlineEmail } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
+import { FaPaintBrush } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+---
+
 <nav
     class="bg-gradient-to-b from-neutral-900 to-neutral-800 text-white w-64 min-h-screen flex flex-col py-8 px-4 shadow-xl shadow-neutral-600"
 >
@@ -10,48 +19,54 @@
         <li>
             <a
                 href="/noticias"
-                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-medium"
+                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
             >
+                <FaNewspaper className="text-md" />
                 Noticias
             </a>
         </li>
         <li>
             <a
                 href="/sorteos"
-                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-medium"
+                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
             >
+                <IoIosGift className="text-md" />
                 Sorteos
             </a>
         </li>
         <li>
             <a
                 href="/correo"
-                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-medium"
+                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
             >
+                <MdOutlineEmail className="text-md" />
                 Correo
             </a>
         </li>
         <li>
             <a
                 href="/usuarios"
-                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-medium"
+                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
             >
+                <FaUsers className="text-md" />
                 Usuarios
             </a>
         </li>
         <li>
             <a
                 href="/diseños"
-                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-medium"
+                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
             >
+                <FaPaintBrush className="text-md" />
                 Diseños
             </a>
         </li>
         <li>
             <a
                 href="/citas"
-                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-medium"
+                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
             >
+                <FaCalendarAlt className="text-md" />
                 Citas
             </a>
         </li>
