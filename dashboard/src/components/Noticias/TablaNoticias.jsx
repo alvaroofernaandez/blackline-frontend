@@ -87,7 +87,7 @@ const TablaNoticias = () => {
               <th className="p-3 text-center">Acciones</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-gray-200 ">
             {data.map((fila, index) => (
               <tr
                 key={index}
