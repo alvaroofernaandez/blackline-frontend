@@ -31,7 +31,7 @@ const CrearSorteo = () => {
         toast.success("Sorteo creado con éxito.");
         setTimeout(() => {
           window.location.href = "/sorteos";
-        }, 2000);
+        }, 1000);
       } else {
         toast.error("Error al crear el sorteo.");
         throw new Error("Error al crear el sorteo.");

@@ -26,6 +26,8 @@ const TablaSorteos = () => {
 
   if (cargando) return <p className="text-center">Cargando sorteos...</p>;
   if (error) return <p className="text-red-500 text-center">{error}</p>;
+  if (sorteos.length === 0)
+    return <p className="text-red-500 text-center">No hay sorteos actualmente, añade un sorteo</p>;
 
   return (
     <div className="p-4 h-full overflow-y-auto">

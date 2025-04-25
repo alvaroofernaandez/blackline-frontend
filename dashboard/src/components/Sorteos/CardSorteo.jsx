@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { toast } from "sonner";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { GiPodiumWinner } from "react-icons/gi";
+import Modal from "../General/Modal";
 
 const CardSorteo = ({
   id,
@@ -14,6 +16,8 @@ const CardSorteo = ({
   premios = [],
   participantes = [],
 }) => {
+  const [showModal, setShowModal] = useState(false);
+
   const formatDate = (fecha) =>
     new Date(fecha).toLocaleDateString("es-ES", {
       day: "2-digit",
@@ -33,7 +37,7 @@ const CardSorteo = ({
         toast.success("Sorteo eliminado con éxito.");
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 200);
       } else {
         toast.error("Error al eliminar el sorteo.");
       }
@@ -121,7 +125,7 @@ const CardSorteo = ({
         </button>
         <button
           className="bg-neutral-900 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
-          onClick={() => eliminarSorteo(id)}
+          onClick={() => setShowModal(true)}
         >
           <FaRegTrashAlt className="size-6" />
         </button>
@@ -132,6 +136,14 @@ const CardSorteo = ({
           <GiPodiumWinner className="size-6" />
         </button>
       </div>
+
+      {showModal && (
+        <Modal
+          setShowModal={setShowModal}
+          eliminarObjeto={eliminarSorteo}
+          id={id}
+        />
+      )}
     </div>
   );
 };
