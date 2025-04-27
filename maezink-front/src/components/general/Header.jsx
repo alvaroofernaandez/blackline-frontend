@@ -63,7 +63,7 @@ const Header = () => {
                 <li className="px-4 py-2 text-neutral-400">Bienvenido, {userName}</li>
                 <hr/>
                 <li className="hover:bg-neutral-600 px-4 py-2">
-                  <a href="/profile">Ajustes de cuenta</a>
+                  <a href="/perfil">Ajustes de cuenta</a>
                 </li>
                 <li className="hover:bg-neutral-600 px-4 py-2">
                   <button onClick={handleLogout} className="w-full text-left">Cerrar sesión</button>
