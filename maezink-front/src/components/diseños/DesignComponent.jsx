@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react';
+import { z } from 'zod';
 import CardDiseños from './CardDiseños.jsx'; 
+
+const DesignSchema = z.object({
+  id: z.number(),
+  titulo: z.string(),
+  descripcion: z.string(),
+  precio: z.string(),
+  ancho: z.number(),
+  alto: z.number(),
+  image: z.string().url()
+});
 
 const DesignComponent = () => {
   const [designs, setDesigns] = useState([]);
@@ -15,7 +26,9 @@ const DesignComponent = () => {
         }
         const data = await response.json();
 
-        const adaptedDesigns = data.map(design => ({
+        const validatedData = z.array(DesignSchema).parse(data);
+
+        const adaptedDesigns = validatedData.map(design => ({
           id: design.id,
           title: design.titulo,           
           description: design.descripcion, 
