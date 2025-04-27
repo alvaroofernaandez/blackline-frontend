@@ -20,7 +20,6 @@ const EditarSorteo = ({ id }) => {
       );
 
       const datos = await respuesta.json();
-      console.log("Datos recibidos:", datos); // 👈 Ver qué estás recibiendo
 
       if (respuesta.ok && datos && typeof datos === "object") {
         setFormData({

@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TablaParticipantes from '../../components/Sorteos/TablaParticipantes';
+export const prerender = false;
+const { id } = Astro.params;
+---
+<Layout title="Participantes del sorteo">
+    <TablaParticipantes id={id} client:load />
+</Layout>

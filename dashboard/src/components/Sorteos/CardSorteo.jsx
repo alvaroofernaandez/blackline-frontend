@@ -122,10 +122,11 @@ const CardSorteo = (props) => {
           </ul>
         </div>
 
-        <div>
+        <div className="flex justify-between items-center">
           <h3 className="text-md font-semibold text-white mb-1">
             👥 Nº de participantes: {participantes.length}
           </h3>
+            <a href={`/participantes-sorteo/${id}`} className="bg-neutral-900 p-1 pl-3 pr-3 rounded-lg hover:bg-neutral-700 transition-all duration-100">Ver detalles</a>
         </div>
       </div>
 
