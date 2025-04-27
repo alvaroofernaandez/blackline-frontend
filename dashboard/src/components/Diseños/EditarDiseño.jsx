@@ -5,8 +5,10 @@ import { z } from "zod";
 const DiseñoSchema = z.object({
   titulo: z.string().min(1, "El título es obligatorio."),
   descripcion: z.string().min(1, "La descripción es obligatoria."),
-  precio: z.number().min(0, "El precio debe ser un número positivo."),
+  precio: z.string().optional(),
   image: z.string().optional(),
+  alto: z.number().min(1, "El alto debe ser un número positivo."),
+  ancho: z.number().min(1, "El ancho debe ser un número positivo."),
 });
 
 const EditarDiseño = ({ id }) => {
@@ -15,20 +17,23 @@ const EditarDiseño = ({ id }) => {
     descripcion: "",
     precio: "",
     image: "",
+    alto: "",
+    ancho: "",
   });
 
   const obtenerDiseño = async () => {
     try {
       const respuesta = await fetch(`http://localhost:8000/api/diseños/${id}/`);
       const datos = await respuesta.json();
-      console.log(datos);
 
       if (respuesta.ok && datos && typeof datos === "object") {
         setFormData({
           titulo: datos[0].titulo || "",
           descripcion: datos[0].descripcion || "",
-          precio: datos[0].precio?.toString() || "",
+          precio: datos[0].precio || "",
           image: datos[0].image || "",
+          alto: datos[0].alto?.toString() || "",
+          ancho: datos[0].ancho?.toString() || "",
         });
       } else {
         throw new Error("Respuesta no válida del servidor");
@@ -57,8 +62,10 @@ const EditarDiseño = ({ id }) => {
     const diseño = {
       titulo: formData.titulo.trim(),
       descripcion: formData.descripcion.trim(),
-      precio: parseFloat(formData.precio),
+      precio: formData.precio.trim(),
       image: formData.image.trim(),
+      alto: parseInt(formData.alto, 10),
+      ancho: parseInt(formData.ancho, 10),
     };
 
     try {
@@ -128,11 +135,10 @@ const EditarDiseño = ({ id }) => {
           Precio:
         </label>
         <input
-          type="number"
+          type="text"
           name="precio"
           value={formData.precio}
           className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
-          required
           onChange={handleChange}
         />
 
@@ -144,6 +150,30 @@ const EditarDiseño = ({ id }) => {
           name="image"
           value={formData.image}
           className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
+          onChange={handleChange}
+        />
+
+        <label htmlFor="alto" className="block mb-2">
+          Alto (cm):
+        </label>
+        <input
+          type="number"
+          name="alto"
+          value={formData.alto}
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
+          required
+          onChange={handleChange}
+        />
+
+        <label htmlFor="ancho" className="block mb-2">
+          Ancho (cm):
+        </label>
+        <input
+          type="number"
+          name="ancho"
+          value={formData.ancho}
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
+          required
           onChange={handleChange}
         />
 

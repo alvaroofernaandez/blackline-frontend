@@ -5,8 +5,10 @@ import { z } from "zod";
 const DiseñoSchema = z.object({
   titulo: z.string().min(1, "El título es obligatorio."),
   descripcion: z.string().min(1, "La descripción es obligatoria."),
-  precio: z.number().min(0, "El precio debe ser un número positivo."),
+  precio: z.string().optional(),
   image: z.string().optional(),
+  alto: z.number().min(1, "El alto debe ser un número positivo."),
+  ancho: z.number().min(1, "El ancho debe ser un número positivo."),
 });
 
 const CrearDiseño = () => {
@@ -15,6 +17,8 @@ const CrearDiseño = () => {
     descripcion: "",
     precio: "",
     image: "",
+    alto: "",
+    ancho: "",
   });
 
   const handleChange = (e) => {
@@ -31,8 +35,10 @@ const CrearDiseño = () => {
     const diseño = {
       titulo: formData.titulo.trim(),
       descripcion: formData.descripcion.trim(),
-      precio: parseFloat(formData.precio),
+      precio: formData.precio.trim(),
       image: formData.image.trim(),
+      alto: parseFloat(formData.alto),
+      ancho: parseFloat(formData.ancho),
     };
 
     try {
@@ -104,13 +110,12 @@ const CrearDiseño = () => {
           Precio:
         </label>
         <input
-          type="number"
+          type="text"
           id="precio"
           name="precio"
           value={formData.precio}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-          required
         />
 
         <label htmlFor="image" className="block mb-2">
@@ -123,6 +128,32 @@ const CrearDiseño = () => {
           value={formData.image}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+        />
+
+        <label htmlFor="alto" className="block mb-2">
+          Alto (cm):
+        </label>
+        <input
+          type="number"
+          id="alto"
+          name="alto"
+          value={formData.alto}
+          onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
+        />
+
+        <label htmlFor="ancho" className="block mb-2">
+          Ancho (cm):
+        </label>
+        <input
+          type="number"
+          id="ancho"
+          name="ancho"
+          value={formData.ancho}
+          onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
         />
 
         <button

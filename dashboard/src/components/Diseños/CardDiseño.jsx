@@ -12,6 +12,8 @@ const DiseñoSchema = z.object({
   titulo: z.string(),
   descripcion: z.string(),
   precio: z.string().optional(),
+  alto: z.number(),
+  ancho: z.number(),
 });
 
 const CardDiseño = (props) => {
@@ -21,6 +23,8 @@ const CardDiseño = (props) => {
     titulo,
     descripcion,
     precio,
+    alto,
+    ancho,
   } = DiseñoSchema.parse(props);
 
   const [showModal, setShowModal] = useState(false);
@@ -52,7 +56,7 @@ const CardDiseño = (props) => {
       />
       
       <h2 className="text-xl font-bold text-neutral-200 tracking-widest text-center group-hover:text-neutral-100">
-        {titulo}
+        {titulo} ({alto} x {ancho} cm)
       </h2>
 
       <p className="text-neutral-300 text-sm text-center font-medium px-2 group-hover:text-neutral-200 transition-colors">
@@ -63,6 +67,7 @@ const CardDiseño = (props) => {
         <p className="text-[#abd373] font-semibold">
           {precio} €
         </p>
+        
         <div className="flex gap-2">
           <button
             onClick={() => (window.location.href = `/actualizar-diseño/${id}`)}
