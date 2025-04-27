@@ -52,18 +52,20 @@ const Header = () => {
           <li className="hover:-translate-y-1 transition-all duration-200"><a className="hover:bg-neutral-600 rounded-xl hover:font-bold transition-all ease-in-out duration-600 p-2 sm:p-4" href="/diseños">Diseños</a></li>
         </ul>
       </div>
-      <div className="absolute right-0 mr-5 font-base underline hover:scale-110 transition-all duration-200 rounded-xl w-auto h-auto text-white flex items-center">
+      <div className="absolute right-0 mr-5 font-base underline transition-all duration-200 rounded-xl w-auto h-auto text-white flex items-center">
         {isLoggedIn ? (
           <div className="relative">
             <button onClick={handleMenuToggle} className="flex items-center focus:outline-none">
               <FaUser className="bg-black size-10 rounded-full p-2" />
             </button>
-            <div className={`absolute right-0 mt-2 w-48 bg-neutral-900 rounded-lg shadow-lg ${isMenuOpen ? 'block' : 'hidden'}`}>
-              <ul className="py-2 text-sm text-white">
-                <li className="hover:bg-neutral-600 px-4 py-2 rounded-lg">
+            <div className={`absolute right-0 mt-2 w-48 bg-neutral-900 shadow-lg ${isMenuOpen ? 'block' : 'hidden'}`}>
+              <ul className="text-sm text-white">
+                <li className="px-4 py-2 text-neutral-400">Bienvenido, {userName}</li>
+                <hr/>
+                <li className="hover:bg-neutral-600 px-4 py-2">
                   <a href="/profile">Ajustes de cuenta</a>
                 </li>
-                <li className="hover:bg-neutral-600 px-4 py-2 rounded-lg">
+                <li className="hover:bg-neutral-600 px-4 py-2">
                   <button onClick={handleLogout} className="w-full text-left">Cerrar sesión</button>
                 </li>
               </ul>
