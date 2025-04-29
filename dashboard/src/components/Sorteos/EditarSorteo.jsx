@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
+import { parseISO, formatISO } from "date-fns";
+
+const sorteoSchema = z.object({
+  titulo: z.string().min(1, "El título es obligatorio."),
+  descripcion: z.string().min(1, "La descripción es obligatoria."),
+  fecha_fin: z.string().refine((fecha) => !isNaN(Date.parse(fecha)), {
+    message: "Fecha inválida.",
+  }),
+  estado: z.string().optional(),
+});
 
 const EditarSorteo = ({ id }) => {
   const [formData, setFormData] = useState({
     titulo: "",
     descripcion: "",
-    fecha_inicio: "",
     fecha_fin: "",
     estado: "",
     ganador: "",
@@ -13,10 +23,22 @@ const EditarSorteo = ({ id }) => {
     participantes: [],
   });
 
+  const formatearFecha = (fecha) => {
+    return formatISO(parseISO(fecha));
+  };
+
   const obtenerSorteo = async () => {
     try {
       const respuesta = await fetch(
-        `http://localhost:8000/api/sorteo_por_id/${id}/`
+        `http://localhost:8000/api/sorteo_por_id/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("accessToken="))
+              ?.split("=")[1]}`,
+          },
+        }
       );
 
       const datos = await respuesta.json();
@@ -36,7 +58,7 @@ const EditarSorteo = ({ id }) => {
   };
 
   useEffect(() => {
-    obtenerSorteo();
+    if (id) obtenerSorteo();
   }, [id]);
 
   const handleChange = (e) => {
@@ -51,6 +73,13 @@ const EditarSorteo = ({ id }) => {
     e.preventDefault();
 
     try {
+      const dataToValidate = {
+        ...formData,
+        fecha_fin: formatearFecha(formData.fecha_fin),
+      };
+
+      sorteoSchema.parse(dataToValidate);
+
       const respuesta = await fetch(
         `http://localhost:8000/api/sorteos/${id}/`,
         {
@@ -62,7 +91,7 @@ const EditarSorteo = ({ id }) => {
               .find((row) => row.startsWith("accessToken="))
               ?.split("=")[1]}`,
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(dataToValidate),
         }
       );
 
@@ -76,7 +105,7 @@ const EditarSorteo = ({ id }) => {
       }
     } catch (error) {
       console.error(error);
-      toast.error("Error al editar el sorteo.");
+      toast.error(error.message || "Error al editar el sorteo.");
     }
   };
 
@@ -92,7 +121,7 @@ const EditarSorteo = ({ id }) => {
           type="text"
           value={formData.titulo}
           id="titulo"
-          className="border border-gray-300  text-black rounded-lg p-2 w-full mb-4"
+          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
           onChange={handleChange}
         />
@@ -107,20 +136,6 @@ const EditarSorteo = ({ id }) => {
           required
           onChange={handleChange}
         ></textarea>
-
-        <label htmlFor="fecha_inicio" className="block mb-2">
-          Fecha de inicio:
-        </label>
-        <input
-          type="date"
-          id="fecha_inicio"
-          value={
-            formData.fecha_inicio ? formData.fecha_inicio.split("T")[0] : ""
-          }
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
-          required
-          onChange={handleChange}
-        />
 
         <label htmlFor="fecha_fin" className="block mb-2">
           Fecha de fin:

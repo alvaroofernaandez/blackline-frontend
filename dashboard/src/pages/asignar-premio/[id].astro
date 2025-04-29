@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AsignarPremio from '../../components/Sorteos/AsignarPremio';
+export const prerender = false;
+const { id } = Astro.params;
+---
+<Layout title="Asignar Premio">
+    <AsignarPremio id={id} client:load />
+</Layout>

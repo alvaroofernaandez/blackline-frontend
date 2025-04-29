@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { GiPodiumWinner } from "react-icons/gi";
+import { FaGift } from "react-icons/fa6";
 import Modal from "../General/Modal";
 import { z } from "zod";
 import { format } from "date-fns";
@@ -34,6 +35,7 @@ const CardSorteo = (props) => {
   } = SorteoSchema.parse(props);
 
   const [showModal, setShowModal] = useState(false);
+  const [hoveredButton, setHoveredButton] = useState("");
 
   const formatDate = (fecha) => format(new Date(fecha), "dd 'de' MMMM 'de' yyyy", { locale: es });
 
@@ -41,6 +43,13 @@ const CardSorteo = (props) => {
     try {
       const respuesta = await fetch(`http://127.0.0.1:8000/api/sorteos/${id}/`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("accessToken="))
+            ?.split("=")[1]}`,
+        },
       });
       if (respuesta.ok) {
         toast.success("Sorteo eliminado con éxito.");
@@ -61,6 +70,13 @@ const CardSorteo = (props) => {
         `http://127.0.0.1:8000/api/sorteos_seleccionar_ganador/${id}/`,
         {
           method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("accessToken="))
+              ?.split("=")[1]}`,
+          },
         }
       );
       if (respuesta.ok) {
@@ -79,6 +95,7 @@ const CardSorteo = (props) => {
       toast.error("Error al seleccionar el ganador.");
     }
   };
+  
 
   return (
     <div className="bg-[#262626] rounded-2xl shadow-md p-6 border border-gray-700 hover:shadow-lg transition-shadow flex flex-col justify-between h-full">
@@ -130,25 +147,67 @@ const CardSorteo = (props) => {
         </div>
       </div>
 
-      <div className="flex justify-center gap-4 mt-10">
-        <button
-          onClick={() => (window.location.href = `/actualizar-sorteo/${id}`)}
-          className="bg-neutral-400 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
-        >
-          <AiFillEdit className="size-6" />
-        </button>
-        <button
-          className="bg-neutral-900 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
-          onClick={() => setShowModal(true)}
-        >
-          <FaRegTrashAlt className="size-6" />
-        </button>
-        <button
-          className="bg-green-500 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
-          onClick={() => seleccionarGanador(id)}
-        >
-          <GiPodiumWinner className="size-6" />
-        </button>
+      <div className="flex gap-4 mt-10 relative">
+        <div className="relative flex flex-col items-center w-full">
+          <button
+            onMouseEnter={() => setHoveredButton("Editar sorteo")}
+            onMouseLeave={() => setHoveredButton("")}
+            onClick={() => (window.location.href = `/actualizar-sorteo/${id}`)}
+            className="bg-neutral-400 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
+          >
+            <AiFillEdit className="size-6" />
+          </button>
+          {hoveredButton === "Editar sorteo" && (
+            <div className="absolute bottom-12 bg-black text-white text-xs py-1 px-2 rounded-md">
+              {hoveredButton}
+            </div>
+          )}
+        </div>
+        <div className="relative flex flex-col items-center w-full">
+          <button
+            onMouseEnter={() => setHoveredButton("Eliminar sorteo")}
+            onMouseLeave={() => setHoveredButton("")}
+            className="bg-neutral-900 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
+            onClick={() => setShowModal(true)}
+          >
+            <FaRegTrashAlt className="size-6" />
+          </button>
+          {hoveredButton === "Eliminar sorteo" && (
+            <div className="absolute bottom-12 bg-black text-white text-xs py-1 px-2 rounded-md">
+              {hoveredButton}
+            </div>
+          )}
+        </div>
+        <div className="relative flex flex-col items-center w-full">
+          <button
+            onMouseEnter={() => setHoveredButton("Finalizar sorteo")}
+            onMouseLeave={() => setHoveredButton("")}
+            className="bg-green-500 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
+            onClick={() => seleccionarGanador(id)}
+          >
+            <GiPodiumWinner className="size-6" />
+          </button>
+          {hoveredButton === "Finalizar sorteo" && (
+            <div className="absolute bottom-12 bg-black text-white text-xs py-1 px-2 rounded-md">
+              {hoveredButton}
+            </div>
+          )}
+        </div>
+        <div className="relative flex flex-col items-center w-full">
+          <button
+            onMouseEnter={() => setHoveredButton("Asignar premios")}
+            onMouseLeave={() => setHoveredButton("")}
+            className="bg-yellow-500 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
+            onClick={() => (window.location.href = `/asignar-premio/${id}`)}
+          >
+            <FaGift className="size-6" />
+          </button>
+          {hoveredButton === "Asignar premios" && (
+            <div className="absolute bottom-12 bg-black text-white text-xs py-1 px-2 rounded-md">
+              {hoveredButton}
+            </div>
+          )}
+        </div>
       </div>
 
       {showModal && (
