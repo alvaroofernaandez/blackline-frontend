@@ -1,4 +1,5 @@
 ---
+
 import Sidebar from '../components/General/Sidebar.astro';
 import { Toaster } from 'sonner';
 interface Props {
@@ -7,6 +8,14 @@ interface Props {
 
 const { title } = Astro.props;
 ---
+
+<script>
+import { navigate } from "astro:transitions/client";
+	const token = document.cookie.split("; ").find(row => row.startsWith("accessToken="));
+	if (!token) {
+		navigate("/login");
+	}
+</script>
 
 <!doctype html>
 <html lang="es">
