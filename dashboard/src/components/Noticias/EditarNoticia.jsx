@@ -27,7 +27,14 @@ const ActualizarNoticia = ({ id }) => {
   useEffect(() => {
     const obtenerNoticia = async () => {
       try {
-        const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias_por_id/${id}/`);
+        const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias_por_id/${id}/`, {
+          headers: {
+            Authorization: `Bearer ${document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("accessToken="))
+              ?.split("=")[1]}`,
+          },
+        });
         if (respuesta.ok) {
           const datos = await respuesta.json();
           setFormData(datos);

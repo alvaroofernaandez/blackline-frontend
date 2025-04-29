@@ -61,6 +61,13 @@ const TablaNoticias = () => {
         `http://127.0.0.1:8000/api/noticias/${id}/`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("accessToken="))
+              ?.split("=")[1]}`,
+          },
         }
       );
       if (respuesta.ok) {
