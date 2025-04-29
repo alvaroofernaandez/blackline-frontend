@@ -51,7 +51,7 @@ const Home = () => {
   const handleNavigate = (path) => navigate(path);
 
   const Card = ({ title, children, path }) => (
-    <div className="bg-neutral-800 rounded-2xl shadow-lg p-6 flex flex-col justify-between">
+    <div className="bg-neutral-800 rounded-2xl shadow-lg shadow-neutral-600 p-6 flex flex-col justify-between">
       <div>
         <h3 className="text-xl font-semibold mb-4">{title}</h3>
         <div className="flex gap-4 overflow-x-auto pb-2">

@@ -5,6 +5,8 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
+import { GrDocumentPdf } from "react-icons/gr";
+
 ---
 
 <nav
@@ -68,6 +70,15 @@ import { FaCalendarAlt } from "react-icons/fa";
             >
                 <MdOutlineEmail className="text-md" />
                 Correo
+            </a>
+        </li>
+        <li>
+            <a
+                href="/facturas"
+                class="flex items-center gap-3 p-3 rounded-md hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+            >
+                <GrDocumentPdf className="text-md" />
+                Facturas 
             </a>
         </li>
     </ul>
