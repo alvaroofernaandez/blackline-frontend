@@ -25,7 +25,18 @@ const TablaNoticias = () => {
   useEffect(() => {
     const obtenerNoticias = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/noticias");
+        const token = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+        if (!token) {
+          throw new Error("Token no encontrado en las cookies");
+        }
+        const response = await fetch("http://127.0.0.1:8000/api/noticias", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const noticias = await response.json();
         const validData = noticias.map((noticia) => noticiaSchema.parse(noticia));
         setData(validData);
@@ -39,7 +50,7 @@ const TablaNoticias = () => {
 
     obtenerNoticias();
   }, []);
-
+  
   const formatearFecha = (fecha) => {
     return format(new Date(fecha), "dd 'de' MMMM 'de' yyyy");
   };

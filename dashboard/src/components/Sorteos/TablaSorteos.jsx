@@ -9,7 +9,18 @@ const TablaSorteos = () => {
   useEffect(() => {
     const obtenerSorteos = async () => {
       try {
-        const respuesta = await fetch("http://127.0.0.1:8000/api/sorteos/");
+        const token = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+        if (!token) {
+          throw new Error("Token no encontrado en las cookies");
+        }
+        const respuesta = await fetch("http://127.0.0.1:8000/api/sorteos/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!respuesta.ok) throw new Error("Error al obtener los sorteos");
         const datos = await respuesta.json();
         setSorteos(datos);

@@ -60,6 +60,10 @@ const ActualizarNoticia = ({ id }) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("accessToken="))
+            ?.split("=")[1]}`,
         },
         body: JSON.stringify(formData),
       });
