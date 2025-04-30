@@ -1,18 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
-import { parseISO, formatISO } from "date-fns";
-
-const noticiaSchema = z.object({
-  titulo: z.string().min(1),
-  descripcion: z.string().min(1),
-  imagen: z.string().url().optional(),
-  fecha: z.string().refine((fecha) => !isNaN(Date.parse(fecha)), {
-    message: "Fecha inválida",
-  }),
-});
+import { useNoticias } from "../../hooks/useNoticias";
 
 const ActualizarNoticia = ({ id }) => {
+  const { actualizarNoticia, obtenerNoticiaPorId } = useNoticias();
   const [formData, setFormData] = useState({
     titulo: "",
     descripcion: "",
@@ -20,35 +11,14 @@ const ActualizarNoticia = ({ id }) => {
     fecha: "",
   });
 
-  const formatearFecha = (fecha) => {
-    return formatISO(parseISO(fecha));
-  };
-
-  useEffect(() => {
-    const obtenerNoticia = async () => {
-      try {
-        const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias_por_id/${id}/`, {
-          headers: {
-            Authorization: `Bearer ${document.cookie
-              .split("; ")
-              .find((row) => row.startsWith("accessToken="))
-              ?.split("=")[1]}`,
-          },
-        });
-        if (respuesta.ok) {
-          const datos = await respuesta.json();
-          setFormData(datos);
-        } else {
-          throw new Error("Error al cargar la noticia.");
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error("No se pudo cargar la noticia.");
+  // Cargar la noticia antes de renderizar el componente
+  if (id && !formData.titulo) {
+    obtenerNoticiaPorId(id).then((noticia) => {
+      if (noticia) {
+        setFormData(noticia);
       }
-    };
-
-    if (id) obtenerNoticia();
-  }, [id]);
+    });
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,33 +30,11 @@ const ActualizarNoticia = ({ id }) => {
 
   const actualizar = async (e) => {
     e.preventDefault();
-    try {
-      formData.fecha = formatearFecha(formData.fecha);
-      noticiaSchema.parse(formData);
-      const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias/${id}/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("accessToken="))
-            ?.split("=")[1]}`,
-        },
-        body: JSON.stringify(formData),
-      });
-      if (respuesta.ok) {
-        toast.success("Noticia actualizada con éxito.");
-        setTimeout(() => {
-          window.location.href = "/noticias";
-        }, 500);
-      } else {
-        console.error("Error al actualizar la noticia:", respuesta.statusText);
-        console.log("Datos enviados:", formData);
-        throw new Error("Error al actualizar la noticia.");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error.message || "Error al actualizar la noticia.");
+    const exito = await actualizarNoticia(id, formData);
+    if (exito) {
+      setTimeout(() => {
+        window.location.href = "/noticias";
+      }, 500);
     }
   };
 

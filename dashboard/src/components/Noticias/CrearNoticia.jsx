@@ -1,55 +1,23 @@
-import { navigate } from "astro/virtual-modules/transitions-router.js";
-import { toast } from "sonner";
-import { z } from "zod";
 import { format } from "date-fns";
-
-const noticiaSchema = z.object({
-  titulo: z.string().min(1, "El título es obligatorio."),
-  descripcion: z.string().min(1, "La descripción es obligatoria."),
-  imagen: z.string().url("La URL de la imagen no es válida.").optional(),
-});
+import { navigate } from "astro/virtual-modules/transitions-router.js";
+import { useNoticias } from "../../hooks/useNoticias"; 
 
 const AnadirNoticia = () => {
+  const { crearNoticia } = useNoticias();
+
   const enviar = async (e) => {
     e.preventDefault();
+
     const noticia = {
-      titulo: document.getElementById("titulo").value,
-      descripcion: document.getElementById("descripcion").value,
-      imagen: document.getElementById("imagen").value,
+      titulo: e.target.titulo.value,
+      descripcion: e.target.descripcion.value,
+      imagen: e.target.imagen.value,
       fecha: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
     };
 
-    const validation = noticiaSchema.safeParse(noticia);
-
-    if (!validation.success) {
-      const errorMessages = validation.error.errors.map((err) => err.message);
-      errorMessages.forEach((msg) => toast.error(msg));
-      return;
-    }
-
-    try {
-      const respuesta = await fetch("http://127.0.0.1:8000/api/noticias/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("accessToken="))
-            ?.split("=")[1]}`,
-        },
-        body: JSON.stringify(validation.data),
-      });
-      if (respuesta.ok) {
-        toast.success("Noticia enviada con éxito.");
-        setTimeout(() => {
-          navigate("/noticias");
-        }, 1000);
-      } else {
-        toast.error("Error al enviar la noticia.");
-        throw new Error("Error al enviar la noticia.");
-      }
-    } catch (error) {
-      console.error("Error al enviar la noticia:", error);
+    const exito = await crearNoticia(noticia);
+    if (exito) {
+      setTimeout(() => navigate("/noticias"), 1000);
     }
   };
 
@@ -77,10 +45,11 @@ const AnadirNoticia = () => {
           required
         ></textarea>
 
-        <label htmlFor="imagen" className="block mb-2 ">
+        <label htmlFor="imagen" className="block mb-2">
           Imagen URL:
         </label>
         <input
+          type="text"
           id="imagen"
           name="imagen"
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
