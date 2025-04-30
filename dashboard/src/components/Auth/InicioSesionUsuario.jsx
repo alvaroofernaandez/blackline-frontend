@@ -56,12 +56,14 @@ const InicioSesionUsuario = () => {
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="w-96 p-8 text-white">
-          <div className="flex justify-center">
+          <div className="grid justify-center justify-items-center">
             <img
               src="/favicon.svg"
               alt="Logo"
-              className="w-40"
+              className="w-40 "
             />
+            <h1 className='text-2xl text-center'>TATTOO STUDIO</h1>
+            <h2 className='mb-20 text-md text-center text-neutral-400'>ADMIN DASHBOARD</h2>
           </div>
           <input
             type="text"
