@@ -1,17 +1,8 @@
 import { useState } from "react";
-import { toast } from "sonner";
-import { z } from "zod";
-
-const DiseñoSchema = z.object({
-  titulo: z.string().min(1, "El título es obligatorio."),
-  descripcion: z.string().min(1, "La descripción es obligatoria."),
-  precio: z.string().optional(),
-  image: z.string().optional(),
-  alto: z.number().min(1, "El alto debe ser un número positivo."),
-  ancho: z.number().min(1, "El ancho debe ser un número positivo."),
-});
+import { useDiseños } from "../../hooks/useDiseños";
 
 const CrearDiseño = () => {
+  const { crearDiseño } = useDiseños();
   const [formData, setFormData] = useState({
     titulo: "",
     descripcion: "",
@@ -41,38 +32,11 @@ const CrearDiseño = () => {
       ancho: parseFloat(formData.ancho),
     };
 
-    try {
-      DiseñoSchema.parse(diseño);
-
-      const respuesta = await fetch("http://127.0.0.1:8000/api/diseños/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(diseño),
-      });
-
-      if (respuesta.ok) {
-        toast.success("Diseño creado con éxito.");
-        setTimeout(() => {
-          window.location.href = "/diseños";
-        }, 1000);
-      } else {
-        const errorData = await respuesta.json();
-        toast.error(
-          "Error al crear el diseño: " +
-            (errorData.non_field_errors
-              ? errorData.non_field_errors.join(", ")
-              : "Error desconocido.")
-        );
-        throw new Error("Error al crear el diseño.");
-      }
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        error.errors.forEach((err) => toast.error(err.message));
-      } else {
-        console.error("Error:", error);
-      }
+    const success = await crearDiseño(diseño);
+    if (success) {
+      setTimeout(() => {
+        window.location.href = "/diseños";
+      }, 1000);
     }
   };
 

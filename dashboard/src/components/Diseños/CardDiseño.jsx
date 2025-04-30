@@ -4,7 +4,8 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import Modal from "../General/Modal";
 import { z } from "zod";
-
+import { useDiseños } from "../../hooks/useDiseños";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const DiseñoSchema = z.object({
   id: z.number(),
@@ -28,22 +29,13 @@ const CardDiseño = (props) => {
   } = DiseñoSchema.parse(props);
 
   const [showModal, setShowModal] = useState(false);
+  const { eliminarDiseño } = useDiseños();
 
-  const eliminarDiseño = async (id) => {
-    try {
-      const respuesta = await fetch(`http://127.0.0.1:8000/api/diseño_por_id/${id}/`, {
-        method: "DELETE",
-      });
-      if (respuesta.ok) {
-        toast.success("Diseño eliminado con éxito.");
-        setTimeout(() => {
-          window.location.reload();
-        }, 200);
-      } else {
-        toast.error("Error al eliminar el diseño.");
-      }
-    } catch (e) {
-      toast.error("Error al eliminar el diseño.");
+  const handleEliminarDiseño = async (id) => {
+    const success = await eliminarDiseño(id);
+    if (success) {
+      setShowModal(false);
+      setTimeout(() => { navigate("/diseños"); }, 200);
     }
   };
 
@@ -87,12 +79,12 @@ const CardDiseño = (props) => {
       {showModal && (
         <Modal
           setShowModal={setShowModal}
-          eliminarObjeto={eliminarDiseño}
+          eliminarObjeto={handleEliminarDiseño}
           id={id}
         />
       )}
     </div>
   );
-}
+};
 
 export default CardDiseño;

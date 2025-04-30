@@ -1,31 +1,10 @@
-import { useEffect, useState } from "react";
+import { useDiseños } from "../../hooks/useDiseños";
 import CardDiseño from "./CardDiseño";
 
 const TablaDiseños = () => {
-  const [diseños, setDiseños] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState(null);
+  const { diseños, loading, crearDiseño, actualizarDiseño, eliminarDiseño } = useDiseños();
 
-  useEffect(() => {
-    const obtenerDiseños = async () => {
-      try {
-        const respuesta = await fetch("http://127.0.0.1:8000/api/diseños/");
-        if (!respuesta.ok) throw new Error("Error al obtener los diseños");
-        const datos = await respuesta.json();
-        setDiseños(datos);
-      } catch (err) {
-        console.error("Error:", err);
-        setError("No se pudieron cargar los diseños.");
-      } finally {
-        setCargando(false);
-      }
-    };
-
-    obtenerDiseños();
-  }, []);
-
-  if (cargando) return <p className="text-center">Cargando diseños...</p>;
-  if (error) return <p className="text-red-500 text-center">{error}</p>;
+  if (loading) return <p className="text-center">Cargando diseños...</p>;
   if (diseños.length === 0)
     return <p className="text-red-500 text-center">No hay diseños actualmente, añade un diseño</p>;
 
