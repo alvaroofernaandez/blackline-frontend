@@ -36,7 +36,7 @@ const TablaParticipantes = ({ id }) => {
       ) : (
         <div className="max-h-[700px] overflow-y-auto rounded-xl mt-10">
           <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
-            <thead className="bg-neutral-800 text-white sticky top-0 z-10">
+            <thead className="dark:bg-neutral-800 bg-neutral-500 text-white sticky top-0 z-10">
               <tr>
                 <th className="p-3 text-left">Instagram</th>
               </tr>

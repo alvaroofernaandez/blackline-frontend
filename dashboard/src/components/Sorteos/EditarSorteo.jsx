@@ -49,7 +49,7 @@ const EditarSorteo = ({ id }) => {
 
   return (
     <div className="p-4">
-      <form onSubmit={handleSubmit} className="max-w-[50%] mx-auto mt-10">
+      <form onSubmit={handleSubmit} className="max-w-[30%] mx-auto mt-10">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -97,7 +97,7 @@ const EditarSorteo = ({ id }) => {
 
         <button
           type="submit"
-          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 w-full mt-10 transition-all"
+          className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
         >
           Editar Sorteo
         </button>

@@ -61,12 +61,12 @@ const CardSorteo = (props) => {
   };
 
   return (
-    <div className="bg-[#262626] rounded-2xl shadow-md p-6 border border-gray-700 hover:shadow-lg transition-shadow flex flex-col justify-between h-full">
+    <div className="dark:bg-neutral-900 bg-neutral-500 rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow flex flex-col justify-between h-full">
       <div>
         <h2 className="text-4xl font-bold text-white text-center mb-2">{titulo}</h2>
-        <hr className="border-neutral-700 mb-6" />
+        <hr className="dark:border-neutral-700 mb-6" />
         <p className="text-gray-300 mb-4">Descripción: {descripcion}</p>
-        <hr className="border-neutral-700 mb-6" />
+        <hr className="dark:border-neutral-700 mb-6" />
 
         <div className="grid gap-3 justify-between text-sm text-gray-400 mb-4">
           <span>
@@ -108,7 +108,7 @@ const CardSorteo = (props) => {
           </h3>
           <a
             href={`/participantes-sorteo/${id}`}
-            className="bg-neutral-900 p-1 pl-3 pr-3 rounded-lg hover:bg-neutral-700 transition-all duration-100"
+            className="bg-neutral-600 dark:bg-neutral-700 dark:hover:bg-neutral-600 p-1 pl-3 pr-3 rounded-lg hover:bg-neutral-700 transition-all duration-300"
           >
             Ver detalles
           </a>
@@ -126,7 +126,7 @@ const CardSorteo = (props) => {
             <AiFillEdit className="size-6" />
           </button>
           {hoveredButton === "Editar sorteo" && (
-            <div className="absolute bottom-12 bg-black text-white text-xs py-1 px-2 rounded-md">
+            <div className="absolute bottom-12 bg-neutral-800 text-white text-xs py-1 px-2 rounded-md">
               {hoveredButton}
             </div>
           )}
@@ -135,13 +135,13 @@ const CardSorteo = (props) => {
           <button
             onMouseEnter={() => setHoveredButton("Eliminar sorteo")}
             onMouseLeave={() => setHoveredButton("")}
-            className="bg-neutral-900 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
+            className="bg-neutral-800 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
             onClick={() => setShowModal(true)}
           >
             <FaRegTrashAlt className="size-6" />
           </button>
           {hoveredButton === "Eliminar sorteo" && (
-            <div className="absolute bottom-12 bg-black text-white text-xs py-1 px-2 rounded-md">
+            <div className="absolute bottom-12 bg-neutral-800 text-white text-xs py-1 px-2 rounded-md">
               {hoveredButton}
             </div>
           )}
@@ -156,22 +156,22 @@ const CardSorteo = (props) => {
             <GiPodiumWinner className="size-6" />
           </button>
           {hoveredButton === "Finalizar sorteo" && (
-            <div className="absolute bottom-12 bg-black text-white text-xs py-1 px-2 rounded-md">
+            <div className="absolute bottom-12 bg-neutral-800 text-white text-xs py-1 px-2 rounded-md">
               {hoveredButton}
             </div>
           )}
         </div>
         <div className="relative flex flex-col items-center w-full">
           <button
-            onMouseEnter={() => setHoveredButton("Asignar premios")}
+            onMouseEnter={() => setHoveredButton("Asig. premios")}
             onMouseLeave={() => setHoveredButton("")}
             className="bg-yellow-500 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
             onClick={() => (window.location.href = `/asignar-premio/${id}`)}
           >
             <FaGift className="size-6" />
           </button>
-          {hoveredButton === "Asignar premios" && (
-            <div className="absolute bottom-12 bg-black text-white text-xs py-1 px-2 rounded-md">
+          {hoveredButton === "Asig. premios" && (
+            <div className="absolute bottom-12 bg-neutral-800 text-white text-xs py-1 px-2 rounded-md">
               {hoveredButton}
             </div>
           )}

@@ -36,7 +36,7 @@ const AsignarPremio = ({ id }) => {
 
   return (
     <div className="p-4">
-      <form onSubmit={handleSubmit} className="max-w-[50%] mx-auto mt-10">
+      <form onSubmit={handleSubmit} className="max-w-[30%] mx-auto mt-10">
         <label htmlFor="premio" className="block mb-2">
           Premio:
         </label>
@@ -51,7 +51,7 @@ const AsignarPremio = ({ id }) => {
 
         <button
           type="submit"
-          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 w-full mt-10 transition-all"
+          className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
         >
           Asignar Premio
         </button>

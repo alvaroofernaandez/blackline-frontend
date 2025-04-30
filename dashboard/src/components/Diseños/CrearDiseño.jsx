@@ -42,7 +42,7 @@ const CrearDiseño = () => {
 
   return (
     <div className="p-4">
-      <form onSubmit={enviar} className="max-w-[50%] mx-auto mt-20">
+      <form onSubmit={enviar} className="max-w-[30%] mx-auto mt-20">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -120,7 +120,7 @@ const CrearDiseño = () => {
 
         <button
           type="submit"
-          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 transition-all w-full"
+          className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
         >
           Crear Diseño
         </button>

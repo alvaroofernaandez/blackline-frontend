@@ -40,7 +40,7 @@ const CardDiseño = (props) => {
   };
 
   return (
-    <div className="group relative bg-neutral-600 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 overflow-hidden shadow-lg transition-all duration-500 cursor-pointer after:absolute after:inset-0 after:-z-10 after:rounded-2xl after:-translate-y-full after:transition-transform after:duration-500 hover:after:translate-y-0">
+    <div className="group relative dark:bg-neutral-900 bg-neutral-500 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 overflow-hidden shadow-lg transition-all duration-500 cursor-pointer after:absolute after:inset-0 after:-z-10 after:rounded-2xl after:-translate-y-full after:transition-transform after:duration-500 hover:after:translate-y-0">
       <img
         src={image}
         alt={titulo}
@@ -69,7 +69,7 @@ const CardDiseño = (props) => {
           </button>
           <button
             onClick={() => setShowModal(true)}
-            className="bg-gray-800 text-white font-bold py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition-all duration-300"
+            className="bg-neutral-600 dark:bg-neutral-800 text-white font-bold py-2 px-4 rounded-full text-sm hover:bg-neutral-700 dark:hover:bg-neutral-700 transition-all duration-300"
           >
             <FaRegTrashAlt className="size-5" />
           </button>

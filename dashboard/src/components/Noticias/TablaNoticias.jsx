@@ -27,7 +27,7 @@ const TablaNoticias = () => {
       <h2 className="text-2xl font-semibold text-white mb-4 text-center">Lista de Noticias</h2>
       <div className="max-h-[700px] overflow-y-auto rounded-xl">
         <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
-          <thead className="bg-neutral-800 text-white sticky top-0 z-10">
+          <thead className="bg-neutral-500 dark:bg-neutral-950 text-white sticky top-0 z-10">
             <tr>
               <th className="p-3 text-left">Título</th>
               <th className="p-3 text-left">Descripción</th>
@@ -61,7 +61,7 @@ const TablaNoticias = () => {
                     <AiFillEdit className="text-xl" />
                   </button>
                   <button
-                    className="bg-neutral-800 size-10 hover:scale-105 transition-all duration-500 text-white rounded-lg justify-items-center"
+                    className="bg-neutral-600 dark:bg-neutral-800 size-10 hover:scale-105 transition-all duration-500 text-white rounded-lg justify-items-center"
                     onClick={() => abrirModal(fila.id)}
                   >
                     <FaRegTrashAlt className="text-xl" />

@@ -31,7 +31,7 @@ const TablaUsuarios = () => {
       <h2 className="text-2xl font-semibold text-white mb-4 text-center">Lista de Usuarios</h2>
       <div className="max-h-[700px] overflow-y-auto rounded-xl">
         <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
-          <thead className="bg-neutral-800 text-white sticky top-0 z-10">
+          <thead className="dark:bg-neutral-950 bg-neutral-500 text-white sticky top-0 z-10">
             <tr>
               <th className="p-3 text-left">Nombre de Usuario</th>
               <th className="p-3 text-left">Correo</th>
@@ -58,7 +58,7 @@ const TablaUsuarios = () => {
                     <AiFillEdit className="text-xl" />
                   </button>
                   <button
-                    className="bg-neutral-800 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"
+                    className="dark:bg-neutral-800 bg-neutral-600 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"
                     onClick={() => abrirModal(fila.id)}
                   >
                     <FaRegTrashAlt className="text-xl" />

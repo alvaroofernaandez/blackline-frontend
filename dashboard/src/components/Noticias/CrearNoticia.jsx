@@ -23,7 +23,7 @@ const AnadirNoticia = () => {
 
   return (
     <div className="p-4">
-      <form onSubmit={enviar} className="max-w-[50%] mx-auto mt-20">
+      <form onSubmit={enviar} className="max-w-[30%] mx-auto mt-20">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -57,7 +57,7 @@ const AnadirNoticia = () => {
 
         <button
           type="submit"
-          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 transition-all mt-10 w-full"
+          className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all mt-10 w-full"
         >
           Enviar
         </button>

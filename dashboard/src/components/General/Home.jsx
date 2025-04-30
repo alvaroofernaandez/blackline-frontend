@@ -51,7 +51,7 @@ const Home = () => {
   const handleNavigate = (path) => navigate(path);
 
   const Card = ({ title, children, path }) => (
-    <div className="bg-neutral-800 rounded-2xl shadow-lg shadow-neutral-600 p-6 flex flex-col justify-between">
+    <div className="dark:bg-neutral-900 bg-neutral-500 rounded-2xl shadow-lg p-6 flex flex-col justify-between">
       <div>
         <h3 className="text-xl font-semibold mb-4">{title}</h3>
         <div className="flex gap-4 overflow-x-auto pb-2">
@@ -60,7 +60,7 @@ const Home = () => {
       </div>
       <button
         onClick={() => handleNavigate(path)}
-        className="mt-6 px-4 py-2 bg-neutral-700 text-white rounded-md hover:bg-neutral-600 transition"
+        className="mt-6 px-4 py-2 bg-neutral-500 border dark:border-none dark:bg-neutral-800 text-white rounded-md hover:bg-neutral-400 dark:hover:bg-neutral-700 transition"
       >
         Ver más
       </button>
@@ -68,7 +68,7 @@ const Home = () => {
   );
 
   const SorteoMiniCard = ({ sorteo }) => (
-    <div className="bg-neutral-900 p-4 rounded-xl">
+    <div className="dark:bg-neutral-950 bg-neutral-500 border border-neutral-400 dark:border-none p-4 rounded-xl">
       <h4 className="text-lg font-bold">{sorteo.titulo}</h4>
       <p className="text-sm text-gray-300">{sorteo.descripcion}</p>
       <p className="text-xs mt-2 text-gray-400">
@@ -84,7 +84,7 @@ const Home = () => {
   );
 
   const DiseñoMiniCard = ({ diseño }) => (
-    <div className="bg-neutral-900 p-4 rounded-xl flex gap-4 items-center">
+    <div className="dark:bg-neutral-950 bg-neutral-500 border border-neutral-400 dark:border-none p-4 rounded-xl flex gap-4 items-center">
       <img
         src={diseño.image}
         alt={diseño.titulo}
@@ -102,7 +102,7 @@ const Home = () => {
   );
 
   const NoticiaMiniCard = ({ noticia }) => (
-    <div className="bg-neutral-900 p-4 rounded-xl">
+    <div className="dark:bg-neutral-950 bg-neutral-500 border border-neutral-400 dark:border-none p-4 rounded-xl">
       <img
         src={noticia.imagen}
         alt={noticia.titulo}
@@ -117,12 +117,7 @@ const Home = () => {
   );
 
   return (
-    <div className="p-8 text-white ">
-      
-      <div className="flex justify-center mb-2">
-        <a href="/login" className="bg-neutral-800 p-2 rounded-lg hover:bg-neutral-600 transition-all duration-300">Inicia sesión</a>
-      </div>
-  
+    <div className="p-8 text-white ">  
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
         <Card title="Diseños" path="/diseños">
           {diseños.map((d) => (

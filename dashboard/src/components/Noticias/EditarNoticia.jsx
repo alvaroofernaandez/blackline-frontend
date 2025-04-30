@@ -40,7 +40,7 @@ const ActualizarNoticia = ({ id }) => {
 
   return (
     <div className="p-4">
-      <form onSubmit={actualizar} className="max-w-[50%] mx-auto mt-20">
+      <form onSubmit={actualizar} className="max-w-[30%] mx-auto mt-20">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -79,7 +79,7 @@ const ActualizarNoticia = ({ id }) => {
 
         <button
           type="submit"
-          className="bg-neutral-900 text-white rounded-lg p-2 hover:bg-neutral-800 w-full mt-10 transition-all"
+          className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 w-full mt-10 transition-all"
         >
           Actualizar
         </button>
