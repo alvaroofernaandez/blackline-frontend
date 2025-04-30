@@ -54,7 +54,7 @@ const CardDiseño = (props) => {
         {descripcion}
       </p>
 
-      <div className="flex flex-row justify-between items-center w-full mt-4">
+      <div className="flex flex-row justify-between items-center w-full mt-4 ">
         <p className="text-[#abd373] font-semibold">
           {precio} €
         </p>
@@ -62,13 +62,13 @@ const CardDiseño = (props) => {
         <div className="flex gap-2">
           <button
             onClick={() => (navigate(`/actualizar-diseño/${id}`))}
-            className="bg-[#abd373] text-gray-900 font-bold py-2 px-4 rounded-full text-sm hover:bg-[#92b950] transition-all duration-300"
+            className="bg-[#abd373] text-gray-900 font-bold py-2 px-4 rounded-lg text-sm hover:bg-[#92b950] transition-all duration-300"
           >
             <AiFillEdit className="size-5" />
           </button>
           <button
             onClick={() => setShowModal(true)}
-            className="bg-neutral-600 dark:bg-neutral-800 text-white font-bold py-2 px-4 rounded-full text-sm hover:bg-neutral-700 dark:hover:bg-neutral-700 transition-all duration-300"
+            className="bg-neutral-600 dark:bg-neutral-800 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-neutral-700 dark:hover:bg-neutral-700 transition-all duration-300"
           >
             <FaRegTrashAlt className="size-5" />
           </button>

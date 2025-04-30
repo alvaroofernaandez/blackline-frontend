@@ -27,17 +27,17 @@ const TablaUsuarios = () => {
     return <p className="text-red-500 text-center">No hay usuarios actualmente, añade un usuario</p>;
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="w-full mx-auto p-4">
       <h2 className="text-2xl font-semibold text-white mb-4 text-center">Lista de Usuarios</h2>
       <div className="max-h-[700px] overflow-y-auto rounded-xl">
-        <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
+        <table className="w-full border border-gray-200 shadow-lg rounded-lg overflow-hidden">
           <thead className="dark:bg-neutral-950 bg-neutral-500 text-white sticky top-0 z-10">
             <tr>
-              <th className="p-3 text-left">Nombre de Usuario</th>
-              <th className="p-3 text-left">Correo</th>
-              <th className="p-3 text-left">Rol</th>
-              <th className="p-3 text-left">Instagram</th>
-              <th className="p-3 text-center">Acciones</th>
+              <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-left">Nombre de Usuario</th>
+              <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-left">Correo</th>
+              <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-left">Rol</th>
+              <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-left">Instagram</th>
+              <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-center">Acciones</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 ">
@@ -46,11 +46,11 @@ const TablaUsuarios = () => {
                 key={fila.id}
                 className={`hover:bg-gray-100 transition ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
               >
-                <td className="p-3 text-gray-700">{fila.username}</td>
-                <td className="p-3 text-gray-600">{fila.email}</td>
-                <td className="p-3 text-gray-600">{fila.role}</td>
-                <td className="p-3 text-gray-600">{fila.instagram_username || "N/A"}</td>
-                <td className="flex gap-3 justify-center items-center p-8">
+                <td className="p-3 border text-gray-700">{fila.username}</td>
+                <td className="p-3 border text-gray-600">{fila.email}</td>
+                <td className="p-3 border text-gray-600">{fila.role}</td>
+                <td className="p-3 border text-gray-600">{fila.instagram_username || "N/A"}</td>
+                <td className="flex gap-3 justify-center items-center p-1">
                   <button
                     className="bg-neutral-400 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"
                     onClick={() => navigate(`/actualizar-usuario/${fila.id}`)}
