@@ -23,6 +23,16 @@ const { title, siteTitle, havePlus, route } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>Dashboard - {title}</title>
+		<script>
+			(function() {
+					const theme = localStorage.getItem('theme');
+					if (theme === 'dark') {
+							document.documentElement.classList.add('dark');
+					} else {
+							document.documentElement.classList.remove('dark');
+					}
+			})();
+		</script>
 	</head>
 	<body class="h-screen w-screen overflow-hidden flex text-white">
 		<AuthGuard client:load/>
