@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useUsuarios } from "../../hooks/useUsuarios"; 
 import { z } from "zod";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const usuarioSchema = z.object({
   username: z.string().min(1, "El nombre de usuario es obligatorio"),
@@ -9,68 +11,55 @@ const usuarioSchema = z.object({
 });
 
 const EditarUsuario = ({ id }) => {
+  const { obtenerUsuarioPorId, actualizarUsuario } = useUsuarios();
+
   const [formData, setFormData] = useState({
+    id_usuario: id,
     username: "",
     email: "",
     role: "",
   });
 
   useEffect(() => {
-    const obtenerUsuario = async () => {
-      try {
-        const respuesta = await fetch(`http://127.0.0.1:8000/api/usuarios/${id}/`);
-        if (respuesta.ok) {
-          const datos = await respuesta.json();
-          setFormData(datos[0]);
-        } else {
-          throw new Error("Error al cargar el usuario.");
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error("No se pudo cargar el usuario.");
+    const cargarUsuario = async () => {
+      const usuario = await obtenerUsuarioPorId(id);
+      if (usuario) {
+        setFormData({
+          id_usuario: usuario.id,
+          username: usuario.username || "",
+          email: usuario.email || "",
+          role: usuario.role || "",
+        });
       }
     };
-
-    if (id) obtenerUsuario();
+    if (id) cargarUsuario();
   }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const actualizarUsuario = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      usuarioSchema.parse(formData);
-      const respuesta = await fetch(`http://127.0.0.1:8000/api/usuarios/${id}/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (respuesta.ok) {
-        toast.success("Usuario actualizado con éxito.");
-        setTimeout(() => {
-          window.location.href = "/usuarios";
-        }, 500);
-      } else {
-        console.error("Error al actualizar el usuario:", respuesta.statusText);
-        throw new Error("Error al actualizar el usuario.");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error.message || "Error al actualizar el usuario.");
+
+    const validation = usuarioSchema.safeParse(formData);
+    if (!validation.success) {
+      validation.error.errors.forEach((err) => toast.error(err.message));
+      return;
+    }
+
+    const success = await actualizarUsuario(id, validation.data);
+    if (success) {
+      setTimeout(() => {
+        navigate("/usuarios");
+      }, 500);
     }
   };
 
   return (
     <div className="p-4">
-      <form onSubmit={actualizarUsuario} className="max-w-[50%] mx-auto mt-20">
+      <form onSubmit={handleSubmit} className="max-w-[50%] mx-auto mt-20">
         <label htmlFor="username" className="block mb-2">
           Nombre de Usuario:
         </label>

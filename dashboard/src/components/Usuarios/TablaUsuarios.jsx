@@ -1,69 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
-import { z } from "zod";
 import Modal from "../General/Modal";
-
-const usuarioSchema = z.object({
-  id: z.number(),
-  username: z.string().min(1, "El nombre de usuario es obligatorio"),
-  email: z.string().email("El correo debe ser válido"),
-  role: z.string().min(1, "El rol es obligatorio"),
-  instagram_username: z.string().nullable(),
-});
+import { useUsuarios } from "../../hooks/useUsuarios";
 
 const TablaUsuarios = () => {
-  const [data, setData] = useState([]);
-  const [cargando, setCargando] = useState(true);
+  const { usuarios, loading, eliminarUsuario } = useUsuarios();
   const [showModal, setShowModal] = useState(false);
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
-
-  useEffect(() => {
-    const obtenerUsuarios = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/usuarios/");
-        const usuarios = await response.json();
-        const validData = usuarios.map((usuario) => usuarioSchema.parse(usuario));
-        setData(validData);
-      } catch (error) {
-        toast.error("Error al cargar los datos: " + error.message);
-        console.error("Error:", error);
-      } finally {
-        setCargando(false);
-      }
-    };
-
-    obtenerUsuarios();
-  }, []);
-
-  const eliminarUsuario = async (id) => {
-    try {
-      const respuesta = await fetch(
-        `http://127.0.0.1:8000/api/usuarios/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (respuesta.ok) {
-        toast.success("Usuario eliminado con éxito.");
-        setData(data.filter((usuario) => usuario.id !== id));
-        setShowModal(false);
-      } else {
-        toast.error("Error al eliminar el usuario.");
-      }
-    } catch (e) {
-      toast.error("Error al eliminar el usuario.");
-    }
-  };
 
   const abrirModal = (id) => {
     setUsuarioSeleccionado(id);
     setShowModal(true);
   };
 
-  if (cargando) return <p className="text-center">Cargando usuarios...</p>;
-  if (data.length === 0)
+  const handleEliminarUsuario = async (id) => {
+    const success = await eliminarUsuario(id);
+    if (success) {
+      setShowModal(false);
+    }
+  };
+
+  if (loading) return <p className="text-center">Cargando usuarios...</p>;
+  if (usuarios.length === 0)
     return <p className="text-red-500 text-center">No hay usuarios actualmente, añade un usuario</p>;
 
   return (
@@ -81,9 +41,9 @@ const TablaUsuarios = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 ">
-            {data.map((fila, index) => (
+            {usuarios.map((fila, index) => (
               <tr
-                key={index}
+                key={fila.id}
                 className={`hover:bg-gray-100 transition ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
               >
                 <td className="p-3 text-gray-700">{fila.username}</td>
@@ -113,7 +73,7 @@ const TablaUsuarios = () => {
       {showModal && (
         <Modal
           setShowModal={setShowModal}
-          eliminarObjeto={eliminarUsuario}
+          eliminarObjeto={handleEliminarUsuario}
           id={usuarioSeleccionado}
         />
       )}
