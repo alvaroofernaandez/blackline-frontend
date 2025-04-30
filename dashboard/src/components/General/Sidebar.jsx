@@ -16,16 +16,17 @@ const Sidebar = () => {
     return (
         <>
             <button
-                className="lg:hidden fixed top-4 left-4 z-50 bg-neutral-900 text-white p-2 rounded-md"
+                className="lg:hidden fixed top-5 left-4 z-50 bg-neutral-900 text-white p-2 rounded-md"
                 onClick={toggleSidebar}
             >
                 {isOpen ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
             </button>
 
             <nav
-                className={`fixed lg:static top-0 left-0 h-full bg-neutral-600 dark:bg-neutral-900 border-r dark:border-neutral-700 border-neutral-500 text-white w-64 min-h-screen flex flex-col py-8 transform ${
+                className={`fixed lg:static top-0 left-0 h-full bg-neutral-600 dark:bg-neutral-900 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] border-r dark:border-neutral-700 border-neutral-500 text-white w-64 min-h-screen flex flex-col py-8 transform ${
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 } lg:translate-x-0 transition-transform duration-300 z-40`}
+                
             >
                 <div className="text-2xl font-bold text-center mb-10 tracking-wide">
                     <a href="/">
