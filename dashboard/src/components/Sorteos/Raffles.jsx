@@ -1,5 +1,5 @@
 import { useSorteos } from "../../hooks/useSorteos";
-import CardSorteo from "./CardSorteo";
+import CardSorteo from "./RaffleCard";
 
 const TablaSorteos = () => {
   const { sorteos, loading, crearSorteo, actualizarSorteo, eliminarSorteo } = useSorteos();

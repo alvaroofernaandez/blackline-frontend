@@ -1,5 +1,5 @@
 import { useDiseños } from "../../hooks/useDiseños";
-import CardDiseño from "./CardDiseño";
+import CardDiseño from "./DesignCard";
 
 const TablaDiseños = () => {
   const { diseños, loading, crearDiseño, actualizarDiseño, eliminarDiseño } = useDiseños();

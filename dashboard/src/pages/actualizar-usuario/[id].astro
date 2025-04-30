@@ -1,9 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import EditarUsuario from '../../components/Usuarios/EditarUsuarios';
+import EditarUsuario from '../../components/Usuarios/EditUser';
 export const prerender = false;
 const { id } = Astro.params;
 ---
 <Layout title="Editar Usuario" havePlus={false} siteTitle="Editar Usuario">
-    <EditarUsuario id={id} client:load />
+    <EditarUsuario id={id} client:visible />
 </Layout>

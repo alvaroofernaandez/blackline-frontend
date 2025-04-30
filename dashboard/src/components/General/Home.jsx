@@ -118,7 +118,7 @@ const Home = () => {
 
   return (
     <div className="p-8 text-white ">  
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
         <Card title="Diseños" path="/diseños">
           {diseños.map((d) => (
             <DiseñoMiniCard key={d.id} diseño={d} />
