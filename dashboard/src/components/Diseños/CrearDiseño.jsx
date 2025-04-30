@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDiseños } from "../../hooks/useDiseños";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const CrearDiseño = () => {
   const { crearDiseño } = useDiseños();
@@ -35,7 +36,7 @@ const CrearDiseño = () => {
     const success = await crearDiseño(diseño);
     if (success) {
       setTimeout(() => {
-        window.location.href = "/diseños";
+        navigate("/diseños");
       }, 1000);
     }
   };

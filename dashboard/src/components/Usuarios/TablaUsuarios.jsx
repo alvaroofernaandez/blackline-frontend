@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import Modal from "../General/Modal";
 import { useUsuarios } from "../../hooks/useUsuarios";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const TablaUsuarios = () => {
   const { usuarios, loading, eliminarUsuario } = useUsuarios();
@@ -53,7 +53,7 @@ const TablaUsuarios = () => {
                 <td className="flex gap-3 justify-center items-center p-8">
                   <button
                     className="bg-neutral-400 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"
-                    onClick={() => (window.location.href = `/actualizar-usuario/${fila.id}`)}
+                    onClick={() => navigate(`/actualizar-usuario/${fila.id}`)}
                   >
                     <AiFillEdit className="text-xl" />
                   </button>

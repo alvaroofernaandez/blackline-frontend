@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { useNoticias } from "../../hooks/useNoticias";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const ActualizarNoticia = ({ id }) => {
   const { actualizarNoticia, obtenerNoticiaPorId } = useNoticias();
@@ -33,7 +33,7 @@ const ActualizarNoticia = ({ id }) => {
     const exito = await actualizarNoticia(id, formData);
     if (exito) {
       setTimeout(() => {
-        window.location.href = "/noticias";
+        navigate("/noticias");
       }, 500);
     }
   };

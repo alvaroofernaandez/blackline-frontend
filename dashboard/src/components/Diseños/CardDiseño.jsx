@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import Modal from "../General/Modal";
@@ -62,7 +61,7 @@ const CardDiseño = (props) => {
         
         <div className="flex gap-2">
           <button
-            onClick={() => (window.location.href = `/actualizar-diseño/${id}`)}
+            onClick={() => (navigate(`/actualizar-diseño/${id}`))}
             className="bg-[#abd373] text-gray-900 font-bold py-2 px-4 rounded-full text-sm hover:bg-[#92b950] transition-all duration-300"
           >
             <AiFillEdit className="size-5" />

@@ -4,6 +4,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { useState } from "react";
 import Modal from "../General/Modal";
 import { useNoticias } from "../../hooks/useNoticias";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const TablaNoticias = () => {
   const { noticias, loading, eliminarNoticia } = useNoticias();
@@ -56,7 +57,7 @@ const TablaNoticias = () => {
                 <td className="flex gap-3 justify-center items-center p-8">
                   <button
                     className="bg-neutral-400 size-10 hover:scale-105 transition-all duration-500 text-white rounded-lg justify-items-center"
-                    onClick={() => (window.location.href = `/actualizar-noticia/${fila.id}`)}
+                    onClick={() => navigate(`/actualizar-noticia/${fila.id}`)}
                   >
                     <AiFillEdit className="text-xl" />
                   </button>

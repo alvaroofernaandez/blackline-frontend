@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { GiPodiumWinner } from "react-icons/gi";
@@ -9,6 +8,7 @@ import { z } from "zod";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { useSorteos } from "../../hooks/useSorteos";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const SorteoSchema = z.object({
   id: z.string(),
@@ -120,7 +120,7 @@ const CardSorteo = (props) => {
           <button
             onMouseEnter={() => setHoveredButton("Editar sorteo")}
             onMouseLeave={() => setHoveredButton("")}
-            onClick={() => (window.location.href = `/actualizar-sorteo/${id}`)}
+            onClick={() => navigate(`/actualizar-sorteo/${id}`)}
             className="bg-neutral-400 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
           >
             <AiFillEdit className="size-6" />
@@ -166,7 +166,7 @@ const CardSorteo = (props) => {
             onMouseEnter={() => setHoveredButton("Asig. premios")}
             onMouseLeave={() => setHoveredButton("")}
             className="bg-yellow-500 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
-            onClick={() => (window.location.href = `/asignar-premio/${id}`)}
+            onClick={() => navigate(`/asignar-premio/${id}`)}
           >
             <FaGift className="size-6" />
           </button>

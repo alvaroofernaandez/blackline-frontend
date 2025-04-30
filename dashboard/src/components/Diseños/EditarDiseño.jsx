@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { useDiseños } from "../../hooks/useDiseños";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const EditarDiseño = ({ id }) => {
   const { obtenerDiseñoPorId, actualizarDiseño } = useDiseños();
@@ -54,7 +54,7 @@ const EditarDiseño = ({ id }) => {
     const success = await actualizarDiseño(id, diseño);
     if (success) {
       setTimeout(() => {
-        window.location.href = "/diseños";
+        navigate("/diseños");
       }, 1000);
     }
   };
