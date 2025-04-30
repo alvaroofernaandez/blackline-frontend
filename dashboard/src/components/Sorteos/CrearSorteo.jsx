@@ -73,8 +73,6 @@ const CrearSorteo = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-4xl font-bold mb-4 text-center w-full">Crear Sorteo</h2>
-      <hr />
       <form onSubmit={enviar} className="max-w-[50%] mx-auto mt-20">
         <label htmlFor="titulo" className="block mb-2 ">
           Título:

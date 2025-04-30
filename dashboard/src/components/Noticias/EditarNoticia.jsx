@@ -92,8 +92,6 @@ const ActualizarNoticia = ({ id }) => {
 
   return (
     <div className="p-4">
-      <h2 className="text-4xl text-center font-bold mb-4">Actualizar Noticia</h2>
-      <hr />
       <form onSubmit={actualizar} className="max-w-[50%] mx-auto mt-20">
         <label htmlFor="titulo" className="block mb-2">
           Título:

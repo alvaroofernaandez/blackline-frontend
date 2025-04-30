@@ -70,8 +70,6 @@ const EditarUsuario = ({ id }) => {
 
   return (
     <div className="p-4">
-      <h2 className="text-4xl text-center font-bold mb-4">Editar Usuario</h2>
-      <hr />
       <form onSubmit={actualizarUsuario} className="max-w-[50%] mx-auto mt-20">
         <label htmlFor="username" className="block mb-2">
           Nombre de Usuario:

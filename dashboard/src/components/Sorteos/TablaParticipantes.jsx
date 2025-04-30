@@ -37,9 +37,7 @@ const TablaParticipantes = ({ id }) => {
         <button onClick={() => window.history.back()} className=" text-white p-2 rounded">
           <FaArrowLeftLong className="size-8 mr-2" />
         </button>
-        <h2 className="text-4xl text-center font-bold mb-4 mx-auto">Participantes del sorteo</h2>
       </div>
-      <hr />
       {loading ? (
         <p className="text-center text-gray-500 mt-10">Cargando participantes...</p>
       ) : participantes.length === 0 ? (

@@ -4,6 +4,6 @@ import EditarDesign from '../../components/Diseños/EditarDiseño';
 export const prerender = false;
 const { id } = Astro.params;
 ---
-<Layout title="Editar Diseño">
+<Layout title="Editar Diseño" havePlus={false} siteTitle="Editar Diseño">
     <EditarDesign id={id} client:load />
 </Layout>

@@ -93,7 +93,7 @@ const TablaNoticias = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-semibold text-white mb-4">Lista de Noticias</h2>
+      <h2 className="text-2xl font-semibold text-white mb-4 text-center">Lista de Noticias</h2>
       <div className="max-h-[700px] overflow-y-auto rounded-xl">
         <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
           <thead className="bg-neutral-800 text-white sticky top-0 z-10">

@@ -111,8 +111,6 @@ const EditarSorteo = ({ id }) => {
 
   return (
     <div className="p-4">
-      <h2 className="text-4xl text-center font-bold mb-4">Editar Sorteo</h2>
-      <hr />
       <form onSubmit={handleSubmit} className="max-w-[50%] mx-auto mt-10">
         <label htmlFor="titulo" className="block mb-2">
           Título:

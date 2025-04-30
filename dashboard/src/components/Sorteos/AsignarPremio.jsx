@@ -58,8 +58,6 @@ const AsignarPremio = ({ id }) => {
 
   return (
     <div className="p-4">
-      <h2 className="text-4xl text-center font-bold mb-4">Asignar Premio</h2>
-      <hr />
       <form onSubmit={asignarPremio} className="max-w-[50%] mx-auto mt-10">
         <label htmlFor="premio" className="block mb-2">
           Premio:

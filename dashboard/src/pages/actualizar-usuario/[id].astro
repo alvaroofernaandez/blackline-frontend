@@ -4,6 +4,6 @@ import EditarUsuario from '../../components/Usuarios/EditarUsuarios';
 export const prerender = false;
 const { id } = Astro.params;
 ---
-<Layout title="Editar Usuario">
+<Layout title="Editar Usuario" havePlus={false} siteTitle="Editar Usuario">
     <EditarUsuario id={id} client:load />
 </Layout>

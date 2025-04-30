@@ -117,11 +117,13 @@ const Home = () => {
   );
 
   return (
-    <div className="p-8 text-white">
-      <h1 className="text-3xl font-bold mb-8 text-center">Dashboard - Maez Ink</h1>
-      <hr className="m-10"/>
+    <div className="p-8 text-white ">
+      
+      <div className="flex justify-center mb-2">
+        <a href="/login" className="bg-neutral-800 p-2 rounded-lg hover:bg-neutral-600 transition-all duration-300">Inicia sesión</a>
+      </div>
   
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
         <Card title="Diseños" path="/diseños">
           {diseños.map((d) => (
             <DiseñoMiniCard key={d.id} diseño={d} />

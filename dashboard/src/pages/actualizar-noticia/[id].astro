@@ -4,6 +4,6 @@ import EditarNoticia from '../../components/Noticias/EditarNoticia.jsx';
 export const prerender = false;
 const { id } = Astro.params;
 ---
-<Layout title="Editar Noticia">
+<Layout title="Editar Noticia" havePlus={false} siteTitle="Editar Noticia">
     <EditarNoticia id={id} client:load />
 </Layout>
