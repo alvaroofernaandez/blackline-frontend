@@ -7,9 +7,10 @@ interface Props {
 	title: string;
 	siteTitle: string;
 	havePlus?: boolean;
+	route?: string;
 }
 
-const { title, siteTitle, havePlus } = Astro.props;
+const { title, siteTitle, havePlus, route } = Astro.props;
 ---
 
 <script>
@@ -33,7 +34,7 @@ import { navigate } from "astro:transitions/client";
 		<main class="flex-1 overflow-y-auto p-6">
 			<div class="flex justify-between">
 				<h1 class="text-3xl font-bold">{siteTitle}</h1>
-				{havePlus && <a class="bg-neutral-800 text-white rounded-2xl text-sm text-center items-center hover:scale-110 transition-transform duration-200 	ease-in-out hover:shadow-xl shadow-md p-4" href="/añadir-sorteo"><FaPlus /></a>}
+				{havePlus && <a class="bg-neutral-800 text-white rounded-2xl text-sm text-center items-center hover:scale-110 transition-transform duration-200 	ease-in-out hover:shadow-xl shadow-md p-4" href={route}><FaPlus /></a>}
 				</div>
 				<hr class="border-gray-300 m-2" />
 			<slot />
