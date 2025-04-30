@@ -8,6 +8,7 @@ import Modal from "../General/Modal";
 import { z } from "zod";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { useSorteos } from "../../hooks/useSorteos";
 
 const SorteoSchema = z.object({
   id: z.string(),
@@ -34,68 +35,30 @@ const CardSorteo = (props) => {
     participantes = [],
   } = SorteoSchema.parse(props);
 
+  const { eliminarSorteo, asignarPremio } = useSorteos();
   const [showModal, setShowModal] = useState(false);
   const [hoveredButton, setHoveredButton] = useState("");
 
-  const formatDate = (fecha) => format(new Date(fecha), "dd 'de' MMMM 'de' yyyy", { locale: es });
+  const formatDate = (fecha) =>
+    format(new Date(fecha), "dd 'de' MMMM 'de' yyyy", { locale: es });
 
-  const eliminarSorteo = async (id) => {
-    try {
-      const respuesta = await fetch(`http://127.0.0.1:8000/api/sorteos/${id}/`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("accessToken="))
-            ?.split("=")[1]}`,
-        },
-      });
-      if (respuesta.ok) {
-        toast.success("Sorteo eliminado con éxito.");
-        setTimeout(() => {
-          window.location.reload();
-        }, 200);
-      } else {
-        toast.error("Error al eliminar el sorteo.");
-      }
-    } catch (e) {
-      toast.error("Error al eliminar el sorteo.");
+  const handleEliminarSorteo = async () => {
+    const success = await eliminarSorteo(id);
+    if (success) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 200);
     }
   };
 
-  const seleccionarGanador = async (id) => {
-    try {
-      const respuesta = await fetch(
-        `http://127.0.0.1:8000/api/sorteos_seleccionar_ganador/${id}/`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${document.cookie
-              .split("; ")
-              .find((row) => row.startsWith("accessToken="))
-              ?.split("=")[1]}`,
-          },
-        }
-      );
-      if (respuesta.ok) {
-        toast.success("Ganador seleccionado con éxito.");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      } else {
-        const errorData = await respuesta.json();
-        toast.error(
-          "Error al seleccionar el ganador: " +
-          (errorData.error ? errorData.error : "Error desconocido.")
-        );
-      }
-    } catch (e) {
-      toast.error("Error al seleccionar el ganador.");
+  const handleSeleccionarGanador = async () => {
+    const success = await asignarPremio(id, "ganador");
+    if (success) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
-  
 
   return (
     <div className="bg-[#262626] rounded-2xl shadow-md p-6 border border-gray-700 hover:shadow-lg transition-shadow flex flex-col justify-between h-full">
@@ -143,7 +106,12 @@ const CardSorteo = (props) => {
           <h3 className="text-md font-semibold text-white mb-1">
             👥 Nº de participantes: {participantes.length}
           </h3>
-            <a href={`/participantes-sorteo/${id}`} className="bg-neutral-900 p-1 pl-3 pr-3 rounded-lg hover:bg-neutral-700 transition-all duration-100">Ver detalles</a>
+          <a
+            href={`/participantes-sorteo/${id}`}
+            className="bg-neutral-900 p-1 pl-3 pr-3 rounded-lg hover:bg-neutral-700 transition-all duration-100"
+          >
+            Ver detalles
+          </a>
         </div>
       </div>
 
@@ -183,7 +151,7 @@ const CardSorteo = (props) => {
             onMouseEnter={() => setHoveredButton("Finalizar sorteo")}
             onMouseLeave={() => setHoveredButton("")}
             className="bg-green-500 hover:scale-105 transition-all duration-500 w-full text-white size-10 items-center justify-items-center rounded-lg"
-            onClick={() => seleccionarGanador(id)}
+            onClick={handleSeleccionarGanador}
           >
             <GiPodiumWinner className="size-6" />
           </button>
@@ -213,7 +181,7 @@ const CardSorteo = (props) => {
       {showModal && (
         <Modal
           setShowModal={setShowModal}
-          eliminarObjeto={eliminarSorteo}
+          eliminarObjeto={handleEliminarSorteo}
           id={id}
         />
       )}

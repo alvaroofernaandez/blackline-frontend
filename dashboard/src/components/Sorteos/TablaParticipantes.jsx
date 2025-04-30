@@ -1,40 +1,31 @@
 import { useState, useEffect } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useSorteos } from "../../hooks/useSorteos";
 
 const TablaParticipantes = ({ id }) => {
+  const { obtenerSorteoPorId } = useSorteos();
   const [participantes, setParticipantes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSorteo = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/sorteos');
-        if (!response.ok) throw new Error('Error al cargar los sorteos');
-        const sorteos = await response.json();
-
-        const sorteoEncontrado = sorteos.find((sorteo) => String(sorteo.id) === String(id));
-        
-        if (sorteoEncontrado) {
-          setParticipantes(sorteoEncontrado.participantes || []);
-        } else {
-          console.error(`No se encontró el sorteo con id ${id}`);
-          setParticipantes([]);
-        }
-      } catch (error) {
-        console.error('Error al cargar sorteos:', error);
+    const fetchParticipantes = async () => {
+      setLoading(true);
+      const sorteo = await obtenerSorteoPorId(id);
+      if (sorteo) {
+        setParticipantes(sorteo.participantes || []);
+      } else {
         setParticipantes([]);
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     };
 
-    fetchSorteo();
+    fetchParticipantes();
   }, [id]);
 
   return (
     <div className="container mx-auto p-4">
       <div className="flex items-center">
-        <button onClick={() => window.history.back()} className=" text-white p-2 rounded">
+        <button onClick={() => window.history.back()} className="text-white p-2 rounded">
           <FaArrowLeftLong className="size-8 mr-2" />
         </button>
       </div>

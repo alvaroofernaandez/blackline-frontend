@@ -1,71 +1,62 @@
-import React from "react";
+import { useSorteos } from "../../hooks/useSorteos";
+import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import { format, parseISO, isAfter } from "date-fns";
+import { format, isAfter, parseISO } from "date-fns";
 
 const CrearSorteo = () => {
-  const sorteoSchema = z.object({
-    titulo: z.string().min(1, "El título es obligatorio."),
-    descripcion: z.string().min(1, "La descripción es obligatoria."),
-    fecha_inicio: z.string(),
-    fecha_fin: z.string().refine(
-      (fecha_fin) => isAfter(parseISO(fecha_fin), new Date()),
-      { message: "La fecha de fin debe ser posterior a la fecha actual." }
-    ),
-    estado: z.string(),
-    premios: z.array(z.string()),
+  const { crearSorteo } = useSorteos();
+
+  const [formData, setFormData] = useState({
+    titulo: "",
+    descripcion: "",
+    fecha_fin: "",
+    premios: "",
   });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
 
   const enviar = async (e) => {
     e.preventDefault();
 
     const sorteo = {
-      titulo: document.getElementById("titulo").value.trim(),
-      descripcion: document.getElementById("descripcion").value.trim(),
+      titulo: formData.titulo.trim(),
+      descripcion: formData.descripcion.trim(),
       fecha_inicio: format(new Date(), "yyyy-MM-dd") + " 00:00:00",
-      fecha_fin: document.getElementById("fecha_fin").value + " 23:59:00",
+      fecha_fin: formData.fecha_fin + " 23:59:00",
       estado: "activo",
-      premios: document
-        .getElementById("premios")
-        .value.split("\n")
+      premios: formData.premios
+        .split("\n")
         .map((p) => p.trim())
         .filter((p) => p.length > 0),
     };
 
+    const sorteoSchema = z.object({
+      titulo: z.string().min(1, "El título es obligatorio."),
+      descripcion: z.string().min(1, "La descripción es obligatoria."),
+      fecha_inicio: z.string(),
+      fecha_fin: z.string().refine(
+        (fecha_fin) => isAfter(parseISO(fecha_fin), new Date()),
+        { message: "La fecha de fin debe ser posterior a la fecha actual." }
+      ),
+      estado: z.string(),
+      premios: z.array(z.string()),
+    });
+
     try {
-      sorteoSchema.parse(sorteo);
-
-      const respuesta = await fetch("http://127.0.0.1:8000/api/sorteos/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("accessToken="))
-            ?.split("=")[1]}`,
-        },
-        body: JSON.stringify(sorteo),
-      });
-
-      if (respuesta.ok) {
-        toast.success("Sorteo creado con éxito.");
-        setTimeout(() => {
-          window.location.href = "/sorteos";
-        }, 1000);
-      } else {
-        const errorData = await respuesta.json();
-        toast.error(
-          "Error al crear el sorteo: " +
-            (errorData.non_field_errors
-              ? errorData.non_field_errors.join(", ")
-              : "Error desconocido.")
-        );
-        throw new Error("Error al crear el sorteo.");
+      sorteoSchema.parse(sorteo); 
+      const exito = await crearSorteo(sorteo);
+      if (exito) {
+        setFormData({ titulo: "", descripcion: "", fecha_fin: "", premios: "" });
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
         error.errors.forEach((err) => toast.error(err.message));
       } else {
+        toast.error("Error al crear el sorteo.");
         console.error("Error:", error);
       }
     }
@@ -74,12 +65,14 @@ const CrearSorteo = () => {
   return (
     <div className="p-4">
       <form onSubmit={enviar} className="max-w-[50%] mx-auto mt-20">
-        <label htmlFor="titulo" className="block mb-2 ">
+        <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
         <input
           type="text"
           id="titulo"
+          value={formData.titulo}
+          onChange={handleChange}
           className="border border-gray-300 p-2 rounded-lg text-black w-full mb-4"
           required
         />
@@ -89,6 +82,8 @@ const CrearSorteo = () => {
         </label>
         <textarea
           id="descripcion"
+          value={formData.descripcion}
+          onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         ></textarea>
@@ -99,6 +94,8 @@ const CrearSorteo = () => {
         <input
           type="date"
           id="fecha_fin"
+          value={formData.fecha_fin}
+          onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         />
@@ -108,6 +105,8 @@ const CrearSorteo = () => {
         </label>
         <textarea
           id="premios"
+          value={formData.premios}
+          onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         ></textarea>
 

@@ -1,42 +1,10 @@
-import { useEffect, useState } from "react";
+import { useSorteos } from "../../hooks/useSorteos";
 import CardSorteo from "./CardSorteo";
 
 const TablaSorteos = () => {
-  const [sorteos, setSorteos] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState(null);
+  const { sorteos, loading, crearSorteo, actualizarSorteo, eliminarSorteo } = useSorteos();
 
-  useEffect(() => {
-    const obtenerSorteos = async () => {
-      try {
-        const token = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("accessToken="))
-          ?.split("=")[1];
-        if (!token) {
-          throw new Error("Token no encontrado en las cookies");
-        }
-        const respuesta = await fetch("http://127.0.0.1:8000/api/sorteos/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!respuesta.ok) throw new Error("Error al obtener los sorteos");
-        const datos = await respuesta.json();
-        setSorteos(datos);
-      } catch (err) {
-        console.error("Error:", err);
-        setError("No se pudieron cargar los sorteos.");
-      } finally {
-        setCargando(false);
-      }
-    };
-
-    obtenerSorteos();
-  }, []);
-
-  if (cargando) return <p className="text-center">Cargando sorteos...</p>;
-  if (error) return <p className="text-red-500 text-center">{error}</p>;
+  if (loading) return <p className="text-center">Cargando sorteos...</p>;
   if (sorteos.length === 0)
     return <p className="text-red-500 text-center">No hay sorteos actualmente, añade un sorteo</p>;
 
@@ -46,8 +14,8 @@ const TablaSorteos = () => {
         Listado de Sorteos
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sorteos.map((sorteo, index) => (
-          <CardSorteo key={index} {...sorteo} />
+        {sorteos.map((sorteo) => (
+          <CardSorteo key={sorteo.id} {...sorteo} />
         ))}
       </div>
     </div>
