@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
+import HomeLoginButton from "../General/HomeLoginButton";
+
 
 const Home = () => {
   const [sorteos, setSorteos] = useState([]);
@@ -37,9 +39,9 @@ const Home = () => {
           noticiasRes.json(),
         ]);
 
-        setSorteos(sorteosData.slice(0, 4));
-        setDiseños(diseñosData.slice(0, 4));
-        setNoticias(noticiasData.slice(0, 6));
+        setSorteos(sorteosData.slice(0, 2));
+        setDiseños(diseñosData.slice(0, 2));
+        setNoticias(noticiasData.slice(0, 4));
       } catch (error) {
         console.error("Error al cargar los datos:", error);
       }
@@ -54,7 +56,7 @@ const Home = () => {
     <div className="dark:bg-neutral-900 bg-neutral-500 rounded-2xl shadow-lg p-6 flex flex-col justify-between">
       <div>
         <h3 className="text-xl font-semibold mb-4">{title}</h3>
-        <div className="flex gap-4 overflow-x-auto pb-2">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
           {children}
         </div>
       </div>
@@ -118,6 +120,11 @@ const Home = () => {
 
   return (
     <div className="p-8 text-white ">  
+
+      <div className="justify-center flex items-center mb-4">
+        <HomeLoginButton />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
         <Card title="Diseños" path="/diseños">
           {diseños.map((d) => (
