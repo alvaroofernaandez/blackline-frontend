@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-// filepath: /home/alvaro-fernandez/Documentos/Proyectos/front-tfg/maezink-front/src/components/auth/PerfilUsuario.jsx
+
 
 const PerfilUsuario = () => {
   const [userData, setUserData] = useState(null);

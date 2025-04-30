@@ -58,7 +58,7 @@ const InicioSesionUsuario = () => {
         <div className="w-96 p-8 text-white">
           <div className="flex justify-center">
             <img
-              src="/logomaezink.avif"
+              src="/favicon.svg"
               alt="Logo"
               className="w-40"
             />

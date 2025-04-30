@@ -30,7 +30,7 @@ const Sidebar = () => {
             >
                 <div className="text-2xl font-bold text-center mb-10 tracking-wide">
                     <a href="/">
-                        <img src="/favicon.svg" alt="Logo MaezInk" className="w-20 mx-auto" loading="lazy" />
+                        <img src="/favicon.svg" alt="Logo" className="w-20 mx-auto" loading="lazy" />
                     </a>
                     <h1 className="text-lg text-neutral-400">TATTOO STUDIO</h1>
                 </div>
