@@ -16,7 +16,8 @@ const DesignComponent = () => {
   const [designs, setDesigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [visibleCount, setVisibleCount] = useState(4); 
+  
   useEffect(() => {
     const fetchDesigns = async () => {
       try {
@@ -48,20 +49,36 @@ const DesignComponent = () => {
     fetchDesigns();
   }, []);
 
+  const handleLoadMore = () => {
+    setVisibleCount((prevCount) => prevCount + 4); 
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {designs.map((design) => (
-        <CardDiseños
-          key={design.id}
-          title={design.title}
-          price={design.price}
-          size={design.size}
-          imageUrl={design.imageUrl}
-        />
-      ))}
+    <div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {designs.slice(0, visibleCount).map((design) => (
+          <CardDiseños
+            key={design.id}
+            title={design.title}
+            price={design.price}
+            size={design.size}
+            imageUrl={design.imageUrl}
+          />
+        ))}
+      </div>
+      {visibleCount < designs.length && (
+        <div className="text-center mt-6">
+          <button
+            onClick={handleLoadMore}
+            className="px-4 py-2 bg-neutral-950 text-white rounded-lg hover:bg-neutral-900 transition-all duration-300"
+          >
+            Ver más...
+          </button>
+        </div>
+      )}
     </div>
   );
 };
