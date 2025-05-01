@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useSorteosStore } from '../../../stores/sorteosStore';
 
-const SorteosActivos = ({ sorteos }) => {
+const SorteosActivos = () => {
+    const { sorteosActivos, fetchSorteos } = useSorteosStore();
     const [tiempos, setTiempos] = useState({});
+
+    useEffect(() => {
+        fetchSorteos();
+    }, [fetchSorteos]);
 
     useEffect(() => {
         const interval = setInterval(() => {
             const nuevosTiempos = {};
 
-            sorteos.forEach((sorteo) => {
+            sorteosActivos.forEach((sorteo) => {
                 const fin = new Date(sorteo.fecha_fin).getTime();
                 const ahora = new Date().getTime();
                 const diferencia = fin - ahora;
@@ -28,15 +34,15 @@ const SorteosActivos = ({ sorteos }) => {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [sorteos]);
+    }, [sorteosActivos]);
 
     return (
         <div>
-            {sorteos.map((sorteo) => {
+            {sorteosActivos.map((sorteo) => {
                 const tiempo = tiempos[sorteo.id];
 
                 return (
-                    <div key={sorteo.id} className="max-w-2xl mx-auto mt-24 px-6 py-12 bg-neutral-900 border border-neutral-700 rounded-xl shadow-xl text-white space-y-8">
+                    <div key={sorteo.id} className="max-w-2xl mx-auto mt-28 px-6 py-12 bg-neutral-900 border border-neutral-700 rounded-xl shadow-xl text-white space-y-8">
                         
                         <div className="text-center">
                             <h1 className="text-4xl font-bold tracking-tight mb-3">{sorteo.titulo}</h1>
@@ -45,10 +51,15 @@ const SorteosActivos = ({ sorteos }) => {
 
                         <div>
                             <h2 className="text-xl font-semibold text-center mb-4">Lista de premios</h2>
-                            <ul className="list-disc list-inside text-neutral-300 space-y-2 max-w-md mx-auto">
-                                {sorteo.premios.map((premio, i) => (
-                                    <li key={i} className="leading-relaxed">{premio}</li>
-                                ))}
+                            <ul className="list-disc list-inside text-neutral-300 space-y-2 max-w-xs mx-auto">
+                                {sorteo.premios.map((premio, i) => {
+                                    const icon = i === 0 ? '🥇 Primer lugar: ' : i === 1 ? '🥈 Segundo lugar: ' : i === 2 ? '🥉 Tercer lugar: ' : '';
+                                    return (
+                                        <li key={i} className="leading-relaxed">
+                                            {icon} {premio}
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
 
@@ -71,7 +82,7 @@ const SorteosActivos = ({ sorteos }) => {
                                     ))}
                                 </div>
                             ) : (
-                                <p className="text-center text-red-400 text-lg font-semibold">Finalizado</p>
+                                <p className="text-center text-lg font-thin text-neutral-500">Cargando...</p>
                             )}
                         </div>
 
@@ -79,13 +90,16 @@ const SorteosActivos = ({ sorteos }) => {
                             <span className="text-sm text-neutral-400">
                                 Número de participantes:
                             </span>
-                            <p className="inline-block mt-1 bg-neutral-800 text-white font-medium px-4 py-2 rounded-full">
+                            <p className="inline-block mt-1 bg-neutral-800 text-white font-medium px-4 py-2 ml-5 rounded-full">
                                 {sorteo.participantes.length}
                             </p>
                         </div>
+
+                        <div className='flex justify-center'>
+                            <a href="/apuntarse-sorteo" className="border p-1 pl-3 pr-3 rounded-xl hover:bg-neutral-700 transition-all duration-300">¡Apúntate!</a>
+                        </div>
                     </div>
                 );
-
             })}
         </div>
     );
