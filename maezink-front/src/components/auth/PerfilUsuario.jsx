@@ -1,48 +1,56 @@
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-
-
+import { useAuthStore } from '../../stores/authStore';
+import { FiLogOut } from "react-icons/fi";
 
 const PerfilUsuario = () => {
-  const [userData, setUserData] = useState(null);
+  const { user, isLoggedIn, logout } = useAuthStore();
 
-  useEffect(() => {
-    const token = Cookies.get('accessToken');
-
-    if (token) {
-      try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(
-          (typeof window !== 'undefined' ? window.atob(base64) : Buffer.from(base64, 'base64').toString('binary'))
-            .split('')
-            .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
-            .join('')
-        );
-        const decoded = JSON.parse(jsonPayload);
-        setUserData(decoded);
-      } catch (error) {
-        console.error("Error al decodificar el token", error);
-      }
-    }
-  }, []);
-
-  if (!userData) {
+  if (!isLoggedIn || !user) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-neutral-900">
         <p className="text-white text-lg">Cargando datos del usuario...</p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center mt-80 mb-60  bg-neutral-800 text-white">
-      <div className="bg-neutral-900 p-6 rounded-lg shadow-lg w-96">
-        <h1 className="text-2xl font-bold mb-4">Perfil de Usuario</h1>
-        <p><strong>Nombre de usuario:</strong> {userData.username || 'No disponible'}</p>
-        <p><strong>Email:</strong> {userData.email || 'No disponible'}</p>
-        <p><strong>Rol:</strong> {userData.role || 'No disponible'}</p>
-        {/* Agrega más campos según los datos disponibles en el token */}
+    <div className="text-white px-8 py-24">
+      <div className="max-w-4xl mx-auto flex flex-col items-center">
+        <div className="mb-6 mt-20">
+          <img
+            src={`https://ui-avatars.com/api/?name=${user.username || 'U'}&background=4b5563&color=fff&size=128`}
+            alt="Avatar de usuario"
+            className="w-32 h-32 rounded-full shadow-lg"
+          />
+        </div>
+
+        <div className="w-full flex justify-between items-center mb-12 border-b border-neutral-700 pb-4">
+          <h1 className="text-4xl font-bold">Perfil de Usuario</h1>
+          <button
+            onnClick={logout}
+            className="bg-red-900 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition duration-200 text-sm"
+          >
+            <FiLogOut className="inline" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-md w-full mb-20">
+          <div>
+            <p className="mb-2 text-neutral-400">Nombre de usuario</p>
+            <p className="font-semibold">{user.username || 'No disponible'}</p>
+          </div>
+          <div>
+            <p className="mb-2 text-neutral-400">Email</p>
+            <p className="font-semibold">{user.email || 'No disponible'}</p>
+          </div>
+          <div>
+            <p className="mb-2 text-neutral-400">Rol</p>
+            <p className="font-semibold">{user.role || 'No disponible'}</p>
+          </div>
+          <div>
+            <p className="mb-2 text-neutral-400">Usuario de Instagram</p>
+            <p className="font-semibold">{user.instagram_username || 'No disponible'}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import Cookies from 'js-cookie'; 
+import { useAuthStore } from '../../stores/authStore';
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
 import { z } from 'zod';
 
 const schema = z.object({
   email: z.string().email('El email no es válido'),
-  password: z.string().min(2, 'La contraseña debe tener al menos 6 caracteres'),
+  password: z.string().min(4, 'La contraseña debe tener al menos 6 caracteres'),
 });
 
 const InicioSesionUsuario = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const login = useAuthStore((state) => state.login);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,10 +43,7 @@ const InicioSesionUsuario = () => {
       }
 
       const result = await response.json();
-      console.log('Token:', result);
-
-      Cookies.set('accessToken', result.access, { expires: 1 }); 
-
+      login(result.access, true);
       navigate('/');
     } catch (err) {
       setError(err.message);
