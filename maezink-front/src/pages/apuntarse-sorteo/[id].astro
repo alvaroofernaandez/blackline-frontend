@@ -1,0 +1,11 @@
+---
+import SorteosApuntarseForm from '../../components/sorteos/SorteosApuntarseForm';
+import Layout from '../../layouts/Layout.astro';
+export const prerender = false;
+
+const { id } = Astro.params;
+---
+
+<Layout title='Apuntarse al Sorteo'>
+  <SorteosApuntarseForm id={id} client:visible />
+</Layout>

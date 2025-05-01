@@ -96,7 +96,7 @@ const SorteosActivos = () => {
                         </div>
 
                         <div className='flex justify-center'>
-                            <a href="/apuntarse-sorteo" className="border p-1 pl-3 pr-3 rounded-xl hover:bg-neutral-700 transition-all duration-300">¡Apúntate!</a>
+                            <a href={`/apuntarse-sorteo/${sorteo.id}`} className="border p-1 pl-3 pr-3 rounded-xl hover:bg-neutral-700 transition-all duration-300">¡Apúntate!</a>
                         </div>
                     </div>
                 );
