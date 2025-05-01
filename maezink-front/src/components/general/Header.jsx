@@ -1,38 +1,13 @@
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
+import { useState } from 'react';
 import { FaUser } from "react-icons/fa";
+import { useAuthStore } from '../../stores/authStore'; // Adjust the path if necessary
 
 const Header = () => {
-  const [userName, setUserName] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, user, logout } = useAuthStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const token = Cookies.get('accessToken');
-
-    if (token) {
-      try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(
-          (typeof window !== 'undefined' ? window.atob(base64) : Buffer.from(base64, 'base64').toString('binary'))
-            .split('')
-            .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
-            .join('')
-        );
-        const decoded = JSON.parse(jsonPayload);
-        setUserName(decoded.username || decoded.email || 'Invitado');
-        setIsLoggedIn(true);
-      } catch (error) {
-        console.error("Error al decodificar el token", error);
-      }
-    }
-  }, []);
-
   const handleLogout = () => {
-    Cookies.remove('accessToken'); 
-    setUserName(null); 
-    setIsLoggedIn(false); 
+    logout();
     window.location.reload();
   };
 
@@ -60,7 +35,7 @@ const Header = () => {
             </button>
             <div className={`absolute right-0 mt-2 w-48 bg-neutral-900 shadow-lg ${isMenuOpen ? 'block' : 'hidden'}`}>
               <ul className="text-sm text-white">
-                <li className="px-4 py-2 text-neutral-400">Bienvenido, {userName}</li>
+                <li className="px-4 py-2 text-neutral-400">Bienvenido, {user?.username || user?.email || 'Invitado'}</li>
                 <hr/>
                 <li className="hover:bg-neutral-600 px-4 py-2">
                   <a href="/perfil">Ajustes de cuenta</a>
