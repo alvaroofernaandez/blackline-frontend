@@ -9,7 +9,8 @@ const DesignSchema = z.object({
   precio: z.string(),
   ancho: z.number(),
   alto: z.number(),
-  image: z.string().url()
+  image: z.string().url(), 
+  duracion: z.number().optional(),
 });
 
 const DesignComponent = () => {
@@ -35,7 +36,8 @@ const DesignComponent = () => {
           description: design.descripcion, 
           price: design.precio,             
           size: `${design.ancho} x ${design.alto}`,
-          imageUrl: design.image            
+          imageUrl: design.image,         
+          time: design.duracion ? `${design.duracion} horas` : 'No disponible',   
         }));
 
         setDesigns(adaptedDesigns);
@@ -65,6 +67,7 @@ const DesignComponent = () => {
             title={design.title}
             price={design.price}
             size={design.size}
+            time={design.time} 
             imageUrl={design.imageUrl}
           />
         ))}

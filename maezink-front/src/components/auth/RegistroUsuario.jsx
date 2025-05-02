@@ -51,7 +51,7 @@ const RegistroUsuario = () => {
           email: formData.email,
           username: formData.username,
           password: formData.password,
-          recibirNotificaciones: formData.recibirNotificaciones,
+          can_receive_emails: formData.recibirNotificaciones,
         }),
       });
 

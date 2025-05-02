@@ -5,6 +5,7 @@ type User = {
   email: string;
   role: string;
   instagram_username: string | null;
+  can_receive_emails: boolean | null;  
   [key: string]: any; 
 };
 
@@ -37,6 +38,7 @@ const decodeToken = (token: string): User | null => {
       email: payload.email,
       role: payload.role,
       instagram_username: payload.instagram_username,
+      can_receive_emails: payload.can_receive_emails,
     };
   } catch {
     return null;

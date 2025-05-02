@@ -26,10 +26,10 @@ const PerfilUsuario = () => {
         <div className="w-full flex justify-between items-center mb-12 border-b border-neutral-700 pb-4">
           <h1 className="text-4xl font-bold">Perfil de Usuario</h1>
           <button
-            onnClick={logout}
-            className="bg-red-900 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition duration-200 text-sm"
+            onClick={logout}
+            className="bg-red-900 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition duration-200 text-sm flex items-center gap-2"
           >
-            <FiLogOut className="inline" />
+            <FiLogOut />
           </button>
         </div>
 
@@ -49,6 +49,10 @@ const PerfilUsuario = () => {
           <div>
             <p className="mb-2 text-neutral-400">Usuario de Instagram</p>
             <p className="font-semibold">{user.instagram_username || 'No disponible'}</p>
+          </div>
+          <div>
+            <p className="mb-2 text-neutral-400">Puede recibir correos</p>
+            <p className="font-semibold">{user.can_receive_emails ? 'Sí' : 'No'}</p>
           </div>
         </div>
       </div>
