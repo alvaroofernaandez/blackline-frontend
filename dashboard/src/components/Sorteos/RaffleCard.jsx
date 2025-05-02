@@ -108,7 +108,7 @@ const CardSorteo = (props) => {
           </h3>
           <a
             href={`/participantes-sorteo/${id}`}
-            className="bg-neutral-600 dark:bg-neutral-700 dark:hover:bg-neutral-600 p-1 pl-3 pr-3 rounded-lg hover:bg-neutral-700 transition-all duration-300"
+            className="bg-neutral-600 dark:bg-neutral-700 text-white dark:hover:bg-neutral-600 p-1 pl-3 pr-3 rounded-lg hover:bg-neutral-700 transition-all duration-300"
           >
             Ver detalles
           </a>

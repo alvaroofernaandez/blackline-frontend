@@ -25,7 +25,7 @@ const DarkModeButton = () => {
   return (
     <button
       onClick={toggleDarkMode}
-      className="bg-neutral-500 dark:bg-neutral-900 text-white p-3 rounded-lg hover:bg-neutral-600 dark:hover:bg-neutral-800 transition-all duration-300"
+      className="bg-neutral-700 dark:bg-neutral-900 text-white p-3 rounded-lg hover:bg-neutral-800 dark:hover:bg-neutral-800 transition-all duration-300"
     >
       <CgDarkMode />
     </button>

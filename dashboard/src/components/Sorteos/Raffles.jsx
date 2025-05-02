@@ -10,7 +10,7 @@ const TablaSorteos = () => {
 
   return (
     <div className="p-4 h-full overflow-y-auto">
-      <h2 className="text-2xl font-bold mb-6 text-center text-white">
+      <h2 className="text-2xl font-bold mb-6 text-center dark:text-white text-neutral-600">
         Listado de Sorteos
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

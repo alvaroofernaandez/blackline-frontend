@@ -12,7 +12,7 @@ export default function HomeLoginButton() {
           </span>
           <button
             onClick={logout}
-            className="dark:bg-neutral-900 bg-neutral-500 p-2 rounded-lg hover:bg-neutral-600 dark:hover:bg-neutral-800 transition-all duration-300"
+            className="dark:bg-neutral-900 bg-neutral-700 p-2 rounded-lg hover:bg-neutral-800 dark:hover:bg-neutral-800 transition-all duration-300"
           >
             Cerrar sesión
           </button>

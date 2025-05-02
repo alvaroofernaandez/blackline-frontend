@@ -53,16 +53,16 @@ const Home = () => {
   const handleNavigate = (path) => navigate(path);
 
   const Card = ({ title, children, path }) => (
-    <div className="dark:bg-neutral-900 bg-neutral-500 rounded-2xl shadow-lg p-6 flex flex-col justify-between">
+    <div className="dark:bg-neutral-900 bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between">
       <div>
-        <h3 className="text-xl font-semibold mb-4">{title}</h3>
+        <h3 className="text-xl font-semibold mb-4 text-neutral-500 dark:text-white">{title}</h3>
         <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
           {children}
         </div>
       </div>
       <button
         onClick={() => handleNavigate(path)}
-        className="mt-6 px-4 py-2 bg-neutral-500 border dark:border-none dark:bg-neutral-800 text-white rounded-md hover:bg-neutral-400 dark:hover:bg-neutral-700 transition"
+        className="mt-6 px-4 py-2 dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-400 text-white rounded-md hover:bg-neutral-500 transition"
       >
         Ver más
       </button>
@@ -70,14 +70,14 @@ const Home = () => {
   );
 
   const SorteoMiniCard = ({ sorteo }) => (
-    <div className="dark:bg-neutral-950 bg-neutral-500 border border-neutral-400 dark:border-none p-4 rounded-xl">
-      <h4 className="text-lg font-bold">{sorteo.titulo}</h4>
-      <p className="text-sm text-gray-300">{sorteo.descripcion}</p>
+    <div className="dark:bg-neutral-950 bg-neutral-100 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
+      <h4 className="text-lg font-bold dark:text-white text-gray-700">{sorteo.titulo}</h4>
+      <p className="text-sm dark:text-gray-300 text-gray-500">{sorteo.descripcion}</p>
       <p className="text-xs mt-2 text-gray-400">
         {new Date(sorteo.fecha_inicio).toLocaleDateString()} - {new Date(sorteo.fecha_fin).toLocaleDateString()}
       </p>
-      <p className="text-xs mt-1 text-green-400">Estado: {sorteo.estado}</p>
-      <ul className="text-xs mt-2 text-gray-300 list-disc list-inside">
+      <p className="text-xs mt-1 text-green-400"><strong>Estado:</strong> {sorteo.estado}</p>
+      <ul className="text-xs mt-2 dark:text-gray-300 text-gray-500 list-disc list-inside">
         {sorteo.premios.map((premio, idx) => (
           <li key={idx}>{premio}</li>
         ))}
@@ -86,15 +86,15 @@ const Home = () => {
   );
 
   const DiseñoMiniCard = ({ diseño }) => (
-    <div className="dark:bg-neutral-950 bg-neutral-500 border border-neutral-400 dark:border-none p-4 rounded-xl flex gap-4 items-center">
+    <div className="dark:bg-neutral-950 bg-neutral-100 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl flex gap-4 items-center">
       <img
         src={diseño.image}
         alt={diseño.titulo}
-        className="w-16 h-16 rounded object-cover border border-neutral-700"
+        className="w-16 h-16 rounded object-cover border border-neutral-300"
       />
       <div>
-        <h4 className="font-bold">{diseño.titulo}</h4>
-        <p className="text-sm text-gray-300">{diseño.descripcion}</p>
+        <h4 className="font-bold dark:text-white text-gray-700">{diseño.titulo}</h4>
+        <p className="text-sm dark:text-gray-300 text-gray-500">{diseño.descripcion}</p>
         <p className="text-xs text-gray-400">Precio: {diseño.precio} €</p>
         <p className="text-xs text-gray-500">
           {diseño.ancho} x {diseño.alto} mm
@@ -104,14 +104,14 @@ const Home = () => {
   );
 
   const NoticiaMiniCard = ({ noticia }) => (
-    <div className="dark:bg-neutral-950 bg-neutral-500 border border-neutral-400 dark:border-none p-4 rounded-xl">
+    <div className="dark:bg-neutral-950 bg-neutral-100 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
       <img
         src={noticia.imagen}
         alt={noticia.titulo}
         className="w-full h-32 object-cover rounded mb-2"
       />
-      <h4 className="font-bold">{noticia.titulo}</h4>
-      <p className="text-sm text-gray-300">{noticia.descripcion}</p>
+      <h4 className="font-bold dark:text-white text-gray-700">{noticia.titulo}</h4>
+      <p className="text-sm dark:text-gray-300 text-gray-500">{noticia.descripcion}</p>
       <p className="text-xs text-gray-400 mt-1">
         {new Date(noticia.fecha).toLocaleDateString()}
       </p>

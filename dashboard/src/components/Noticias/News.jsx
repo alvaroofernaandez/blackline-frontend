@@ -25,7 +25,7 @@ const TablaNoticias = () => {
 
   return (
     <div className="w-full mx-auto">
-      <h2 className="text-2xl font-semibold text-white mb-4 text-center">Lista de Noticias</h2>
+      <h2 className="text-2xl font-semibold dark:text-white text-neutral-600 mb-4 text-center">Lista de Noticias</h2>
       <div className="max-h-[700px] overflow-y-auto rounded-xl">
         <table className="w-full border border-gray-200 shadow-lg rounded-lg overflow-hidden ">
           <thead className="bg-neutral-500 dark:bg-neutral-950 text-white sticky top-0 z-10">
