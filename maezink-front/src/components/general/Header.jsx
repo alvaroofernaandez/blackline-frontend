@@ -54,14 +54,6 @@ const Header = () => {
           <li className="hover:-translate-y-1 transition-all duration-200">
             <a
               className="hover:bg-neutral-600 rounded-xl hover:font-bold transition-all ease-in-out duration-600 p-2 sm:p-4"
-              href="/galeria"
-            >
-              Galería
-            </a>
-          </li>
-          <li className="hover:-translate-y-1 transition-all duration-200">
-            <a
-              className="hover:bg-neutral-600 rounded-xl hover:font-bold transition-all ease-in-out duration-600 p-2 sm:p-4"
               href="/pidetucita"
             >
               Pide tu cita
@@ -89,7 +81,11 @@ const Header = () => {
         {isLoggedIn ? (
           <div className="relative">
             <button onClick={handleMenuToggle} className="flex items-center focus:outline-none">
-              <FaUser className="bg-black size-10 rounded-full p-2" />
+              <img
+                src={useAuthStore.getState().getAvatarUrl()}
+                alt="User Avatar"
+                className="w-10 h-10 rounded-full"
+              />
             </button>
             <div className={`absolute right-0 mt-2 w-48 bg-neutral-900 shadow-lg ${isMenuOpen ? 'block' : 'hidden'}`}>
               <ul className="text-sm text-white">

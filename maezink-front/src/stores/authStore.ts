@@ -79,5 +79,11 @@ export const useAuthStore = create<AuthState>((set) => {
       removeCookie('accessToken');
       set({ isLoggedIn: false, token: null, user: null });
     },
+
+    getAvatarUrl: () => {
+      const currentUser = useAuthStore.getState().user;
+      const name = currentUser?.username || 'U';
+      return `https://ui-avatars.com/api/?name=${name}&background=4b5563&color=fff&size=128`;
+    }
   };
 });
