@@ -23,7 +23,7 @@ const Sidebar = () => {
             </button>
 
             <nav
-                className={`fixed lg:static top-0 left-0 h-full bg-neutral-900 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] border-r border-neutral-700 text-white w-64 min-h-screen flex flex-col py-8 transform ${
+                className={`fixed lg:static top-0 left-0 h-full bg-gradient-to-b from-neutral-600 via-neutral-700 to-neutral-800 dark:bg-neutral-900 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] border-r border-neutral-700 text-white w-64 min-h-screen flex flex-col py-8 transform ${
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 } lg:translate-x-0 transition-transform duration-300 z-40`}
                 
@@ -35,13 +35,13 @@ const Sidebar = () => {
                     <h1 className="text-lg text-neutral-400">TATTOO STUDIO</h1>
                 </div>
 
-                <hr className="border-neutral-700 mb-6" />
+                <hr className="dark:border-neutral-700 border-neutral-500 mb-6" />
 
                 <ul>
                     <li>
                         <a
                             href="/"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                         >
                             <GoHome className="size-4" />
                             Inicio
@@ -49,13 +49,13 @@ const Sidebar = () => {
                     </li>
                 </ul>
 
-                <hr className="border-neutral-700 mb-6 mt-6" />
+                <hr className="dark:border-neutral-700 border-neutral-500 mb-6 mt-6" />
 
                 <ul className="flex flex-col gap-2">
                     <li>
                         <a
                             href="/noticias"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                         >
                             <FaNewspaper className="size-4" />
                             Noticias
@@ -64,7 +64,7 @@ const Sidebar = () => {
                     <li>
                         <a
                             href="/sorteos"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                         >
                             <IoIosGift className="size-4" />
                             Sorteos
@@ -73,7 +73,7 @@ const Sidebar = () => {
                     <li>
                         <a
                             href="/diseños"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                         >
                             <FaPaintBrush className="size-4" />
                             Diseños
@@ -82,7 +82,7 @@ const Sidebar = () => {
                     <li>
                         <a
                             href="/usuarios"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                         >
                             <FaUsers className="size-4" />
                             Usuarios
@@ -91,7 +91,7 @@ const Sidebar = () => {
                     <li>
                         <a
                             href="/citas"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                         >
                             <FaCalendarAlt className="size-4" />
                             Citas
@@ -100,7 +100,7 @@ const Sidebar = () => {
                     <li>
                         <a
                             href="/correo"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                         >
                             <MdOutlineEmail className="size-4" />
                             Correo
@@ -109,7 +109,7 @@ const Sidebar = () => {
                     <li>
                         <a
                             href="/facturas"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                         >
                             <GrDocumentPdf className="size-4" />
                             Facturas
@@ -117,7 +117,7 @@ const Sidebar = () => {
                     </li>
                 </ul>
 
-                <div className="mt-auto font-thin pt-6 text-xs text-neutral-400 text-center border-t border-neutral-700">
+                <div className="mt-auto font-thin pt-6 text-xs text-neutral-400 text-center border-t dark:border-neutral-700 border-neutral-500">
                     TATTOO STUDIO © 2025
                 </div>
             </nav>
