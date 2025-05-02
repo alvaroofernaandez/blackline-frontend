@@ -11,6 +11,7 @@ const EditarDiseño = ({ id }) => {
     image: "",
     alto: "",
     ancho: "",
+    duracion: "",
   });
 
   const obtenerDiseño = async () => {
@@ -23,6 +24,7 @@ const EditarDiseño = ({ id }) => {
         image: diseño.image || "",
         alto: diseño.alto?.toString() || "",
         ancho: diseño.ancho?.toString() || "",
+        duracion: diseño.duracion?.toString() || "",
       });
     }
   };
@@ -47,8 +49,9 @@ const EditarDiseño = ({ id }) => {
       descripcion: formData.descripcion.trim(),
       precio: formData.precio.trim(),
       image: formData.image.trim(),
-      alto: parseInt(formData.alto, 10),
-      ancho: parseInt(formData.ancho, 10),
+      alto: parseFloat(formData.alto),
+      ancho: parseFloat(formData.ancho),
+      duracion: formData.duracion ? parseFloat(formData.duracion) : 0,
     };
 
     const success = await actualizarDiseño(id, diseño);
@@ -67,22 +70,24 @@ const EditarDiseño = ({ id }) => {
         </label>
         <input
           type="text"
+          id="titulo"
           name="titulo"
           value={formData.titulo}
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
-          required
           onChange={handleChange}
+          className="border border-gray-300 p-2 rounded-lg text-black w-full mb-4"
+          required
         />
 
         <label htmlFor="descripcion" className="block mb-2">
           Descripción:
         </label>
         <textarea
+          id="descripcion"
           name="descripcion"
           value={formData.descripcion}
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
-          required
           onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
         ></textarea>
 
         <label htmlFor="precio" className="block mb-2">
@@ -90,10 +95,11 @@ const EditarDiseño = ({ id }) => {
         </label>
         <input
           type="text"
+          id="precio"
           name="precio"
           value={formData.precio}
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         />
 
         <label htmlFor="image" className="block mb-2">
@@ -101,10 +107,11 @@ const EditarDiseño = ({ id }) => {
         </label>
         <input
           type="text"
+          id="image"
           name="image"
           value={formData.image}
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         />
 
         <label htmlFor="alto" className="block mb-2">
@@ -112,11 +119,12 @@ const EditarDiseño = ({ id }) => {
         </label>
         <input
           type="number"
+          id="alto"
           name="alto"
           value={formData.alto}
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
-          required
           onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
         />
 
         <label htmlFor="ancho" className="block mb-2">
@@ -124,16 +132,30 @@ const EditarDiseño = ({ id }) => {
         </label>
         <input
           type="number"
+          id="ancho"
           name="ancho"
           value={formData.ancho}
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
-          required
           onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
+        />
+
+        <label htmlFor="duracion" className="block mb-2">
+          Duración (horas):
+        </label>
+        <input
+          type="number"
+          id="duracion"
+          name="duracion"
+          value={formData.duracion}
+          onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
         />
 
         <button
           type="submit"
-          className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full mt-10"
+          className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
         >
           Editar Diseño
         </button>

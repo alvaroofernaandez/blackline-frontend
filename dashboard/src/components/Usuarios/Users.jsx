@@ -37,6 +37,7 @@ const TablaUsuarios = () => {
               <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-left">Correo</th>
               <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-left">Rol</th>
               <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-left">Instagram</th>
+              <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-left">Recibe Correos</th>
               <th className="p-3 border dark:border-neutral-700 border-neutral-400 text-center">Acciones</th>
             </tr>
           </thead>
@@ -50,6 +51,7 @@ const TablaUsuarios = () => {
                 <td className="p-3 border text-gray-600">{fila.email}</td>
                 <td className="p-3 border text-gray-600">{fila.role}</td>
                 <td className="p-3 border text-gray-600">{fila.instagram_username || "N/A"}</td>
+                <td className="p-3 border text-gray-600">{fila.can_receive_emails ? "Sí" : "No"}</td>
                 <td className="flex gap-3 justify-center items-center p-1">
                   <button
                     className="bg-neutral-400 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"

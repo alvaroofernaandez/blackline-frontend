@@ -31,6 +31,7 @@ const CrearDiseño = () => {
       image: formData.image.trim(),
       alto: parseFloat(formData.alto),
       ancho: parseFloat(formData.ancho),
+      duracion: formData.duracion ? parseFloat(formData.duracion) : 0, 
     };
 
     const success = await crearDiseño(diseño);
@@ -114,6 +115,19 @@ const CrearDiseño = () => {
           id="ancho"
           name="ancho"
           value={formData.ancho}
+          onChange={handleChange}
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
+        />
+
+        <label htmlFor="duracion" className="block mb-2">
+          Duracion (horas):
+        </label>
+        <input
+          type="number"
+          id="duracion"
+          name="duracion"
+          value={formData.duracion}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required

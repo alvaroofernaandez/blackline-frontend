@@ -14,6 +14,7 @@ const DiseñoSchema = z.object({
   precio: z.string().optional(),
   alto: z.number(),
   ancho: z.number(),
+  duracion: z.number().optional(),
 });
 
 const CardDiseño = (props) => {
@@ -25,6 +26,8 @@ const CardDiseño = (props) => {
     precio,
     alto,
     ancho,
+
+    duracion,
   } = DiseñoSchema.parse(props);
 
   const [showModal, setShowModal] = useState(false);
@@ -52,6 +55,10 @@ const CardDiseño = (props) => {
 
       <p className="text-neutral-300 text-sm text-center font-medium px-2 group-hover:text-neutral-200 transition-colors">
         {descripcion}
+      </p>
+
+      <p className="text-neutral-300 text-sm text-center font-medium px-2 group-hover:text-neutral-200 transition-colors">
+        {duracion ? <strong>Duración:</strong> : "Duración: N/A"} {duracion} horas
       </p>
 
       <div className="flex flex-row justify-between items-center w-full mt-4 ">

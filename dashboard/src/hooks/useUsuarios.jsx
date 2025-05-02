@@ -8,6 +8,7 @@ const usuarioSchema = z.object({
   email: z.string().email("El correo debe ser válido"),
   role: z.string().min(1, "El rol es obligatorio"),
   instagram_username: z.string().nullable().optional(),
+  can_receive_emails: z.boolean().optional(),
 });
 
 export const useUsuarios = () => {

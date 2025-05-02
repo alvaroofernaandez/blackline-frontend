@@ -10,6 +10,7 @@ const diseñoSchema = z.object({
   image: z.string().optional(),
   alto: z.number().min(1, "El alto debe ser un número positivo."),
   ancho: z.number().min(1, "El ancho debe ser un número positivo."),
+  duracion: z.number().min(1, "La duración debe ser un número positivo."), 
 });
 
 export const useDiseños = () => {
