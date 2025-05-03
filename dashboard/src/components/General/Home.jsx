@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 import HomeLoginButton from "../General/HomeLoginButton";
-
+import { useCitas } from "../../hooks/useCitas";
 
 const Home = () => {
   const [sorteos, setSorteos] = useState([]);
-  const [diseños, setDiseños] = useState([]);
   const [noticias, setNoticias] = useState([]);
+  const { citas, loading, obtenerNombreSolicitante } = useCitas();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,24 +23,21 @@ const Home = () => {
           Authorization: `Bearer ${token}`,
         };
 
-        const [sorteosRes, diseñosRes, noticiasRes] = await Promise.all([
+        const [sorteosRes, noticiasRes] = await Promise.all([
           fetch("http://127.0.0.1:8000/api/sorteos/", { headers: authHeader }),
-          fetch("http://127.0.0.1:8000/api/diseños/", { headers: authHeader }),
           fetch("http://127.0.0.1:8000/api/noticias/", { headers: authHeader }),
         ]);
 
-        if (!sorteosRes.ok || !diseñosRes.ok || !noticiasRes.ok) {
+        if (!sorteosRes.ok || !noticiasRes.ok) {
           throw new Error("Error al cargar los datos");
         }
 
-        const [sorteosData, diseñosData, noticiasData] = await Promise.all([
+        const [sorteosData, noticiasData] = await Promise.all([
           sorteosRes.json(),
-          diseñosRes.json(),
           noticiasRes.json(),
         ]);
 
         setSorteos(sorteosData.slice(0, 2));
-        setDiseños(diseñosData.slice(0, 2));
         setNoticias(noticiasData.slice(0, 4));
       } catch (error) {
         console.error("Error al cargar los datos:", error);
@@ -76,7 +73,7 @@ const Home = () => {
       <p className="text-xs mt-2 text-gray-400">
         {new Date(sorteo.fecha_inicio).toLocaleDateString()} - {new Date(sorteo.fecha_fin).toLocaleDateString()}
       </p>
-      <p className="text-xs mt-1 text-green-400"><strong>Estado:</strong> {sorteo.estado}</p>
+      <p className="text-xs mt-1 text-gray-400">Estado: <strong className="text-green-400">{sorteo.estado}</strong></p>
       <ul className="text-xs mt-2 dark:text-gray-300 text-gray-500 list-disc list-inside">
         {sorteo.premios.map((premio, idx) => (
           <li key={idx}>{premio}</li>
@@ -85,21 +82,16 @@ const Home = () => {
     </div>
   );
 
-  const DiseñoMiniCard = ({ diseño }) => (
-    <div className="dark:bg-neutral-950 bg-neutral-100 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl flex gap-4 items-center">
-      <img
-        src={diseño.image}
-        alt={diseño.titulo}
-        className="w-16 h-16 rounded object-cover border border-neutral-300"
-      />
-      <div>
-        <h4 className="font-bold dark:text-white text-gray-700">{diseño.titulo}</h4>
-        <p className="text-sm dark:text-gray-300 text-gray-500">{diseño.descripcion}</p>
-        <p className="text-xs text-gray-400">Precio: {diseño.precio} €</p>
-        <p className="text-xs text-gray-500">
-          {diseño.ancho} x {diseño.alto} mm
-        </p>
-      </div>
+  const CitaMiniCard = ({ cita }) => (
+    <div className="dark:bg-neutral-950 bg-neutral-100 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
+      <h4 className="text-lg font-bold dark:text-white text-gray-700">Cita #{cita.id}</h4>
+      <p className="text-sm dark:text-gray-300 text-gray-500">
+        <strong>Solicitante: </strong>{obtenerNombreSolicitante(cita.solicitante)}
+      </p>
+      <p className="text-xs mt-2 text-gray-400">
+        Fecha: {new Date(cita.fecha).toLocaleDateString()} - Hora: {cita.hora}
+      </p>
+      <p className="text-xs mt-1 text-gray-400">Estado: <strong className="text-green-400">{cita.estado}</strong></p>
     </div>
   );
 
@@ -126,10 +118,14 @@ const Home = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
-        <Card title="Diseños" path="/diseños">
-          {diseños.map((d) => (
-            <DiseñoMiniCard key={d.id} diseño={d} />
-          ))}
+        <Card title="Citas" path="/citas">
+          {loading ? (
+            <p>Cargando...</p>
+          ) : (
+            citas.map((c) => (
+              <CitaMiniCard key={c.id} cita={c} />
+            ))
+          )}
         </Card>
         <Card title="Sorteos" path="/sorteos">
           {sorteos.map((s) => (

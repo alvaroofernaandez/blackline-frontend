@@ -79,7 +79,7 @@ const BookingCard = (props) => {
           </button>
           <button
             onClick={() => navigate('/facturas')}
-            className="flex-1 bg-red-700 hover:bg-red-600 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
+            className="flex-1 bg-red-500 hover:bg-red-600 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
           >
             <GrDocumentPdf />
           </button>
