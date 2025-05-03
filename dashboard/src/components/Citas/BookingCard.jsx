@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
+import { GrDocumentPdf } from "react-icons/gr";
 import { z } from "zod";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -75,6 +76,12 @@ const BookingCard = (props) => {
             className="flex-1 bg-neutral-500 hover:bg-neutral-400 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
           >
             <AiFillEdit />
+          </button>
+          <button
+            onClick={() => navigate('/facturas')}
+            className="flex-1 bg-red-700 hover:bg-red-600 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
+          >
+            <GrDocumentPdf />
           </button>
           <button
             onClick={() => setShowModal(true)}
