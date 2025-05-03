@@ -38,7 +38,7 @@ const { title, siteTitle, havePlus, route } = Astro.props;
 		<AuthGuard client:load/>
 		<div class="absolute top-0 z-[-2] h-screen w-screen bg-gradient-to-tr from-white via-slate-200 to-neutral-300 dark:bg-neutral-800 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
 		
-		<Sidebar client:visible/>
+		<Sidebar client:load/>
 		<main class="flex-1 overflow-y-auto p-6 ">
 			<div class="flex items-center mb-4 justify-between">
 				<div class="flex justify-between">

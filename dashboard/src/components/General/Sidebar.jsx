@@ -8,6 +8,9 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [currentMenu, setCurrentMenu] = useState("main");
+
+    const goBack = () => setCurrentMenu("main");
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -50,72 +53,103 @@ const Sidebar = () => {
                 </ul>
 
                 <hr className="dark:border-neutral-700 border-neutral-500 mb-6 mt-6" />
-
-                <ul className="flex flex-col gap-2">
-                    <li>
-                        <a
-                            href="/noticias"
+                {currentMenu == "main" ? (
+                    <ul className="flex flex-col gap-2">
+                        <li>
+                            <a
+                                href="/noticias"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <FaNewspaper className="size-4" />
+                                Noticias
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/sorteos"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <IoIosGift className="size-4" />
+                                Sorteos
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/diseños"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <FaPaintBrush className="size-4" />
+                                Diseños
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/usuarios"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <FaUsers className="size-4" />
+                                Usuarios
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/citas"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <FaCalendarAlt className="size-4" />
+                                Citas
+                            </a>
+                        </li>
+                        <li>
+                            <button
+                                onClick={() => setCurrentMenu("mail")}
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <MdOutlineEmail className="size-4" />
+                                Correo
+                            </button>
+                        </li>
+                        <li>
+                            <a
+                                href="/facturas"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <GrDocumentPdf className="size-4" />
+                                Facturas
+                            </a>
+                        </li>
+                    </ul>
+                )
+                :
+                currentMenu == "mail" ? (
+                    <ul className="flex flex-col gap-2">
+                        <li>
+                            <button
+                                onClick={goBack}
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <GoHome className="size-4" />
+                                Back
+                            </button>
+                        </li>
+                        <li>
+                            <a
+                            href="#"
                             className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
-                        >
-                            <FaNewspaper className="size-4" />
-                            Noticias
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="/sorteos"
+                            >
+                                Por usuarios
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                            href="#"
                             className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
-                        >
-                            <IoIosGift className="size-4" />
-                            Sorteos
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="/diseños"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
-                        >
-                            <FaPaintBrush className="size-4" />
-                            Diseños
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="/usuarios"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
-                        >
-                            <FaUsers className="size-4" />
-                            Usuarios
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="/citas"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
-                        >
-                            <FaCalendarAlt className="size-4" />
-                            Citas
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="/correo"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
-                        >
-                            <MdOutlineEmail className="size-4" />
-                            Correo
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="/facturas"
-                            className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
-                        >
-                            <GrDocumentPdf className="size-4" />
-                            Facturas
-                        </a>
-                    </li>
-                </ul>
+                            >
+                                Todos
+                            </a>
+                        </li>
+                    </ul>
+                ):null}
 
                 <div className="mt-auto font-thin pt-6 text-xs text-neutral-400 text-center border-t dark:border-neutral-700 border-neutral-500">
                     TATTOO STUDIO © 2025
