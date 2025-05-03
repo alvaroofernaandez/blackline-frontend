@@ -4,5 +4,5 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Correo masivo" havePlus={false} siteTitle="Correo a todos los usuarios">
-	<MasiveEmailForm client:visible />
+	<MasiveEmailForm client:only="react" />
 </Layout>

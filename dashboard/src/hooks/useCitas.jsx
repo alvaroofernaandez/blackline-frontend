@@ -41,7 +41,6 @@ export const useCitas = () => {
       setCitas(validadas);
     } catch (err) {
       toast.error("Error cargando citas: " + err.message);
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -74,7 +73,6 @@ export const useCitas = () => {
       }
     } catch (err) {
       toast.error("No se pudo cargar la cita.");
-      console.error(err);
       return null;
     }
   };
@@ -113,7 +111,6 @@ export const useCitas = () => {
       }
     } catch (err) {
       toast.error("Error al crear la cita: " + err.message);
-      console.error(err);
       return false;
     }
   };
@@ -152,7 +149,6 @@ export const useCitas = () => {
       }
     } catch (err) {
       toast.error("Error al actualizar la cita: " + err.message);
-      console.error(err);
       return false;
     }
   };
@@ -182,7 +178,6 @@ export const useCitas = () => {
       }
     } catch (err) {
       toast.error("Error al eliminar la cita");
-      console.error(err);
       return false;
     }
   };

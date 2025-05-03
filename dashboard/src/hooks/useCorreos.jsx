@@ -34,7 +34,6 @@ export const useCorreos = () => {
       }
     } catch (err) {
       toast.error("Error al enviar correos masivos: " + err.message);
-      console.error(err);
       return false;
     } finally {
       setLoading(false);
@@ -69,7 +68,6 @@ export const useCorreos = () => {
       }
     } catch (err) {
       toast.error("Error al enviar correo personalizado: " + err.message);
-      console.error(err);
       return false;
     } finally {
       setLoading(false);

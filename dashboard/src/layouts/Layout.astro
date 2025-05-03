@@ -35,10 +35,10 @@ const { title, siteTitle, havePlus, route } = Astro.props;
 		</script>
 	</head>
 	<body class="h-screen w-screen overflow-hidden flex dark:text-white text-neutral-600">
-		<AuthGuard client:load/>
+		<AuthGuard client:only="react"/>
 		<div class="absolute top-0 z-[-2] h-screen w-screen bg-gradient-to-tr from-white via-slate-200 to-neutral-300 dark:bg-neutral-800 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
 		
-		<Sidebar client:load/>
+		<Sidebar client:only="react"/>
 		<main class="flex-1 overflow-y-auto p-6 ">
 			<div class="flex items-center mb-4 justify-between">
 				<div class="flex justify-center">
@@ -46,12 +46,12 @@ const { title, siteTitle, havePlus, route } = Astro.props;
 				</div>
 				<div class="flex justify-center mb-2 gap-2 items-center">
 					{havePlus && <a class="dark:bg-neutral-900 bg-neutral-700 dark:hover:bg-neutral-800 hover:bg-neutral-800 dark:text-white rounded-lg text-sm text-center items-center transition-all duration-300 ease-in-out p-3 text-white" href={route}><FaPlus /></a>}
-					<DarkModeButton client:visible />
+					<DarkModeButton client:only="react" />
 				</div>
 			</div>
 			<hr class="border-gray-400 dark:border-gray-300 m-2" />
 			<slot />
-			<Toaster position='bottom-right' richColors client:visible/>
+			<Toaster position='bottom-right' richColors client:only="react"/>
 		</main>
 	</body>
 	

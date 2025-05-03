@@ -4,5 +4,5 @@ import Layout from '../../layouts/Layout.astro';
 const { id } = Astro.params;
 ---
 <Layout title="Editar Diseño" havePlus={false} siteTitle="Editar cita">
-    <EditarCita id={id} client:visible />
+    <EditarCita id={id} client:only="react" />
 </Layout>

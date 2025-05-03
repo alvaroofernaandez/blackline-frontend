@@ -5,5 +5,5 @@ import Hero from '../sections/Hero.astro';
 ---
 
 <Layout title="Inicio" havePlus={false} siteTitle="Dashboard">
-	<Home client:visible />
+	<Home client:only="react" />
 </Layout>

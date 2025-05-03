@@ -10,11 +10,13 @@ type User = {
 
 type AuthState = {
 [x: string]: any;
+  isHydrated: boolean;
   isLoggedIn: boolean;
   token: string | null;
   user: User | null;
   login: (token: string) => void;
   logout: () => void;
+  hydrate: () => void;
 };
 
 const isTokenValid = (token: string): boolean => {
@@ -61,23 +63,32 @@ const removeCookie = (name: string): void => {
   document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
 };
 
-export const useAuthStore = create<AuthState>((set) => {
-  const token = getCookie('accessToken');
-  const isLoggedIn = token ? isTokenValid(token) : false;
-  const user = isLoggedIn && token ? decodeToken(token) : null;
+export const useAuthStore = create<AuthState>((set) => ({
+  isHydrated: false,
+  isLoggedIn: false,
+  token: null,
+  user: null,
 
-  return {
-    isLoggedIn,
-    token: isLoggedIn ? token : null,
-    user,
-    login: (token: string) => {
-      const decodedUser = decodeToken(token);
-      setCookie('accessToken', token, 7);
-      set({ isLoggedIn: true, token, user: decodedUser });
-    },
-    logout: () => {
-      removeCookie('accessToken');
-      set({ isLoggedIn: false, token: null, user: null });
-    },
-  };
-});
+  login: (token: string) => {
+    const decodedUser = decodeToken(token);
+    setCookie('accessToken', token, 7);
+    set({ isLoggedIn: true, token, user: decodedUser });
+  },
+
+  logout: () => {
+    removeCookie('accessToken');
+    set({ isLoggedIn: false, token: null, user: null });
+  },
+
+  hydrate: () => {
+    const token = getCookie('accessToken');
+    const valid = token && isTokenValid(token);
+    const user = valid ? decodeToken(token) : null;
+    set({
+      isHydrated: true,
+      isLoggedIn: Boolean(valid),
+      token: valid ? token : null,
+      user,
+    });
+  },
+}));

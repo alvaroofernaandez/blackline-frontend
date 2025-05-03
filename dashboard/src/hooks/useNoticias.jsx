@@ -32,7 +32,6 @@ export const useNoticias = () => {
       setNoticias(validadas);
     } catch (err) {
       toast.error("Error cargando noticias: " + err.message);
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -61,7 +60,6 @@ export const useNoticias = () => {
       }
     } catch (error) {
       toast.error("No se pudo cargar la noticia.");
-      console.error(error);
       return null;
     }
   };
@@ -100,7 +98,6 @@ export const useNoticias = () => {
       }
     } catch (err) {
       toast.error("Error al crear la noticia: " + err.message);
-      console.error(err);
       return false;
     }
   };
@@ -131,7 +128,7 @@ export const useNoticias = () => {
 
       if (res.ok) {
         toast.success("Noticia actualizada con éxito");
-        fetchNoticias(); // Refrescar la lista de noticias
+        fetchNoticias();
         return true;
       } else {
         toast.error("Error al actualizar la noticia");
@@ -139,7 +136,6 @@ export const useNoticias = () => {
       }
     } catch (err) {
       toast.error("Error al actualizar la noticia: " + err.message);
-      console.error(err);
       return false;
     }
   };

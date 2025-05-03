@@ -42,7 +42,6 @@ const InicioSesionUsuario = () => {
       }
 
       const result = await response.json();
-      console.log('Token:', result);
 
       Cookies.set('accessToken', result.access, { expires: 1 }); 
 

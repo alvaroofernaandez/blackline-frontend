@@ -29,7 +29,6 @@ const AsignarPremio = ({ id }) => {
       premioSchema.parse(formData);
       const success = await asignarPremio(id, formData.premio);
     } catch (error) {
-      console.error(error);
       toast.error(error.message || "Error al asignar el premio.");
     }
   };

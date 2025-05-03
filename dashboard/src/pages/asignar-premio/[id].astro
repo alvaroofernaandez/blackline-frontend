@@ -5,5 +5,5 @@ export const prerender = false;
 const { id } = Astro.params;
 ---
 <Layout title="Asignar Premio" havePlus={false} siteTitle="Asignar Premio">
-    <AsignarPremio id={id} client:visible />
+    <AsignarPremio id={id} client:only="react" />
 </Layout>

@@ -3,5 +3,5 @@ import CrearNoticia from '../components/Noticias/CreateNews';
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="Añadir Noticia" havePlus={false} siteTitle="Añadir Noticia">
-    <CrearNoticia client:visible />
+    <CrearNoticia client:only="react" />
 </Layout>

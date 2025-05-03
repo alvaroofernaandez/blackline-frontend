@@ -5,5 +5,5 @@ export const prerender = false;
 const { id } = Astro.params;
 ---
 <Layout title="Participantes del sorteo" havePlus={false} siteTitle="Participantes sorteo">
-    <TablaParticipantes id={id} client:visible />
+    <TablaParticipantes id={id} client:only="react" />
 </Layout>

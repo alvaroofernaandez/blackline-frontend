@@ -64,7 +64,6 @@ const CrearSorteo = () => {
         error.errors.forEach((err) => toast.error(err.message));
       } else {
         toast.error("Error al crear el sorteo.");
-        console.error("Error:", error);
       }
     }
   };

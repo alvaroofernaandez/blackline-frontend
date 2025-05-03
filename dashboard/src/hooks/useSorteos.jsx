@@ -39,7 +39,6 @@ export const useSorteos = () => {
       setSorteos(validados);
     } catch (err) {
       toast.error("Error cargando sorteos: " + err.message);
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -67,7 +66,6 @@ export const useSorteos = () => {
       }
     } catch (err) {
       toast.error("No se pudo cargar el sorteo.");
-      console.error(err);
       return null;
     }
   };
@@ -113,7 +111,6 @@ export const useSorteos = () => {
       }
     } catch (err) {
       toast.error("Error al crear el sorteo: " + err.message);
-      console.error(err);
       return false;
     }
   };  
@@ -152,7 +149,6 @@ export const useSorteos = () => {
       }
     } catch (err) {
       toast.error("Error al actualizar el sorteo: " + err.message);
-      console.error(err);
       return false;
     }
   };
@@ -182,7 +178,6 @@ export const useSorteos = () => {
       }
     } catch (err) {
       toast.error("Error al eliminar el sorteo");
-      console.error(err);
       return false;
     }
   };
@@ -220,7 +215,6 @@ export const useSorteos = () => {
       }
     } catch (err) {
       toast.error("Error al asignar el premio: " + err.message);
-      console.error(err);
       return false;
     }
   };

@@ -40,7 +40,7 @@ const Home = () => {
         setSorteos(sorteosData.slice(0, 2));
         setNoticias(noticiasData.slice(0, 4));
       } catch (error) {
-        console.error("Error al cargar los datos:", error);
+        toast.error("Error al cargar los datos");
       }
     };
 
@@ -114,7 +114,7 @@ const Home = () => {
     <div className="p-8 text-white ">  
 
       <div className="justify-center flex items-center mb-4">
-        <HomeLoginButton />
+        <HomeLoginButton client:only="react" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">

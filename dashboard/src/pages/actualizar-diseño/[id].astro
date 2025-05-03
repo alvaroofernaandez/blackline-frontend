@@ -4,5 +4,5 @@ import EditarDesign from '../../components/Diseños/EditDesign';
 const { id } = Astro.params;
 ---
 <Layout title="Editar Diseño" havePlus={false} siteTitle="Editar Diseño">
-    <EditarDesign id={id} client:visible />
+    <EditarDesign id={id} client:only="react" />
 </Layout>

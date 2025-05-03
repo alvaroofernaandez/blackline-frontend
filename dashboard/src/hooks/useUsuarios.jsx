@@ -33,7 +33,6 @@ export const useUsuarios = () => {
       setUsuarios(validados);
     } catch (err) {
       toast.error("Error cargando usuarios: " + err.message);
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -60,7 +59,6 @@ export const useUsuarios = () => {
       }
     } catch (err) {
       toast.error("No se pudo cargar el usuario.");
-      console.error(err);
       return null;
     }
   };
@@ -99,7 +97,6 @@ export const useUsuarios = () => {
       }
     } catch (err) {
       toast.error("Error al actualizar el usuario: " + err.message);
-      console.error(err);
       return false;
     }
   };
@@ -129,7 +126,6 @@ export const useUsuarios = () => {
       }
     } catch (err) {
       toast.error("Error al eliminar el usuario");
-      console.error(err);
       return false;
     }
   };

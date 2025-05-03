@@ -5,5 +5,5 @@ export const prerender = false;
 const { id } = Astro.params;
 ---
 <Layout title="Editar Usuario" havePlus={false} siteTitle="Editar Usuario">
-    <EditarUsuario id={id} client:visible />
+    <EditarUsuario id={id} client:only="react" />
 </Layout>

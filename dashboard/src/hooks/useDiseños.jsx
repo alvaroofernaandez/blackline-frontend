@@ -35,7 +35,6 @@ export const useDiseños = () => {
       setDiseños(validados);
     } catch (err) {
       toast.error("Error cargando diseños: " + err.message);
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -63,7 +62,6 @@ export const useDiseños = () => {
       }
     } catch (err) {
       toast.error("No se pudo cargar el diseño.");
-      console.error(err);
       return null;
     }
   };
@@ -102,7 +100,6 @@ export const useDiseños = () => {
       }
     } catch (err) {
       toast.error("Error al crear el diseño: " + err.message);
-      console.error(err);
       return false;
     }
   };
@@ -141,7 +138,6 @@ export const useDiseños = () => {
       }
     } catch (err) {
       toast.error("Error al actualizar el diseño: " + err.message);
-      console.error(err);
       return false;
     }
   };
@@ -171,7 +167,6 @@ export const useDiseños = () => {
       }
     } catch (err) {
       toast.error("Error al eliminar el diseño");
-      console.error(err);
       return false;
     }
   };
