@@ -1,0 +1,84 @@
+import { useState } from "react";
+import { toast } from "sonner";
+import { useAuthStore } from "../stores/authStore";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
+
+export const useCorreos = () => {
+  const [loading, setLoading] = useState(false);
+
+  const enviarCorreosMasivos = async ({ asunto, mensaje }) => {
+    try {
+      setLoading(true);
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="))
+        ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+
+      const res = await fetch("http://localhost:8000/api/enviar_correos_masivos/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ asunto, mensaje }),
+      });
+
+      if (res.ok) {
+        toast.success("Correos masivos enviados con éxito");
+        navigate("/");
+        return true;
+      } else {
+        toast.error("Error al enviar correos masivos");
+        return false;
+      }
+    } catch (err) {
+      toast.error("Error al enviar correos masivos: " + err.message);
+      console.error(err);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const enviarCorreoPersonalizado = async ({ correo, asunto, mensaje }) => {
+    try {
+      setLoading(true);
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="))
+        ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+
+      const res = await fetch("http://localhost:8000/api/enviar_correos_personalizados/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ correo, asunto, mensaje }),
+      });
+
+      if (res.ok) {
+        toast.success("Correo personalizado enviado con éxito");
+        navigate("/");
+        return true;
+      } else {
+        toast.error("Error al enviar correo personalizado");
+        return false;
+      }
+    } catch (err) {
+      toast.error("Error al enviar correo personalizado: " + err.message);
+      console.error(err);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    enviarCorreosMasivos,
+    enviarCorreoPersonalizado,
+  };
+};

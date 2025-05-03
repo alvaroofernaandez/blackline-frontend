@@ -94,15 +94,6 @@ const Sidebar = () => {
                             </a>
                         </li>
                         <li>
-                            <a
-                                href="/citas"
-                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
-                            >
-                                <FaCalendarAlt className="size-4" />
-                                Citas
-                            </a>
-                        </li>
-                        <li>
                             <button
                                 onClick={() => setCurrentMenu("mail")}
                                 className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md w-full"
@@ -110,6 +101,15 @@ const Sidebar = () => {
                                 <MdOutlineEmail className="size-4" />
                                 Correo
                             </button>
+                        </li>
+                        <li>
+                            <a
+                                href="/citas"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                            >
+                                <FaCalendarAlt className="size-4" />
+                                Citas
+                            </a>
                         </li>
                         <li>
                             <a
@@ -136,7 +136,7 @@ const Sidebar = () => {
                         </li>
                         <li>
                             <a
-                            href="#"
+                            href="/correo-individual"
                             className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                             >
                                 <FaUser className="size-4" />
@@ -145,7 +145,7 @@ const Sidebar = () => {
                         </li>
                         <li>
                             <a
-                            href="#"
+                            href="/correo-masivo"
                             className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                             >
                                 <FaUsers className="size-4" />
