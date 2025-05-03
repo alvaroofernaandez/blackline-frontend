@@ -1,0 +1,8 @@
+---
+import EditarCita from '../../components/Citas/EditBooking';
+import Layout from '../../layouts/Layout.astro';
+const { id } = Astro.params;
+---
+<Layout title="Editar Diseño" havePlus={false} siteTitle="Editar cita">
+    <EditarCita id={id} client:visible />
+</Layout>
