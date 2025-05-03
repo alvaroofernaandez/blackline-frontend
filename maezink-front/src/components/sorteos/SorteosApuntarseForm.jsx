@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { z } from 'zod';
-import { useNavigate } from 'react-router-dom';
+import { navigate } from 'astro/virtual-modules/transitions-router.js';
 
 const SorteosApuntarseForm = ({ id }) => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,6 @@ const SorteosApuntarseForm = ({ id }) => {
 
   const { token, user } = useAuthStore();
   const instagramUsernameFromToken = user?.instagram_username || '';
-  const navigate = useNavigate();
 
   const formSchema = z.object({
     instagramUser: z.string().min(1, 'El usuario de Instagram es obligatorio'),
@@ -34,18 +33,42 @@ const SorteosApuntarseForm = ({ id }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
       const payload = {
         instagram_username: instagramUsernameFromToken || formData.instagramUser,
         requirements: formData.hasMetRequirements ? 'True' : 'False',
       };
-
+  
       formSchema.parse({
         instagramUser: payload.instagram_username,
         hasMetRequirements: formData.hasMetRequirements,
       });
-
+  
+      // Si no hay nombre de Instagram en el token, realiza el PATCH para actualizarlo
+      if (!instagramUsernameFromToken) {
+        const patchResponse = await fetch(
+          `http://127.0.0.1:8000/api/modificar_nombre_instagram/`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              id: user.id, // ID del usuario desde el token
+              instagram_username: formData.instagramUser,
+            }),
+          }
+        );
+  
+        if (!patchResponse.ok) {
+          throw new Error('Error al actualizar el nombre de Instagram');
+        }
+  
+        console.log('Nombre de Instagram actualizado correctamente');
+      }
+  
       const response = await fetch(
         `http://127.0.0.1:8000/api/participantes_por_sorteo/${id}/`,
         {
@@ -57,14 +80,14 @@ const SorteosApuntarseForm = ({ id }) => {
           body: JSON.stringify(payload),
         }
       );
-
+  
       if (!response.ok) {
         throw new Error('Error en la solicitud');
       }
-
+  
       const data = await response.json();
       console.log('Response:', data);
-
+  
       navigate('/sorteos');
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -77,6 +100,7 @@ const SorteosApuntarseForm = ({ id }) => {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <div className="p-4 mt-52">

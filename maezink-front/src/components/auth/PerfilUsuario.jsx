@@ -13,9 +13,9 @@ const PerfilUsuario = () => {
   }
 
   return (
-    <div className="text-white px-8 py-24">
+    <div className="text-white px-8 pt-24">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
-        <div className="mb-6 mt-20">
+        <div className="mb-6 mt-16">
           <img
             src={`https://ui-avatars.com/api/?name=${user.username || 'U'}&background=4b5563&color=fff&size=128`}
             alt="Avatar de usuario"
