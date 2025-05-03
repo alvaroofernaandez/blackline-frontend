@@ -7,5 +7,5 @@ const { id } = Astro.params;
 ---
 
 <Layout title='Apuntarse al Sorteo'>
-  <SorteosApuntarseForm id={id} client:visible />
+  <SorteosApuntarseForm id={id} client:only="react" />
 </Layout>
