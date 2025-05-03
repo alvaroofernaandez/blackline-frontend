@@ -157,6 +157,7 @@ const EditarDiseño = ({ id }) => {
 
         <button
           type="submit"
+          aria-label="Editar diseño"
           className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
           disabled={isSubmitting}
         >

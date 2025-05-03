@@ -54,12 +54,16 @@ const TablaUsuarios = () => {
                 <td className="p-3 border text-gray-600">{fila.can_receive_emails ? "Sí" : "No"}</td>
                 <td className="flex gap-3 justify-center items-center p-1">
                   <button
+                    type="button"
+                    aria-label="Editar usuario"
                     className="bg-neutral-400 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"
                     onClick={() => navigate(`/actualizar-usuario/${fila.id}`)}
                   >
                     <AiFillEdit className="text-xl" />
                   </button>
                   <button
+                    type="button"
+                    aria-label="Eliminar usuario"
                     className="dark:bg-neutral-800 bg-neutral-600 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"
                     onClick={() => abrirModal(fila.id)}
                   >

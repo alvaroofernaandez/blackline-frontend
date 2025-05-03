@@ -25,7 +25,7 @@ const TablaParticipantes = ({ id }) => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex items-center">
-        <button onClick={() => window.history.back()} className="text-white p-2 rounded">
+        <button onClick={() => window.history.back()} className="text-white p-2 rounded" aria-label="Volver">
           <FaArrowLeftLong className="size-8 mr-2" />
         </button>
       </div>

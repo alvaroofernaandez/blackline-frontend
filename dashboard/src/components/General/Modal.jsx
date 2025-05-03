@@ -10,12 +10,16 @@ const Modal = ({ setShowModal, eliminarObjeto, id }) => {
         <p className="mb-6">¿Estás seguro de que deseas eliminar?</p>
         <div className="flex justify-center gap-4">
           <button
+            type="button"
+            aria-label="Cancelar"
             className="dark:bg-neutral-300 bg-neutral-200 dark:hover:bg-neutral-400 hover:bg-neutral-300 transition-all duration-300 w-full text-black px-4 py-2 rounded"
             onClick={() => setShowModal(false)}
           >
             Cancelar
           </button>
           <button
+            type="button"
+            aria-label="Eliminar"
             className="bg-red-500 hover:bg-red-600 transition-all duration-300 w-full text-white px-4 py-2 rounded"
             onClick={() => {
               eliminarObjeto(id);

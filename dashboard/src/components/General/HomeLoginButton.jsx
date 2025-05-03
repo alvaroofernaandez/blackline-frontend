@@ -11,6 +11,8 @@ export default function HomeLoginButton() {
             Bienvenid@, {user?.username || "Usuario"}
           </span>
           <button
+            type="button"
+            aria-label="Cerrar sesión"
             onClick={logout}
             className="dark:bg-neutral-900 bg-neutral-700 p-2 rounded-lg hover:bg-neutral-800 dark:hover:bg-neutral-800 transition-all duration-300"
           >

@@ -21,6 +21,8 @@ const Sidebar = () => {
     return (
         <>
             <button
+                type="button"
+                aria-label="Toggle sidebar"
                 className="lg:hidden fixed top-5 left-4 z-50 bg-neutral-900 text-white p-2 rounded-md"
                 onClick={toggleSidebar}
             >
@@ -95,6 +97,8 @@ const Sidebar = () => {
                         </li>
                         <li>
                             <button
+                                type="button"
+                                aria-label="Correo"
                                 onClick={() => setCurrentMenu("mail")}
                                 className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md w-full"
                             >
@@ -127,6 +131,8 @@ const Sidebar = () => {
                     <ul className="flex flex-col gap-2">
                         <li>
                             <button
+                                type="button"
+                                aria-label="Volver"
                                 onClick={goBack}
                                 className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md w-full"
                             >

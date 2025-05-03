@@ -65,24 +65,32 @@ const CardSorteo = (props) => {
       </div>
       <div className="flex gap-2 mt-4">
         <button
+          type="button"
+          aria-label="Editar sorteo"
           onClick={() => navigate(`/actualizar-sorteo/${id}`)}
           className="flex-1 bg-neutral-500 hover:bg-neutral-400 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
         >
           <AiFillEdit />
         </button>
         <button
+          type="button"
+          aria-label="Eliminar sorteo"
           onClick={() => setShowModal(true)}
           className="flex-1 bg-neutral-700 hover:bg-neutral-600 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
         >
           <FaRegTrashAlt />
         </button>
         <button
+          type="button"
+          aria-label="Ver participantes"
           onClick={() => navigate(`/participantes-sorteo/${id}`)}
           className="flex-1 bg-blue-500 hover:bg-blue-400 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
         >
           <FaUsers />
         </button>
         <button
+          type="button"
+          aria-label="Seleccionar ganador"
           onClick={handleSeleccionarGanador}
           className="flex-1 bg-green-600 hover:bg-green-500 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
         >

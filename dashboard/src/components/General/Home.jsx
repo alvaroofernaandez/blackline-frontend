@@ -101,6 +101,7 @@ const Home = () => {
         src={noticia.imagen}
         alt={noticia.titulo}
         className="w-full h-32 object-cover rounded mb-2"
+        loading="lazy"
       />
       <h4 className="font-bold dark:text-white text-gray-700">{noticia.titulo}</h4>
       <p className="text-sm dark:text-gray-300 text-gray-500">{noticia.descripcion}</p>

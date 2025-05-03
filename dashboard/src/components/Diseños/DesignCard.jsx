@@ -68,12 +68,16 @@ const CardDiseño = (props) => {
         
         <div className="flex gap-2">
           <button
+            type="button"
+            aria-label="Editar diseño"
             onClick={() => (navigate(`/actualizar-diseño/${id}`))}
             className="bg-[#abd373] text-gray-900 font-bold py-2 px-4 rounded-lg text-sm hover:bg-[#92b950] transition-all duration-300"
           >
             <AiFillEdit className="size-5" />
           </button>
           <button
+            type="button"
+            aria-label="Eliminar diseño"
             onClick={() => setShowModal(true)}
             className="bg-neutral-600 dark:bg-neutral-800 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-neutral-700 dark:hover:bg-neutral-700 transition-all duration-300"
           >

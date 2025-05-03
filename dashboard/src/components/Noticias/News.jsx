@@ -56,12 +56,16 @@ const TablaNoticias = () => {
                 </td>
                 <td className="flex gap-3 justify-center items-center p-2">
                   <button
+                    type="button"
+                    aria-label="Editar noticia"
                     className="bg-neutral-400 size-10 hover:scale-105 transition-all duration-500 text-white rounded-lg justify-items-center"
                     onClick={() => navigate(`/actualizar-noticia/${fila.id}`)}
                   >
                     <AiFillEdit className="text-xl" />
                   </button>
                   <button
+                    type="button"
+                    aria-label="Eliminar noticia"
                     className="bg-neutral-600 dark:bg-neutral-800 size-10 hover:scale-105 transition-all duration-500 text-white rounded-lg justify-items-center"
                     onClick={() => abrirModal(fila.id)}
                   >
