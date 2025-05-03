@@ -1,12 +1,15 @@
+import { useState } from "react";
 import { format } from "date-fns";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 import { useNoticias } from "../../hooks/useNoticias"; 
 
 const AnadirNoticia = () => {
   const { crearNoticia } = useNoticias();
+  const [cargando, setCargando] = useState(false);
 
   const enviar = async (e) => {
     e.preventDefault();
+    setCargando(true);
 
     const noticia = {
       titulo: e.target.titulo.value,
@@ -18,6 +21,8 @@ const AnadirNoticia = () => {
     const exito = await crearNoticia(noticia);
     if (exito) {
       setTimeout(() => navigate("/noticias"), 1000);
+    } else {
+      setCargando(false); 
     }
   };
 
@@ -58,8 +63,9 @@ const AnadirNoticia = () => {
         <button
           type="submit"
           className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all mt-10 w-full"
+          disabled={cargando}
         >
-          Enviar
+          {cargando ? "Cargando..." : "Enviar"}
         </button>
       </form>
     </div>

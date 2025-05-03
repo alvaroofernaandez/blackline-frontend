@@ -20,6 +20,8 @@ const EditarUsuario = ({ id }) => {
     role: "",
   });
 
+  const [cargando, setCargando] = useState(false);
+
   useEffect(() => {
     const cargarUsuario = async () => {
       const usuario = await obtenerUsuarioPorId(id);
@@ -42,10 +44,12 @@ const EditarUsuario = ({ id }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setCargando(true);
 
     const validation = usuarioSchema.safeParse(formData);
     if (!validation.success) {
       validation.error.errors.forEach((err) => toast.error(err.message));
+      setCargando(false);
       return;
     }
 
@@ -54,6 +58,8 @@ const EditarUsuario = ({ id }) => {
       setTimeout(() => {
         navigate("/usuarios");
       }, 500);
+    } else {
+      setCargando(false);
     }
   };
 
@@ -102,8 +108,9 @@ const EditarUsuario = ({ id }) => {
         <button
           type="submit"
           className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
+          disabled={cargando}
         >
-          Actualizar
+          {cargando ? "Cargando..." : "Actualizar"}
         </button>
       </form>
     </div>

@@ -14,6 +14,7 @@ const EditarSorteo = ({ id }) => {
     premios: [],
     participantes: [],
   });
+  const [cargando, setCargando] = useState(false);
 
   useEffect(() => {
     const fetchSorteo = async () => {
@@ -39,11 +40,15 @@ const EditarSorteo = ({ id }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setCargando(true);
+
     const success = await actualizarSorteo(id, formData);
     if (success) {
       setTimeout(() => {
         navigate("/sorteos");
       }, 1000);
+    } else {
+      setCargando(false);
     }
   };
 
@@ -98,8 +103,9 @@ const EditarSorteo = ({ id }) => {
         <button
           type="submit"
           className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
+          disabled={cargando}
         >
-          Editar Sorteo
+          {cargando ? "Cargando..." : "Editar Sorteo"}
         </button>
       </form>
     </div>

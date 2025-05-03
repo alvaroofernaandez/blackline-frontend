@@ -10,8 +10,8 @@ const ActualizarNoticia = ({ id }) => {
     imagen: "",
     fecha: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Cargar la noticia antes de renderizar el componente
   if (id && !formData.titulo) {
     obtenerNoticiaPorId(id).then((noticia) => {
       if (noticia) {
@@ -30,11 +30,14 @@ const ActualizarNoticia = ({ id }) => {
 
   const actualizar = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const exito = await actualizarNoticia(id, formData);
     if (exito) {
       setTimeout(() => {
         navigate("/noticias");
       }, 500);
+    } else {
+      setIsSubmitting(false); 
     }
   };
 
@@ -80,8 +83,9 @@ const ActualizarNoticia = ({ id }) => {
         <button
           type="submit"
           className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 w-full mt-10 transition-all"
+          disabled={isSubmitting} 
         >
-          Actualizar
+          {isSubmitting ? "Cargando..." : "Actualizar"} 
         </button>
       </form>
     </div>

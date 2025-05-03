@@ -14,6 +14,8 @@ const CrearSorteo = () => {
     premios: "",
   });
 
+  const [cargando, setCargando] = useState(false);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
@@ -21,6 +23,7 @@ const CrearSorteo = () => {
 
   const enviar = async (e) => {
     e.preventDefault();
+    setCargando(true);
 
     const sorteo = {
       titulo: formData.titulo.trim(),
@@ -47,12 +50,16 @@ const CrearSorteo = () => {
     });
 
     try {
-      sorteoSchema.parse(sorteo); 
+      sorteoSchema.parse(sorteo);
       const exito = await crearSorteo(sorteo);
       if (exito) {
         setFormData({ titulo: "", descripcion: "", fecha_fin: "", premios: "" });
+        setTimeout(() => setCargando(false), 1000); 
+      } else {
+        setCargando(false);
       }
     } catch (error) {
+      setCargando(false);
       if (error instanceof z.ZodError) {
         error.errors.forEach((err) => toast.error(err.message));
       } else {
@@ -113,8 +120,9 @@ const CrearSorteo = () => {
         <button
           type="submit"
           className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
+          disabled={cargando}
         >
-          Crear Sorteo
+          {cargando ? "Cargando..." : "Crear Sorteo"}
         </button>
       </form>
     </div>

@@ -12,6 +12,7 @@ const CrearDiseño = () => {
     alto: "",
     ancho: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +24,7 @@ const CrearDiseño = () => {
 
   const enviar = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const diseño = {
       titulo: formData.titulo.trim(),
@@ -31,7 +33,7 @@ const CrearDiseño = () => {
       image: formData.image.trim(),
       alto: parseFloat(formData.alto),
       ancho: parseFloat(formData.ancho),
-      duracion: formData.duracion ? parseFloat(formData.duracion) : 0, 
+      duracion: formData.duracion ? parseFloat(formData.duracion) : 0,
     };
 
     const success = await crearDiseño(diseño);
@@ -39,6 +41,8 @@ const CrearDiseño = () => {
       setTimeout(() => {
         navigate("/diseños");
       }, 1000);
+    } else {
+      setIsSubmitting(false); 
     }
   };
 
@@ -136,8 +140,9 @@ const CrearDiseño = () => {
         <button
           type="submit"
           className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
+          disabled={isSubmitting}
         >
-          Crear Diseño
+          {isSubmitting ? "Cargando..." : "Crear Diseño"}
         </button>
       </form>
     </div>

@@ -3,13 +3,16 @@ import { useAuthStore } from '../../stores/authStore';
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
 
 const AuthGuard = () => {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const { isLoggedIn, user } = useAuthStore((state) => ({
+    isLoggedIn: state.isLoggedIn,
+    user: state.user,
+  }));
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isLoggedIn || user?.role !== 'admin') {
       navigate('/login');
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, user]);
 
   return null;
 };
