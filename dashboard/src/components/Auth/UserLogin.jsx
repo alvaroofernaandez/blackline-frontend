@@ -59,10 +59,8 @@ const InicioSesionUsuario = () => {
             <img
               src="/favicon.svg"
               alt="Logo"
-              className="w-40 "
+              className="w-64"
             />
-            <h1 className='text-2xl text-center'>TATTOO STUDIO</h1>
-            <h2 className='mb-20 text-md text-center text-neutral-400'>ADMIN DASHBOARD</h2>
           </div>
           <input
             type="text"
