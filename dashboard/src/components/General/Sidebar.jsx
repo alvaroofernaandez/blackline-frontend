@@ -5,6 +5,8 @@ import { MdOutlineEmail } from "react-icons/md";
 import { GrDocumentPdf } from "react-icons/gr";
 import { GoHome } from "react-icons/go";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa";
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -103,7 +105,7 @@ const Sidebar = () => {
                         <li>
                             <button
                                 onClick={() => setCurrentMenu("mail")}
-                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md w-full"
                             >
                                 <MdOutlineEmail className="size-4" />
                                 Correo
@@ -126,10 +128,10 @@ const Sidebar = () => {
                         <li>
                             <button
                                 onClick={goBack}
-                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
+                                className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md w-full"
                             >
-                                <GoHome className="size-4" />
-                                Back
+                                <FaArrowLeftLong className="size-4" />
+                                Volver
                             </button>
                         </li>
                         <li>
@@ -137,7 +139,8 @@ const Sidebar = () => {
                             href="#"
                             className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                             >
-                                Por usuarios
+                                <FaUser className="size-4" />
+                                Usuario individual
                             </a>
                         </li>
                         <li>
@@ -145,7 +148,8 @@ const Sidebar = () => {
                             href="#"
                             className="flex items-center gap-3 p-3 pl-10 hover:bg-neutral-600 dark:hover:bg-neutral-700 transition-all duration-200 font-normal text-md"
                             >
-                                Todos
+                                <FaUsers className="size-4" />
+                                Todos los usuarios
                             </a>
                         </li>
                     </ul>
