@@ -58,7 +58,7 @@ const InicioSesionUsuario = () => {
             <img
               src="/favicon.svg"
               alt="Logo"
-              className="w-40"
+              className="w-64"
             />
           </div>
           <input
@@ -86,11 +86,6 @@ const InicioSesionUsuario = () => {
           </a>
 
           <br />
-
-          <span className="text-sm mt-2">¿Olvidaste tu contraseña?</span>
-          <a href="/reset-password" className="text-blue-400 text-sm hover:underline ml-2">
-            Recuperar contraseña
-          </a>
 
           <button
             type="submit"
