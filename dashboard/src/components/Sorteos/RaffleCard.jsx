@@ -35,7 +35,7 @@ const CardSorteo = (props) => {
     participantes = [],
   } = SorteoSchema.parse(props);
 
-  const { eliminarSorteo, asignarPremio } = useSorteos();
+  const { eliminarSorteo, seleccionarGanador } = useSorteos();
   const [showModal, setShowModal] = useState(false);
 
   const formatDate = (fecha) =>
@@ -47,9 +47,11 @@ const CardSorteo = (props) => {
   };
 
   const handleSeleccionarGanador = async () => {
-    const success = await asignarPremio(id, "ganador");
+    const success = await seleccionarGanador(id);
     if (success) window.location.reload();
   };
+
+  
 
   return (
     <div className="bg-gradient-to-br from-neutral-600 to-neutral-500 dark:from-neutral-900 dark:to-neutral-800 hover:-translate-y-1 shadow-lg transition-transform duration-300 text-white rounded-lg p-6 flex flex-col gap-4">

@@ -219,6 +219,38 @@ export const useSorteos = () => {
     }
   };
 
+  const seleccionarGanador = async (id) => {
+    try {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="))
+        ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/sorteos_seleccionar_ganador/${id}/`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.ok) {
+        toast.success("Ganador seleccionado con éxito");
+        fetchSorteos();
+        return true;
+      } else {
+        toast.error("Error al seleccionar el ganador");
+        return false;
+      }
+    } catch (err) {
+      toast.error("Error al seleccionar el ganador: " + err.message);
+      return false;
+    }
+  };
+
   useEffect(() => {
     fetchSorteos();
   }, []);
@@ -231,5 +263,6 @@ export const useSorteos = () => {
     eliminarSorteo,
     obtenerSorteoPorId,
     asignarPremio,
+    seleccionarGanador,
   };
 };
