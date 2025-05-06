@@ -37,7 +37,6 @@ const CardSorteo = (props) => {
 
   const { eliminarSorteo, seleccionarGanador } = useSorteos();
   const [showModal, setShowModal] = useState(false);
-
   const formatDate = (fecha) =>
     format(new Date(fecha), "dd/MM/yyyy", { locale: es });
 
@@ -46,10 +45,9 @@ const CardSorteo = (props) => {
     if (success) window.location.reload();
   };
 
-  const handleSeleccionarGanador = async () => {
-    const success = await seleccionarGanador(id);
-    if (success) window.location.reload();
-  };
+const handleSeleccionarGanador = async () => {
+  seleccionarGanador(id);
+};
 
   return (
     <>

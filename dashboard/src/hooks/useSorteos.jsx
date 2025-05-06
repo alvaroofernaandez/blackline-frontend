@@ -2,6 +2,7 @@ import { navigate } from "astro/virtual-modules/transitions-router.js";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import confetti from "canvas-confetti";
 
 const sorteoSchema = z.object({
   id: z.string(),
@@ -238,7 +239,26 @@ export const useSorteos = () => {
       );
 
       if (res.ok) {
-        toast.success("Ganador seleccionado con éxito");
+        const { ganador } = await res.json();
+        toast.success(`Ganador seleccionado con éxito: ${ganador}`);
+      
+        confetti({
+          particleCount: 150,
+          spread: 120,
+          angle: 60,
+          origin: { x: 0, y: 0.6 },
+        });
+        confetti({
+          particleCount: 150,
+          spread: 120,
+          angle: 120,
+          origin: { x: 1, y: 0.6 },
+        });
+      
+        setTimeout(() => {
+          navigate("/sorteos");
+        }, 1200);
+      
         fetchSorteos();
         return true;
       } else {

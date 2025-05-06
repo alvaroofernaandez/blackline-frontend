@@ -17,6 +17,7 @@
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "astro": "^5.7.5",
+    "canvas-confetti": "^1.9.3",
     "date-fns": "^4.1.0",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
