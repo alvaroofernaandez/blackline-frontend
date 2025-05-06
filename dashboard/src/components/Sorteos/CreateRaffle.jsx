@@ -77,6 +77,7 @@ const CrearSorteo = () => {
         <input
           type="text"
           id="titulo"
+          placeholder="Escribe el título aquí..."
           value={formData.titulo}
           onChange={handleChange}
           className="border border-gray-300 p-2 rounded-lg text-black w-full mb-4"
@@ -89,6 +90,7 @@ const CrearSorteo = () => {
         <textarea
           id="descripcion"
           value={formData.descripcion}
+          placeholder="Escribe la descripción aquí..."
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
@@ -101,6 +103,7 @@ const CrearSorteo = () => {
           type="date"
           id="fecha_fin"
           value={formData.fecha_fin}
+          placeholder="Fecha de fin, formato: YYYY-MM-DD"
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
@@ -113,6 +116,7 @@ const CrearSorteo = () => {
           id="premios"
           value={formData.premios}
           onChange={handleChange}
+          placeholder="Escribe los premios aquí..."
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         ></textarea>
 

@@ -56,6 +56,7 @@ const CrearDiseño = () => {
           type="text"
           id="titulo"
           name="titulo"
+          placeholder="Escribe el título aquí..."
           value={formData.titulo}
           onChange={handleChange}
           className="border border-gray-300 p-2 rounded-lg text-black w-full mb-4"
@@ -68,6 +69,7 @@ const CrearDiseño = () => {
         <textarea
           id="descripcion"
           name="descripcion"
+          placeholder="Escribe la descripción aquí..."
           value={formData.descripcion}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
@@ -81,6 +83,7 @@ const CrearDiseño = () => {
           type="text"
           id="precio"
           name="precio"
+          placeholder="Escribe el precio aquí..."
           value={formData.precio}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
@@ -93,6 +96,7 @@ const CrearDiseño = () => {
           type="text"
           id="image"
           name="image"
+          placeholder="Escribe la URL de la imagen aquí..."
           value={formData.image}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
@@ -105,6 +109,7 @@ const CrearDiseño = () => {
           type="number"
           id="alto"
           name="alto"
+          placeholder="Escribe el alto aquí..."
           value={formData.alto}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
@@ -118,6 +123,7 @@ const CrearDiseño = () => {
           type="number"
           id="ancho"
           name="ancho"
+          placeholder="Escribe el ancho aquí..."
           value={formData.ancho}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
@@ -131,6 +137,7 @@ const CrearDiseño = () => {
           type="number"
           id="duracion"
           name="duracion"
+          placeholder="Escribe la duración aquí..."
           value={formData.duracion}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"

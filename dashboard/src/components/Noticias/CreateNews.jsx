@@ -35,6 +35,7 @@ const AnadirNoticia = () => {
         <input
           type="text"
           id="titulo"
+          placeholder="Escribe el título..."
           name="titulo"
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
@@ -46,6 +47,7 @@ const AnadirNoticia = () => {
         <textarea
           id="descripcion"
           name="descripcion"
+          placeholder="Escribe la descripción..."
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         ></textarea>
@@ -56,6 +58,7 @@ const AnadirNoticia = () => {
         <input
           type="text"
           id="imagen"
+          placeholder="Escribe la URL de la imagen..."
           name="imagen"
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         />
