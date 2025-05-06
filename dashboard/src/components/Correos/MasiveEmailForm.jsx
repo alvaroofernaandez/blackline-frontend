@@ -29,6 +29,7 @@ const MasiveEmailForm = () => {
         <input
           type="text"
           id="asunto"
+          placeholder="Escribe el asunto..."
           name="asunto"
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
@@ -39,6 +40,7 @@ const MasiveEmailForm = () => {
         </label>
         <textarea
           id="mensaje"
+          placeholder="Escribe el mensaje..."
           name="mensaje"
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
@@ -46,6 +48,7 @@ const MasiveEmailForm = () => {
 
         <button
           type="submit"
+          aria-label="Enviar correo masivo"
           className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all mt-10 w-full"
           disabled={cargando}
         >

@@ -6,7 +6,7 @@ import { navigate } from "astro/virtual-modules/transitions-router.js";
 export const useCorreos = () => {
   const [loading, setLoading] = useState(false);
 
-  const enviarCorreosMasivos = async ({ asunto, mensaje }) => {
+  const enviarCorreosMasivos = async ({ asunto, mensaje, nombre }) => {
     try {
       setLoading(true);
       const token = document.cookie
@@ -21,7 +21,7 @@ export const useCorreos = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ asunto, mensaje }),
+        body: JSON.stringify({ asunto, mensaje, nombre }),
       });
 
       if (res.ok) {
@@ -40,7 +40,7 @@ export const useCorreos = () => {
     }
   };
 
-  const enviarCorreoPersonalizado = async ({ correo, asunto, mensaje }) => {
+  const enviarCorreoPersonalizado = async ({ correo, asunto, mensaje, nombre }) => {
     try {
       setLoading(true);
       const token = document.cookie
@@ -55,7 +55,7 @@ export const useCorreos = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ correo, asunto, mensaje }),
+        body: JSON.stringify({ correo, asunto, mensaje, nombre }),
       });
 
       if (res.ok) {

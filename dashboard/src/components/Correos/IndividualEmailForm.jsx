@@ -10,6 +10,7 @@ const IndividualEmailForm = () => {
     setCargando(true);
 
     const correoData = {
+      nombre: e.target.nombre.value,
       correo: e.target.correo.value,
       asunto: e.target.asunto.value,
       mensaje: e.target.mensaje.value,
@@ -28,6 +29,18 @@ const IndividualEmailForm = () => {
         onSubmit={enviar}
         className="max-w-[90%] md:max-w-[70%] lg:max-w-[30%] mx-auto mt-20"
       >
+        <label htmlFor="nombre" className="block mb-2">
+          Nombre:
+        </label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          placeholder="Escribe el nombre..."
+          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
+        />
+
         <label htmlFor="correo" className="block mb-2">
           Correo:
         </label>
@@ -47,6 +60,7 @@ const IndividualEmailForm = () => {
           type="text"
           id="asunto"
           name="asunto"
+          placeholder="Escribe el asunto..."
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         />
@@ -57,6 +71,7 @@ const IndividualEmailForm = () => {
         <textarea
           id="mensaje"
           name="mensaje"
+          placeholder="Escribe el mensaje..."
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required
         ></textarea>
