@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useCitasStore } from '../../stores/citasStore';
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
@@ -13,6 +13,8 @@ const FormPideCita = () => {
     notes: '',
   });
 
+  const [tramosHorarios, setTramosHorarios] = useState([]);
+
   const user = useAuthStore((state) => state.user);
   const token = useAuthStore((state) => state.token);
   const design = useCitasStore((state) => state.selectedDesign);
@@ -21,6 +23,37 @@ const FormPideCita = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  const fetchTramosHorarios = async (e) => {
+    const selectedDate = e.target.value;
+    console.log(selectedDate); 
+    const res = await fetch(`http://localhost:8000/api/citas_tramo_horario/?fecha=${selectedDate}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) throw new Error('Error al obtener tramos horarios');
+    const data = await res.json();
+    setTramosHorarios(data); 
+  }
+
+  useEffect(() => {
+    if (!tramosHorarios || Object.keys(tramosHorarios).length === 0) return;
+    const select = document.querySelector('select[name="time"]');
+    select.value = '0'; 
+    const Opciones = document.querySelectorAll('select[name="time"] option');
+    Opciones.forEach((opcion) => {
+      const id = opcion.value;
+      if (tramosHorarios.hasOwnProperty(id) && tramosHorarios[id] === false || id == 0) {
+        opcion.disabled = true;
+      } else {
+        opcion.disabled = false;
+      }
+    });
+  }, [tramosHorarios]);
+  
 
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
@@ -122,21 +155,29 @@ const FormPideCita = () => {
                     type="date"
                     name="date"
                     value={formData.date}
-                    onChange={handleChange}
+                    onChange={()=>{
+                      handleChange(event);
+                      fetchTramosHorarios(event);
+                      disableTramosHorarios(event);
+                    }}
                     required
                     className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md"
                   />
                 </label>
                 <label className="block">
                   <span className="block text-sm font-medium text-neutral-400">Hora:</span>
-                  <input
-                    type="time"
-                    name="time"
-                    value={formData.time}
-                    onChange={handleChange}
-                    required
-                    className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md"
-                  />
+                  <select className='w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md' 
+                  name="time"  
+                  value={formData.time} 
+                  onChange={()=>{
+                      handleChange(event);;
+                    }} required>
+                    <option value="0" disabled >Selecciona una hora</option>
+                    <option value="1">09:00-11:00</option>
+                    <option value="2">11:00-13:00</option>
+                    <option value="3">15:00-17:00</option>
+                    <option value="4">17:00-19:00</option>
+                  </select>
                 </label>
               </div>
               <div className="flex justify-between mt-6">
