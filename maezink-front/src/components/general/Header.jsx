@@ -1,7 +1,14 @@
 import { useState } from 'react';
-import { FaUser, FaBars, FaTimes } from "react-icons/fa";
-import { useAuthStore } from '../../stores/authStore'; // Adjust the path if necessary
+import { FaBars, FaTimes } from "react-icons/fa";
+import { useAuthStore } from '../../stores/authStore'; 
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
+
+import { GoHome } from "react-icons/go";
+import { LuNewspaper } from "react-icons/lu";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { BsGift } from "react-icons/bs";
+import { HiOutlinePaintBrush } from "react-icons/hi2";
+
 
 const Header = () => {
   const { isLoggedIn, user, logout } = useAuthStore();
@@ -22,62 +29,70 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed z-20 flex justify-between md:justify-center items-center w-full mt-5 px-4">
-      <div className="bg-neutral-800 rounded-xl w-auto h-auto border border-[#222221] shadow-lg shadow-black/50 backdrop-blur-3xl bg-opacity-30">
+    <header className="fixed z-20 flex justify-between md:justify-center items-center w-full">
+      <div className="bg-neutral-900 flex items-center md:justify-center gap-3 border-b border-b-neutral-600 w-screen h-24 backdrop-blur bg-opacity-30">
         <button
-          className="text-white text-2xl md:hidden p-2"
+          className="text-white text-2xl md:hidden ml-2 p-2"
           onClick={handleMobileMenuToggle}
         >
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
+        <a href="/">          
+          <img src="/favicon.svg" alt="logo" className='size-20 hover:scale-105 transition-transform duration-500 cursor-pointer' />
+        </a>
         <ul
           className={`${
             isMobileMenuOpen ? 'block' : 'hidden'
-          } md:flex flex-col md:flex-row place-content-center p-4 text-white text-lg md:text-sm lg:text-sm`}
+          } justify-items-center md:flex justify-center items-center p-4 gap-5 text-white text-lg md:text-sm lg:text-sm md:static absolute top-24 left-0 w-full bg-neutral-800/80 animate-fade-in md:backdrop-blur-none md:bg-transparent`}
         >
-          <li className="hover:-translate-y-1 transition-all duration-200">
+          <li>
             <a
-              className="hover:bg-neutral-600 rounded-xl hover:font-bold transition-all ease-in-out duration-600 p-2 sm:p-4"
+              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
               href="/"
             >
+              <GoHome className="inline-block size-5" />
               Inicio
             </a>
           </li>
-          <li className="hover:-translate-y-1 transition-all duration-200">
+          <li>
             <a
-              className="hover:bg-neutral-600 rounded-xl hover:font-bold transition-all ease-in-out duration-600 p-2 sm:p-4"
+              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
               href="/noticiero"
             >
+              <LuNewspaper className="inline-block size-5" />
               Noticiero
             </a>
           </li>
-          <li className="hover:-translate-y-1 transition-all duration-200">
+          <li>
             <a
-              className="hover:bg-neutral-600 rounded-xl hover:font-bold transition-all ease-in-out duration-600 p-2 sm:p-4"
+              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
               href="/pidetucita"
             >
+              <FaRegCalendarAlt className="inline-block size-5" />
               Pide tu cita
             </a>
           </li>
-          <li className="hover:-translate-y-1 transition-all duration-200">
+          <li>
             <a
-              className="hover:bg-neutral-600 rounded-xl hover:font-bold transition-all ease-in-out duration-600 p-2 sm:p-4"
+              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
               href="/sorteos"
             >
+              <BsGift className="inline-block size-5" />
               Sorteos
             </a>
           </li>
-          <li className="hover:-translate-y-1 transition-all duration-200">
+          <li>
             <a
-              className="hover:bg-neutral-600 rounded-xl hover:font-bold transition-all ease-in-out duration-600 p-2 sm:p-4"
+              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
               href="/diseños"
             >
+              <HiOutlinePaintBrush className="inline-block size-5" />
               Diseños
             </a>
           </li>
         </ul>
       </div>
-      <div className="absolute top-0 right-0 mr-5 md:mt-2 font-base underline transition-all duration-200 rounded-xl w-auto h-auto text-white flex items-center">
+      <div className="absolute top-0 right-0 mr-5 mt-7 font-baserounded-xl w-auto h-auto text-white flex items-center">
         {isLoggedIn ? (
           <div className="relative">
             <button onClick={handleMenuToggle} className="flex items-center focus:outline-none">
@@ -87,14 +102,14 @@ const Header = () => {
                 className="w-10 h-10 rounded-full"
               />
             </button>
-            <div className={`absolute right-0 mt-2 w-48 bg-neutral-900 shadow-lg ${isMenuOpen ? 'block' : 'hidden'}`}>
+            <div className={`absolute right-0 mt-2 w-48 bg-neutral-900 bg-opacity-30 border border-neutral-700 backdrop-blur shadow-lg ${isMenuOpen ? 'block' : 'hidden'}`}>
               <ul className="text-sm text-white">
                 <li className="px-4 py-2 text-neutral-400">Bienvenid@, {user?.username || user?.email || 'Invitado'}</li>
                 <hr/>
-                <li className="hover:bg-neutral-600 px-4 py-2">
+                <li className="hover:bg-neutral-600 items-center px-4 py-2">
                   <button onClick={() => navigate("/perfil")} className='w-full text-left'>Ajustes de cuenta</button>
                 </li>
-                <li className="hover:bg-neutral-600 px-4 py-2">
+                <li className="hover:bg-neutral-600 items-center px-4 py-2">
                   <button onClick={handleLogout} className="w-full text-left">Cerrar sesión</button>
                 </li>
               </ul>
