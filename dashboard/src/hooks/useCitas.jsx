@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import { useUsuarios } from "./useUsuarios"; 
+import { useUsuarios } from "./useUsuarios";
 
 const citaSchema = z.object({
   id: z.number().optional(),
-  diseño: z.number().optional(),
+  design: z.number().nullable().optional(),
   fecha: z.string().refine((fecha) => !isNaN(Date.parse(fecha)), {
     message: "La fecha debe ser válida.",
   }),
-  hora: z.string().refine((hora) => /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/.test(hora), {
-    message: "La hora debe ser válida (HH:mm:ss).",
+  hora: z.enum(["1", "2", "3", "4"], {
+    message: "La hora debe ser un valor entre 1 y 4.",
   }),
   estado: z.string().min(1, "El estado es obligatorio."),
-  descripcion: z.string().min(1, "La descripción es obligatoria."),
-  fecha_creacion: z.string().optional(),
+  descripcion: z.string().optional(),
   solicitante: z.number().min(1, "El solicitante debe ser un número positivo."),
 });
 
 export const useCitas = () => {
   const [citas, setCitas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { usuarios } = useUsuarios(); 
+  const { usuarios } = useUsuarios();
 
   const fetchCitas = async () => {
     try {
@@ -44,6 +43,16 @@ export const useCitas = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const obtenerRangoHora = (hora) => {
+    const rangos = {
+      "1": "09:00 - 11:00",
+      "2": "11:00 - 13:00",
+      "3": "15:00 - 17:00",
+      "4": "17:00 - 19:00",
+    };
+    return rangos[hora] || "Hora no válida";
   };
 
   const obtenerNombreSolicitante = (solicitanteId) => {
@@ -193,6 +202,7 @@ export const useCitas = () => {
     actualizarCita,
     eliminarCita,
     obtenerCitaPorId,
-    obtenerNombreSolicitante, 
+    obtenerNombreSolicitante,
+    obtenerRangoHora,
   };
 };

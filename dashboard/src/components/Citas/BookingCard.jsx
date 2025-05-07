@@ -2,29 +2,16 @@ import { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { GrDocumentPdf } from "react-icons/gr";
-import { z } from "zod";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import Modal from "../General/Modal";
 import { useCitas } from "../../hooks/useCitas";
+import { useFacturas } from "../../hooks/useFacturas";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 
-const CitaSchema = z.object({
-  id: z.number(),
-  diseño: z.number().optional(),
-  fecha: z.string(),
-  hora: z.string(),
-  estado: z.string(),
-  descripcion: z.string(),
-  fecha_creacion: z.string().optional(),
-  solicitante: z.number(),
-});
-
-const BookingCard = (props) => {
-  const { id, diseño, fecha, hora, estado, descripcion, solicitante } =
-    CitaSchema.parse(props);
-
-  const { eliminarCita, obtenerNombreSolicitante } = useCitas();
+const BookingCard = ({ id, design, fecha, hora, estado, descripcion, solicitante }) => {
+  const { eliminarCita, obtenerNombreSolicitante, obtenerRangoHora } = useCitas();
+  const { crearFactura } = useFacturas(); 
   const [showModal, setShowModal] = useState(false);
 
   const formatDate = (fecha) =>
@@ -40,6 +27,20 @@ const BookingCard = (props) => {
     }
   };
 
+  const handleCrearFactura = async () => {
+    const factura = {
+      cliente: solicitante,
+      cita: id,
+      fecha_emision: new Date().toISOString(),
+      total: "0.00", 
+    };
+
+    const success = await crearFactura(factura);
+    if (success) {
+      navigate("/facturas");
+    }
+  };
+
   return (
     <>
       <div className="bg-gradient-to-br from-neutral-600 to-neutral-500 dark:from-neutral-900 dark:to-neutral-800 hover:-translate-y-1 shadow-lg transition-transform duration-300 text-white rounded-lg p-6 flex flex-col gap-4">
@@ -51,7 +52,7 @@ const BookingCard = (props) => {
             <span className="text-gray-200">{formatDate(fecha)}</span>
           </p>
           <p>
-            Hora: <span className="text-gray-200">{hora}</span>
+            Hora: <span className="text-gray-200">{obtenerRangoHora(hora)}</span>
           </p>
           <p>
             Estado:{" "}
@@ -66,24 +67,30 @@ const BookingCard = (props) => {
           <p>
             Diseño:{" "}
             <span className="text-gray-200">
-              {diseño ? `Diseño #${diseño}` : "No asignado"}
+              {design ? `Diseño #${design}` : "No asignado"}
             </span>
           </p>
         </div>
         <div className="flex gap-2 mt-4">
           <button
+            type="button"
+            aria-label="Editar cita"
             onClick={() => navigate(`/actualizar-cita/${id}`)}
             className="flex-1 bg-neutral-500 hover:bg-neutral-400 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
           >
             <AiFillEdit />
           </button>
           <button
-            onClick={() => navigate('/facturas')}
+            type="button"
+            aria-label="Realizar factura"
+            onClick={handleCrearFactura} 
             className="flex-1 bg-red-500 hover:bg-red-600 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
           >
             <GrDocumentPdf />
           </button>
           <button
+            type="button"
+            aria-label="Eliminar cita"
             onClick={() => setShowModal(true)}
             className="flex-1 bg-neutral-700 hover:bg-neutral-600 transition-colors duration-300 text-white py-2 rounded-md flex items-center justify-center"
           >
