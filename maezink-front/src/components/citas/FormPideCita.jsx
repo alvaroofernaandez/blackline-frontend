@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useCitasStore } from '../../stores/citasStore';
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
+import { toast } from 'sonner';
 
 const FormPideCita = () => {
+  const user = useAuthStore((state) => state.user);
+  const token = useAuthStore((state) => state.token);
+  const design = useCitasStore((state) => state.selectedDesign);
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    name: user?.username || '',
+    email: user?.email || '',
     date: '',
     time: '',
     notes: '',
   });
 
   const [tramosHorarios, setTramosHorarios] = useState([]);
-
-  const user = useAuthStore((state) => state.user);
-  const token = useAuthStore((state) => state.token);
-  const design = useCitasStore((state) => state.selectedDesign);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +38,22 @@ const FormPideCita = () => {
     if (!res.ok) throw new Error('Error al obtener tramos horarios');
     const data = await res.json();
     setTramosHorarios(data); 
-  }
+  };
+
+  const handleDateChange = (e) => {
+    const dateStr = e.target.value;
+    const date = new Date(dateStr);
+    const day = date.getDay(); 
+  
+    if (day === 0 || day === 6) {
+      toast.warning('No se pueden seleccionar citas para fines de semana');
+      setFormData({ ...formData, date: '' }); 
+      return;
+    }
+  
+    handleChange(e);
+    fetchTramosHorarios(e);
+  };
 
   useEffect(() => {
     if (!tramosHorarios || Object.keys(tramosHorarios).length === 0) return;
@@ -80,8 +96,10 @@ const FormPideCita = () => {
       });
 
       if (!res.ok) throw new Error('Error al enviar la cita');
-      alert('Cita enviada con éxito');
-      navigate('/citas'); 
+      toast.loading('Cita enviada con éxito. Redireccionando...');
+      setTimeout(() => {
+        navigate('/');
+      }, 1800);
     } catch (error) {
       console.error('Error al enviar cita:', error);
       alert('Hubo un error al enviar la cita');
@@ -118,6 +136,7 @@ const FormPideCita = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
+                    disabled
                     className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md"
                   />
                 </label>
@@ -129,6 +148,7 @@ const FormPideCita = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
+                    disabled
                     className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md"
                   />
                 </label>
@@ -155,10 +175,9 @@ const FormPideCita = () => {
                     type="date"
                     name="date"
                     value={formData.date}
-                    onChange={()=>{
-                      handleChange(event);
-                      fetchTramosHorarios(event);
-                      disableTramosHorarios(event);
+                    onChange={(event) => {
+                      handleDateChange(event);
+                      
                     }}
                     required
                     className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md"
