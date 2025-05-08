@@ -38,7 +38,7 @@ const Home = () => {
         ]);
 
         setSorteos(sorteosData.slice(0, 2));
-        setNoticias(noticiasData.slice(0, 5));
+        setNoticias(noticiasData.slice(0, 4));
       } catch (error) {
         toast.error("Error al cargar los datos");
       }
@@ -53,7 +53,7 @@ const Home = () => {
     <div className="dark:bg-neutral-900 animate-slide-in-top duration-300 bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between">
       <div>
         <h3 className="text-xl font-semibold mb-4 text-neutral-500 dark:text-white">{title}</h3>
-        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
+        <div className="grid gap-4 justify-center lg:justify-start grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
           {children}
         </div>
       </div>
@@ -95,21 +95,31 @@ const Home = () => {
     </div>
   );
 
-  const NoticiaMiniCard = ({ noticia }) => (
-    <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
-      <img
-        src={noticia.imagen}
-        alt={noticia.titulo}
-        className="w-full h-32 object-cover rounded mb-2"
-        loading="lazy"
-      />
-      <h4 className="font-bold dark:text-white text-gray-700">{noticia.titulo}</h4>
-      <p className="text-sm dark:text-gray-300 text-gray-500">{noticia.descripcion}</p>
-      <p className="text-xs text-gray-400 mt-1">
-        {new Date(noticia.fecha).toLocaleDateString()}
-      </p>
-    </div>
-  );
+  const NoticiaMiniCard = ({ noticia }) => {
+    const truncateText = (text, maxLength) => {
+      return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    };
+
+    return (
+      <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
+        <img
+          src={noticia.imagen}
+          alt={noticia.titulo}
+          className="w-full h-36 object-cover rounded mb-2"
+          loading="lazy"
+        />
+        <h4 className="font-bold dark:text-white text-gray-700">
+          {truncateText(noticia.titulo, 25)}
+        </h4>
+        <p className="text-sm dark:text-gray-300 text-gray-500">
+          {truncateText(noticia.descripcion, 35)}
+        </p>
+        <p className="text-xs text-gray-400 mt-1">
+          {new Date(noticia.fecha).toLocaleDateString()}
+        </p>
+      </div>
+    );
+  };
 
   return (
     <div className="p-8 text-white ">  
@@ -135,7 +145,7 @@ const Home = () => {
         </Card>
       </div>
 
-      <div className="">
+      <div> 
         <Card title="Noticias" path="/noticias">
           {noticias.map((n) => (
             <NoticiaMiniCard key={n.id} noticia={n} />
