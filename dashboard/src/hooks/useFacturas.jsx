@@ -50,7 +50,7 @@ export const useFacturas = () => {
         ?.split("=")[1];
       if (!token) throw new Error("Token no encontrado");
 
-      window.location.href = `http://localhost:8000/api/detalle_facturas/?id=${id}`;
+      window.location.href = `http://127.0.0.1:8000/api/detalle_facturas/?id=${id}`;
     } catch (err) {
       toast.error("No se pudo redirigir a la factura.");
     }
