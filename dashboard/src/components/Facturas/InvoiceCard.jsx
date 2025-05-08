@@ -16,26 +16,7 @@ const InvoiceCard = (props) => {
   };
 
   const handleDescargarFactura = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/api/detalle_facturas/?id=${id}`);
-      if (!response.ok) {
-        throw new Error("Error al obtener los detalles de la factura");
-      }
-      const htmlContent = await response.text();
-
-      const jsPDF = (await import("jspdf")).default;
-      const doc = new jsPDF();
-
-      doc.html(htmlContent, {
-        callback: (doc) => {
-          doc.save(`factura_${id}.pdf`);
-        },
-        x: 10,
-        y: 10,
-      });
-    } catch (error) {
-      console.error("Error al descargar la factura:", error);
-    }
+    alert("Descargando factura...");
   };
 
   return (

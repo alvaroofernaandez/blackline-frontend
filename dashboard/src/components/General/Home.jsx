@@ -38,7 +38,7 @@ const Home = () => {
         ]);
 
         setSorteos(sorteosData.slice(0, 2));
-        setNoticias(noticiasData.slice(0, 4));
+        setNoticias(noticiasData.slice(0, 5));
       } catch (error) {
         toast.error("Error al cargar los datos");
       }
@@ -53,7 +53,7 @@ const Home = () => {
     <div className="dark:bg-neutral-900 bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between">
       <div>
         <h3 className="text-xl font-semibold mb-4 text-neutral-500 dark:text-white">{title}</h3>
-        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
           {children}
         </div>
       </div>
@@ -123,7 +123,7 @@ const Home = () => {
           {loading ? (
             <p>Cargando...</p>
           ) : (
-            citas.map((c) => (
+            citas.slice(0, 2).map((c) => (
               <CitaMiniCard key={c.id} cita={c} />
             ))
           )}
