@@ -35,12 +35,12 @@ const { title } = Astro.props;
     <title>Tattoo Studio - {title}</title>
   </head>
 
-  <body class="bg-neutral-800 overflow-x-hidden grid min-h-screen grid-rows-[auto_1fr_auto] text-white">
+  <body class="bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-800 overflow-x-hidden grid min-h-screen grid-rows-[auto_1fr_auto] text-white">
     <AuthGuard client:only="react" />
     <Header client:only="react" />
     <main>
       <slot />
-      <Toaster position='top-left' richColors client:only="react"/>
+      <Toaster position='bottom-right' richColors style={{ marginBottom: '150px' }} client:only="react"/>
     </main>
     <Footer />
   </body>  

@@ -10,7 +10,8 @@ const SorteosInactivos = () => {
             <img 
                 alt='Gato' 
                 src="/gato.png" 
-                className="w-full max-w-xs mx-auto" 
+                className="w-full max-w-xs mx-auto animate-slide-in-top duration-200" 
+                loading="lazy"
             />
         </div>
     );

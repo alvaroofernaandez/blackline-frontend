@@ -3,6 +3,7 @@ import Noticia from './Noticia';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { z } from 'zod';
+import { toast } from 'sonner';
 
 const noticiasPorPagina = 2;
 
@@ -25,16 +26,23 @@ const Noticiero = () => {
     useEffect(() => {
         const fetchNoticias = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/noticias');
-                const data = await response.json();
+            const token = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith("accessToken="))
+                ?.split("=")[1];
+            if (!token) throw new Error("Token no encontrado");
 
-                const noticiasValidadas = data.map((noticia) => {
-                    return noticiaSchema.parse(noticia);
-                });
-
-                setNoticias(noticiasValidadas);
-            } catch (error) {
-                console.error('Error al obtener las noticias:', error);
+            const res = await fetch("http://127.0.0.1:8000/api/noticias", {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const raw = await res.json();
+            const validadas = raw.map((n) => noticiaSchema.parse(n));
+            if (validadas.length === 0) {
+                toast.info("No hay noticias disponibles");
+            }
+            setNoticias(validadas);
+            } catch (err) {
+            toast.error("Error al cargar las noticias");
             }
         };
         fetchNoticias();
