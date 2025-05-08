@@ -37,17 +37,17 @@ const Header = () => {
         >
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
-        <a href="/">          
-          <img src="/favicon.svg" alt="logo" className='size-20 hover:scale-105 transition-transform duration-500 cursor-pointer' />
-        </a>
         <ul
           className={`${
             isMobileMenuOpen ? 'block' : 'hidden'
-          } justify-items-center md:flex justify-center items-center p-4 gap-5 text-white text-lg md:text-sm lg:text-sm md:static absolute top-24 left-0 w-full bg-neutral-800/80 animate-fade-in md:backdrop-blur-none md:bg-transparent`}
+          } justify-items-center md:flex justify-center items-center p-4 gap-5 md:gap-2 text-white md:static absolute top-24 left-0 w-full bg-neutral-800/80 animate-fade-in md:backdrop-blur-none md:bg-transparent`}
         >
+        <a href="/">          
+          <img src="/favicon.svg" alt="logo" className='size-20 hover:scale-105 transition-transform duration-500 cursor-pointer mr-5' />
+        </a>
           <li>
             <a
-              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
+              className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/"
             >
               <GoHome className="inline-block size-5" />
@@ -56,7 +56,7 @@ const Header = () => {
           </li>
           <li>
             <a
-              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
+              className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/noticiero"
             >
               <LuNewspaper className="inline-block size-5" />
@@ -65,7 +65,7 @@ const Header = () => {
           </li>
           <li>
             <a
-              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
+              className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/pidetucita"
             >
               <FaRegCalendarAlt className="inline-block size-5" />
@@ -74,7 +74,7 @@ const Header = () => {
           </li>
           <li>
             <a
-              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
+              className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/sorteos"
             >
               <BsGift className="inline-block size-5" />
@@ -83,7 +83,7 @@ const Header = () => {
           </li>
           <li>
             <a
-              className="flex items-center gap-2 p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base border-transparent transition-all duration-300"
+              className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/diseños"
             >
               <HiOutlinePaintBrush className="inline-block size-5" />
