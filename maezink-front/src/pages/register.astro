@@ -1,19 +1,18 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import FormularioRegistro from "../sections/auth/FormularioRegistro.astro";
 
 
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <ClientRouter />
+    <title>Registro de usuario</title>
 </head>
-<body class="bg-neutral-900" style="background-image: url('bg.avif'); background-size: cover; background-position: center; background-color: rgba(0, 0, 0, 0.8 ); background-blend-mode: overlay;">
+<body class="bg-neutral-950 bg-cover bg-center bg-black/80 bg-blend-overlay animate-blurred-fade-in">
+    <img src="/bg.avif" alt="" loading="lazy" class="absolute inset-0 opacity-20 object-cover w-full h-full -z-10" />
     <main>
         <FormularioRegistro />
     </main>

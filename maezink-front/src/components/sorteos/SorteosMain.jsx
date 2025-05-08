@@ -12,7 +12,7 @@ useEffect(() => {
 }, [fetchSorteos]);
 
 return (
-    <div className="mt-5">
+    <div className="mt-5 animate-fade-in-down">
     {sorteosActivos.length > 0 ? (
         <SorteosActivos sorteos={sorteosActivos} />
     ) : (

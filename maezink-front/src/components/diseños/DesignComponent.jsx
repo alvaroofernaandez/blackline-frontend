@@ -60,7 +60,7 @@ const DesignComponent = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-right">
         {designs.slice(0, visibleCount).map((design) => (
           <CardDiseños
             key={design.id}

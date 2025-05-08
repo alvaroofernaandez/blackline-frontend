@@ -95,7 +95,7 @@ const RegistroUsuario = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='animate-delay-400 animate-fade-in-right'>
       <div className="flex items-center justify-center">
         <div className="w-96 p-8 text-white">
           <h1 className="titleMarta2 text-2xl text-center m-6">Registro de usuario</h1>

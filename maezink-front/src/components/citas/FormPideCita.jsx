@@ -102,7 +102,7 @@ const FormPideCita = () => {
       }, 1800);
     } catch (error) {
       console.error('Error al enviar cita:', error);
-      alert('Hubo un error al enviar la cita');
+      toast.error('Error al enviar la cita. Por favor, inténtalo de nuevo.');
     }
   };
 
@@ -110,7 +110,7 @@ const FormPideCita = () => {
 
   return (
     <div className="flex items-center justify-center text-white">
-      <div className="w-full bg-neutral-900 mt-10 p-8 rounded-xl shadow-lg max-w-xl">
+      <div className="w-full bg-neutral-900 mt-10 p-8 rounded-xl shadow-lg animate-fade-in animate-delay-200">
         <h2 className="text-3xl font-bold text-center mb-6">Pide tu cita</h2>
         <div className="w-full bg-neutral-700 rounded-full h-2 mb-6">
           <div

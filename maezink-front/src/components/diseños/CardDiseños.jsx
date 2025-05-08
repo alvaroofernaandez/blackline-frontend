@@ -3,6 +3,7 @@ import { SlSizeFullscreen } from "react-icons/sl";
 import { IoTimeOutline } from "react-icons/io5";
 import { useCitasStore } from "../../stores/citasStore";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
+import Button from "../general/Button";
 
 const CardDiseños = ({ id, title, description, price, size, time, imageUrl }) => {
     const setSelectedDesign = useCitasStore((state) => state.setSelectedDesign);
@@ -50,14 +51,11 @@ const CardDiseños = ({ id, title, description, price, size, time, imageUrl }) =
                         <span>{time}</span>
                     </span>
                 </div>
-                <div className="flex mx-auto">
-                    <button
+                    <Button
+                        label="Reservar"
                         onClick={handleReservarClick}
-                        className="bg-neutral-900 p-2 rounded-lg hover:scale-105 hover:bg-neutral-700 transition-all duration-300 ease-in-out text-sm"
-                    >
-                        Reservar
-                    </button>
-                </div>
+                        className="mt-3"
+                    />
             </div>
         </div>
     );
