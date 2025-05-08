@@ -81,7 +81,6 @@ export const useFacturas = () => {
       });
 
       if (res.ok) {
-        toast.success("Factura creada con éxito");
         fetchFacturas();
         return true;
       } else {

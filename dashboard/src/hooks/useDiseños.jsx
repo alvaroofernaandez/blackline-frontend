@@ -48,7 +48,7 @@ export const useDiseños = () => {
         ?.split("=")[1];
       if (!token) throw new Error("Token no encontrado");
 
-      const res = await fetch(`http://127.0.0.1:8000/api/diseños/${id}/`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/diseño_por_id/${id}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +56,7 @@ export const useDiseños = () => {
 
       if (res.ok) {
         const datos = await res.json();
-        return diseñoSchema.parse(datos[0]);
+        return diseñoSchema.parse(datos);
       } else {
         throw new Error("Error al cargar el diseño.");
       }

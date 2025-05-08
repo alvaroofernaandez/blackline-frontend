@@ -11,6 +11,7 @@ const CrearDiseño = () => {
     image: "",
     alto: "",
     ancho: "",
+    duracion: "2",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -48,7 +49,7 @@ const CrearDiseño = () => {
 
   return (
     <div className="p-4">
-      <form onSubmit={enviar} className="max-w-[90%] md:max-w-[70%] lg:max-w-[30%] mx-auto mt-20">
+      <form onSubmit={enviar} className="max-w-[90%] md:max-w-[70%] lg:max-w-[30%] mx-auto mt-20 animate-fade-in">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>
@@ -125,20 +126,6 @@ const CrearDiseño = () => {
           name="ancho"
           placeholder="Escribe el ancho aquí..."
           value={formData.ancho}
-          onChange={handleChange}
-          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-          required
-        />
-
-        <label htmlFor="duracion" className="block mb-2">
-          Duracion (horas):
-        </label>
-        <input
-          type="number"
-          id="duracion"
-          name="duracion"
-          placeholder="Escribe la duración aquí..."
-          value={formData.duracion}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required

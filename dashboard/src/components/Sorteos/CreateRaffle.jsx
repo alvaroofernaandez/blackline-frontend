@@ -70,7 +70,7 @@ const CrearSorteo = () => {
 
   return (
     <div className="p-4">
-      <form onSubmit={enviar} className="max-w-[90%] md:max-w-[70%] lg:max-w-[30%] mx-auto mt-20">
+      <form onSubmit={enviar} className="max-w-[90%] md:max-w-[70%] lg:max-w-[30%] mx-auto mt-20 animate-fade-in">
         <label htmlFor="titulo" className="block mb-2">
           Título:
         </label>

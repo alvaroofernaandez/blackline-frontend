@@ -30,7 +30,7 @@ const EditarCita = ({ id }) => {
 
   return (
     <div className="p-4">
-      <form onSubmit={handleSubmit} className="max-w-[90%] md:max-w-[70%] lg:max-w-[30%] mx-auto mt-20">
+      <form onSubmit={handleSubmit} className="max-w-[90%] md:max-w-[70%] lg:max-w-[30%] mx-auto mt-20 animate-fade-in">
         <label htmlFor="fecha" className="block mb-2">Fecha:</label>
         <input
           type="date"

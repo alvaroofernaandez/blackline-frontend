@@ -2,8 +2,8 @@ import React from "react";
 
 const Modal = ({ setShowModal, eliminarObjeto, id }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="dark:bg-neutral-900 bg-neutral-600 shadow-lg shadow-neutral-700 rounded-lg p-6 w-96">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
+      <div className="dark:bg-gradient-to-tr dark:from-neutral-900 dark:to-neutral-800 bg-neutral-600 shadow-lg shadow-neutral-700 rounded-lg p-6 w-96 animate-zoom-in text-white">
         <h2 className="text-lg font-bold mb-4 text-center">Confirmar eliminación</h2>
         <hr className="dark:border-neutral-700 mb-6" />
 

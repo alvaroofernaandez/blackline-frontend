@@ -63,44 +63,6 @@ export const useUsuarios = () => {
     }
   };
 
-  const actualizarUsuario = async (id, usuario) => {
-    try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const validation = usuarioSchema.safeParse(usuario);
-      if (!validation.success) {
-        const errorMessages = validation.error.errors.map((err) => err.message);
-        errorMessages.forEach((msg) => toast.error(msg));
-        return false;
-      }
-
-      const res = await fetch(`http://127.0.0.1:8000/api/usuarios/${id}/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(validation.data),
-      });
-
-      if (res.ok) {
-        toast.success("Usuario actualizado con éxito");
-        fetchUsuarios();
-        return true;
-      } else {
-        toast.error("Error al actualizar el usuario");
-        return false;
-      }
-    } catch (err) {
-      toast.error("Error al actualizar el usuario: " + err.message);
-      return false;
-    }
-  };
-
   const eliminarUsuario = async (id) => {
     try {
       const token = document.cookie
@@ -137,7 +99,6 @@ export const useUsuarios = () => {
   return {
     usuarios,
     loading,
-    actualizarUsuario,
     eliminarUsuario,
     obtenerUsuarioPorId,
   };

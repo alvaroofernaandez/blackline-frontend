@@ -34,7 +34,7 @@ const TablaParticipantes = ({ id }) => {
       ) : participantes.length === 0 ? (
         <p className="text-red-500 text-center mt-10">No hay participantes actualmente.</p>
       ) : (
-        <div className="max-h-[700px] overflow-y-auto rounded-xl mt-10">
+        <div className="max-h-[700px] overflow-y-auto rounded-xl mt-10 animate-zoom-in">
           <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden">
             <thead className="dark:bg-neutral-800 bg-neutral-500 text-white sticky top-0 z-10">
               <tr>

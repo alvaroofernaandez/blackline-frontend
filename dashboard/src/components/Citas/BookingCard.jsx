@@ -8,6 +8,7 @@ import Modal from "../General/Modal";
 import { useCitas } from "../../hooks/useCitas";
 import { useFacturas } from "../../hooks/useFacturas";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
+import { toast } from "sonner";
 
 const BookingCard = ({ id, design, fecha, hora, estado, descripcion, solicitante }) => {
   const { eliminarCita, obtenerNombreSolicitante, obtenerRangoHora } = useCitas();
@@ -37,13 +38,16 @@ const BookingCard = ({ id, design, fecha, hora, estado, descripcion, solicitante
 
     const success = await crearFactura(factura);
     if (success) {
-      navigate("/facturas");
+      toast.loading("Factura creada con éxito, redirigiendo a facturas...");
+      setTimeout(() => {
+        navigate("/facturas");
+      }, 1800);
     }
   };
 
   return (
     <>
-      <div className="bg-gradient-to-br from-neutral-600 to-neutral-500 dark:from-neutral-900 dark:to-neutral-800 hover:-translate-y-1 shadow-lg transition-transform duration-300 text-white rounded-lg p-6 flex flex-col gap-4">
+      <div className="bg-gradient-to-br border border-neutral-600/50 from-neutral-600 to-neutral-500 dark:from-neutral-900 dark:to-neutral-800 hover:-translate-y-1 shadow-lg transition-transform duration-300 text-white rounded-lg p-6 flex flex-col gap-4">
         <h2 className="text-2xl font-semibold">Cita #{id}</h2>
         <p className="text-sm text-gray-400">{descripcion}</p>
         <div className="text-sm text-gray-400">

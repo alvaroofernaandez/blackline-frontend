@@ -37,13 +37,13 @@ const Sidebar = () => {
             >
                 <div className="text-2xl font-bold text-center mb-10 tracking-wide">
                     <a href="/">
-                        <img src="/favicon.svg" alt="Logo" className="w-40 mx-auto" loading="lazy" />
+                        <img src="/favicon.svg" alt="Logo" className="w-40 mx-auto animate-blurred-fade-in" loading="lazy" />
                     </a>
                 </div>
 
                 <hr className="dark:border-neutral-700 border-neutral-500 mb-6" />
 
-                <ul>
+                <ul className="animate-fade-in-up">
                     <li>
                         <a
                             href="/"
@@ -57,7 +57,7 @@ const Sidebar = () => {
 
                 <hr className="dark:border-neutral-700 border-neutral-500 mb-6 mt-6" />
                 {currentMenu == "main" ? (
-                    <ul className="flex flex-col gap-2">
+                    <ul className="flex flex-col gap-2 animate-fade-in-up">
                         <li>
                             <a
                                 href="/noticias"

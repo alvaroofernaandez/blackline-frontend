@@ -31,7 +31,9 @@ const EditarDiseño = ({ id }) => {
   };
 
   useEffect(() => {
-    obtenerDiseño();
+    if (id) {
+      obtenerDiseño();
+    }
   }, [id]);
 
   const handleChange = (e) => {
@@ -137,19 +139,6 @@ const EditarDiseño = ({ id }) => {
           id="ancho"
           name="ancho"
           value={formData.ancho}
-          onChange={handleChange}
-          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-          required
-        />
-
-        <label htmlFor="duracion" className="block mb-2">
-          Duración (horas):
-        </label>
-        <input
-          type="number"
-          id="duracion"
-          name="duracion"
-          value={formData.duracion}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
           required

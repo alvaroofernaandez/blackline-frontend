@@ -13,7 +13,7 @@ const TablaDiseños = () => {
       <h2 className="text-2xl font-bold mb-6 text-center dark:text-white text-neutral-600">
         Listado de Diseños
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 animate-fade-in-right">
         {diseños.map((diseño) => (
           <CardDiseño key={diseño.id} {...diseño} />
         ))}

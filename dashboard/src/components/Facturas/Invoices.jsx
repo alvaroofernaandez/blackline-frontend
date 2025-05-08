@@ -13,7 +13,7 @@ const TablaFacturas = () => {
       <h2 className="text-2xl font-bold mb-6 text-center dark:text-white text-neutral-600">
         Listado de Facturas
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 animate-fade-in-right">
         {facturas.map((factura) => (
           <InvoiceCard key={factura.id} id={factura.id} cita={factura.cita} />
         ))}
