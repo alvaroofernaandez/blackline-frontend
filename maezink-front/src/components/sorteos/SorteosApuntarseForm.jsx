@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { z } from 'zod';
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
+import Button from '../general/Button';
+import { toast } from 'sonner';
 
 const SorteosApuntarseForm = ({ id }) => {
   const [formData, setFormData] = useState({
@@ -87,8 +89,11 @@ const SorteosApuntarseForm = ({ id }) => {
   
       const data = await response.json();
       console.log('Response:', data);
-  
-      navigate('/sorteos');
+
+      toast.loading('¡Apuntado al sorteo! Redirigiendo...');
+      setTimeout(() => {
+        navigate('/sorteos');
+      }, 1800);
     } catch (error) {
       if (error instanceof z.ZodError) {
         setError(error.errors[0].message);
@@ -145,13 +150,12 @@ const SorteosApuntarseForm = ({ id }) => {
           </label>
         </div>
         {error && <p className="text-red-500 mb-4">{error}</p>}
-        <button
+        <Button
+          label={isLoading ? 'Cargando...' : '¡Apuntarse!'}
           type="submit"
-          className="dark:bg-neutral-900 bg-neutral-600 text-white rounded-lg p-2 dark:hover:bg-neutral-950 hover:bg-neutral-500 transition-all w-full"
           disabled={isLoading}
-        >
-          {isLoading ? 'Cargando...' : 'Verificar y Enviar'}
-        </button>
+          className="w-full"
+        />
       </form>
     </div>
   );

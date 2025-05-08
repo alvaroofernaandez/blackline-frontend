@@ -53,14 +53,14 @@ const Noticiero = () => {
     const noticiasPaginadas = noticias.slice(inicio, inicio + noticiasPorPagina);
 
     return (
-        <div className='flex flex-col gap-12 max-w-4xl mx-auto my-32'>
+        <div className='flex flex-col gap-5 max-w-4xl mx-auto my-32'>
             <h1 className='text-4xl text-white font-bold'>Noticias</h1>
             <hr />
             {noticiasPaginadas.map(noticia => (
                 <Noticia key={noticia.id} titulo={noticia.titulo} descripcion={noticia.descripcion} fecha={formatearFecha(noticia.fecha)} imagen={noticia.imagen} />
             ))}
 
-            <div className='flex justify-center gap-4'>
+            <div className='flex justify-center gap-4 items-center'>
                 <button
                     className="px-4 py-2 text-white rounded border enabled:border-white disabled:bg-gray-400 disabled:border-gray-800"
                     onClick={() => setPaginaActual(prev => Math.max(prev - 1, 1))}

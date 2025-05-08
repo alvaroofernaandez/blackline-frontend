@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSorteosStore } from '../../../stores/sorteosStore';
+import Button from '../../general/Button';
+import { navigate } from 'astro/virtual-modules/transitions-router.js';
 
 const SorteosActivos = () => {
     const { sorteosActivos, fetchSorteos } = useSorteosStore();
@@ -57,12 +59,12 @@ const SorteosActivos = () => {
                         {sorteo.usuarioActualParticipando ? (
                             <p className="text-green-500 font-semibold">¡Ya estás participando!</p>
                         ) : (
-                            <a
-                                href={`/apuntarse-sorteo/${sorteo.id}`}
-                                className="border p-1 pl-3 pr-3 rounded-xl hover:bg-neutral-700 transition-all duration-300"
-                            >
-                                ¡Apúntate!
-                            </a>
+                            <Button
+                                label="¡Apúntate!"
+                                onClick={() => navigate(`/apuntarse-sorteo/${sorteo.id}`)}
+                                type="button"
+                                className="mt-4"
+                            />
                         )}
                     </div>
                 </div>
