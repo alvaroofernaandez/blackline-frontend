@@ -26,7 +26,7 @@ const DiseñosModal = ({ isOpen, onClose }) => {
                     <h1 className='text-2xl' >Selecciona un diseño</h1>
                     <hr className='border border-neutral-500'/>
 
-                    <div className='flex columns-3 gap-4 items-center justify-center h-[35rem] md:h-[45rem] lg:h-[35rem] flex-wrap mt-10 overflow-y-scroll'>
+                    <div className='flex columns-3 gap-3 items-center justify-center h-[35rem] md:h-[45rem] lg:h-[35rem] flex-wrap mt-10 overflow-y-scroll'>
                         <CardDiseñoModal />
                         <CardDiseñoModal />
                         <CardDiseñoModal />
@@ -39,7 +39,6 @@ const DiseñosModal = ({ isOpen, onClose }) => {
                         <CardDiseñoModal />
                         <CardDiseñoModal />
                         <CardDiseñoModal />
-                        
                     </div>
                 </span>
             </div>
