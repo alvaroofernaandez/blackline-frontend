@@ -25,7 +25,7 @@ const InvoiceCard = (props) => {
         Factura #{id} de la cita <a href="/citas" className="text-sky-300 underline">#{cita}</a>
       </h2>
 
-      <div className="flex gap-4 mt-4">
+      <div className="grid md:flex gap-4 mt-4">
         <button
           type="button"
           aria-label="Ver factura"

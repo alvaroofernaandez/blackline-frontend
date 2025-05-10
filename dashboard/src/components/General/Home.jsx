@@ -50,7 +50,7 @@ const Home = () => {
   const handleNavigate = (path) => navigate(path);
 
   const Card = ({ title, children, path }) => (
-    <div className="dark:bg-neutral-900 animate-slide-in-top duration-300 bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between">
+    <div className="dark:bg-neutral-900 animate-slide-in-top duration-300 bg-white rounded-2xl p-6 flex flex-col justify-between">
       <div>
         <h3 className="text-xl font-semibold mb-4 text-neutral-500 dark:text-white">{title}</h3>
         <div className="grid gap-4 justify-center lg:justify-start grid-cols-[repeat(auto-fit,minmax(250px,max-content))]">
@@ -67,7 +67,7 @@ const Home = () => {
   );
 
   const SorteoMiniCard = ({ sorteo }) => (
-    <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in  shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
+    <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in hover:scale-105 transition-transform duration-300 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
       <h4 className="text-lg font-bold dark:text-white text-gray-700">{sorteo.titulo}</h4>
       <p className="text-sm dark:text-gray-300 text-gray-500">{sorteo.descripcion}</p>
       <p className="text-xs mt-2 text-gray-400">
@@ -78,7 +78,7 @@ const Home = () => {
   );
 
   const CitaMiniCard = ({ cita }) => (
-    <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
+    <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in hover:scale-105 transition-transform duration-300 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
       <h4 className="text-lg font-bold dark:text-white text-gray-700">Cita #{cita.id}</h4>
       <p className="text-sm dark:text-gray-300 text-gray-500">
         <strong>Solicitante: </strong>{obtenerNombreSolicitante(cita.solicitante)}
@@ -96,7 +96,7 @@ const Home = () => {
     };
 
     return (
-      <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
+      <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in hover:scale-105 transition-transform duration-300 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
         <img
           src={noticia.imagen}
           alt={noticia.titulo}
