@@ -19,6 +19,7 @@ const FormPideCita = () => {
   });
 
   const [tramosHorarios, setTramosHorarios] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,6 +75,39 @@ const FormPideCita = () => {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
+  const enviarCorreoPersonalizado = async ({ correo, asunto, mensaje, nombre }) => {
+    try {
+      setLoading(true);
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="))
+        ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+
+      const res = await fetch("http://localhost:8000/api/enviar_correos_personalizados/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ correo, asunto, mensaje, nombre }),
+      });
+
+      if (res.ok) {
+        toast.success("Correo personalizado enviado con éxito");
+        return true;
+      } else {
+        toast.error("Error al enviar correo personalizado");
+        return false;
+      }
+    } catch (err) {
+      toast.error("Error al enviar correo personalizado: " + err.message);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -97,9 +131,19 @@ const FormPideCita = () => {
 
       if (!res.ok) throw new Error('Error al enviar la cita');
       toast.loading('Cita enviada con éxito. Redireccionando...');
-      setTimeout(() => {
-        navigate('/');
-      }, 1800);
+
+      const correoEnviado = await enviarCorreoPersonalizado({
+        correo: formData.email,
+        asunto: 'Confirmación de cita',
+        mensaje: `Hola ${formData.name}, tu cita ha sido confirmada para el día ${formData.date}. En caso de que no puedas asistir, por favor contáctanos con tiempo. ¡Muchas gracias por confiar en nosotros!`,
+        nombre: formData.name,
+      });
+
+      if (correoEnviado) {
+        setTimeout(() => {
+          navigate('/');
+        }, 1800);
+      }
     } catch (error) {
       console.error('Error al enviar cita:', error);
       toast.error('Error al enviar la cita. Por favor, inténtalo de nuevo.');
