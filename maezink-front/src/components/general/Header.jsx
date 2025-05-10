@@ -43,7 +43,7 @@ const Header = () => {
           } justify-items-center md:flex justify-center items-center p-4 gap-5 md:gap-2 text-white md:static absolute top-24 left-0 w-full bg-neutral-800/80 animate-slide-in-top md:backdrop-blur-none md:bg-transparent`}
         >
         <a href="/">          
-          <img src="/favicon.svg" alt="logo" className='size-20 hover:scale-105 transition-transform duration-500 cursor-pointer mr-5' />
+          <img src="/favicon.svg" alt="logo" className='size-20 hover:scale-105 transition-transform duration-500 cursor-pointer md:mr-5' />
         </a>
           <li>
             <a
