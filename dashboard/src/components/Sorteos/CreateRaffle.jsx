@@ -1,4 +1,5 @@
 import { useSorteos } from "../../hooks/useSorteos";
+import { useCorreos } from "../../hooks/useCorreos"; 
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -6,6 +7,7 @@ import { format, isAfter, parseISO } from "date-fns";
 
 const CrearSorteo = () => {
   const { crearSorteo } = useSorteos();
+  const { enviarCorreosMasivos } = useCorreos();
 
   const [formData, setFormData] = useState({
     titulo: "",
@@ -53,8 +55,17 @@ const CrearSorteo = () => {
       sorteoSchema.parse(sorteo);
       const exito = await crearSorteo(sorteo);
       if (exito) {
+        const asunto = `Nuevo sorteo: ${sorteo.titulo}`;
+        const mensaje = `¡Hola! Se ha creado un nuevo sorteo: ${sorteo.titulo}. Descripción: ${sorteo.descripcion}. Participa antes del ${formData.fecha_fin}.`;
+        const nombre = "Sistema de Sorteos";
+
+        const correoExito = await enviarCorreosMasivos({ asunto, mensaje, nombre });
+        if (correoExito) {
+          toast.success("Correos masivos enviados con éxito.");
+        }
+
         setFormData({ titulo: "", descripcion: "", fecha_fin: "", premios: "" });
-        setTimeout(() => setCargando(false), 1000); 
+        setTimeout(() => setCargando(false), 1000);
       } else {
         setCargando(false);
       }

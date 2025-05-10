@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { format } from "date-fns";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
-import { useNoticias } from "../../hooks/useNoticias"; 
+import { useNoticias } from "../../hooks/useNoticias";
+import { useCorreos } from "../../hooks/useCorreos";
 
 const AnadirNoticia = () => {
   const { crearNoticia } = useNoticias();
+  const { enviarCorreosMasivos } = useCorreos();
   const [cargando, setCargando] = useState(false);
 
   const enviar = async (e) => {
@@ -20,9 +22,18 @@ const AnadirNoticia = () => {
 
     const exito = await crearNoticia(noticia);
     if (exito) {
-      setTimeout(() => navigate("/noticias"), 1000);
+      const asunto = `Nueva noticia: ${noticia.titulo}`;
+      const mensaje = `Se ha publicado una nueva noticia: ${noticia.titulo}\n\nDescripción: ${noticia.descripcion}`;
+      const nombre = "Administrador";
+
+      const correoExito = await enviarCorreosMasivos({ asunto, mensaje, nombre });
+      if (correoExito) {
+        setTimeout(() => navigate("/noticias"), 1000);
+      } else {
+        setCargando(false);
+      }
     } else {
-      setCargando(false); 
+      setCargando(false);
     }
   };
 

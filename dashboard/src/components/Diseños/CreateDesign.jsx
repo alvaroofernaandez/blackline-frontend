@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useDiseños } from "../../hooks/useDiseños";
+import { useCorreos } from "../../hooks/useCorreos"; 
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const CrearDiseño = () => {
   const { crearDiseño } = useDiseños();
+  const { enviarCorreosMasivos } = useCorreos(); 
   const [formData, setFormData] = useState({
     titulo: "",
     descripcion: "",
@@ -39,11 +41,18 @@ const CrearDiseño = () => {
 
     const success = await crearDiseño(diseño);
     if (success) {
+      // Enviar correos masivos
+      await enviarCorreosMasivos({
+        asunto: "¡Nuevos diseños disponibles!",
+        mensaje: `Se ha añadido un nuevo diseño: ${diseño.titulo}. Visita nuestra página para más detalles.`,
+        nombre: "Equipo de Diseños",
+      });
+
       setTimeout(() => {
         navigate("/diseños");
       }, 1000);
     } else {
-      setIsSubmitting(false); 
+      setIsSubmitting(false);
     }
   };
 
