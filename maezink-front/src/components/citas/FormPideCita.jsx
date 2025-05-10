@@ -3,6 +3,7 @@ import { useAuthStore } from '../../stores/authStore';
 import { useCitasStore } from '../../stores/citasStore';
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
 import { toast } from 'sonner';
+import DiseñosModal from './DiseñosModal';
 
 const FormPideCita = () => {
   const user = useAuthStore((state) => state.user);
@@ -20,6 +21,7 @@ const FormPideCita = () => {
 
   const [tramosHorarios, setTramosHorarios] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedDesign, setSelectedDesign] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -196,6 +198,13 @@ const FormPideCita = () => {
                     className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md"
                   />
                 </label>
+
+                <label className="block">
+                  <span className="block text-sm font-medium text-neutral-400">Diseño:</span>
+                  <button type='button' onClick={() => setSelectedDesign('placeholder')} className='w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md'>
+                    Añadir Diseño
+                  </button>
+                </label>
               </div>
               <div className="flex justify-end mt-6">
                 <button
@@ -293,6 +302,7 @@ const FormPideCita = () => {
           )}
         </form>
       </div>
+      <DiseñosModal isOpen={!!selectedDesign} onClose={() => setSelectedDesign(null)} />
     </div>
   );
 };
