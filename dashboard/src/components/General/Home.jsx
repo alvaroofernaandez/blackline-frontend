@@ -74,11 +74,6 @@ const Home = () => {
         {new Date(sorteo.fecha_inicio).toLocaleDateString()} - {new Date(sorteo.fecha_fin).toLocaleDateString()}
       </p>
       <p className="text-xs mt-1 text-gray-400">Estado: <strong className="text-green-400">{sorteo.estado}</strong></p>
-      <ul className="text-xs mt-2 dark:text-gray-300 text-gray-500 list-disc list-inside">
-        {sorteo.premios.map((premio, idx) => (
-          <li key={idx}>{premio}</li>
-        ))}
-      </ul>
     </div>
   );
 
