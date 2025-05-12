@@ -41,7 +41,10 @@ const DiseñosModal = ({ isOpen, onClose }) => {
             <div className="relative max-w-3xl w-full h-[78%] mx-4 bg-gradient-to-tl from-neutral-800 via-neutral-900 to-neutral-950 p-6 rounded-lg shadow-lg">
                 <button
                     className="absolute top-2 right-4 text-white text-3xl font-bold hover:text-red-400 transition-transform transform hover:scale-110"
-                    onClick={onClose}
+                    onClick={() => {
+                        const selectedDesign = null;
+                        onClose(selectedDesign);
+                    }}
                     aria-label="Close modal"
                 >
                     &times;
@@ -63,7 +66,11 @@ const DiseñosModal = ({ isOpen, onClose }) => {
                 </div>
                 <button
                     className="block px-4 py-2 mt-4 mx-auto text-white bg-neutral-700 border border-neutral-500 rounded-md hover:bg-neutral-600 hover:scale-105 transition-all duration-300"
-                    onClick={() => console.log('Seleccionar button clicked')}
+                    onClick={() => {
+                        const selectedDesign = data.find((d) => d.id === selectedId);
+                        onClose(selectedDesign);
+                    }}
+                    disabled={!selectedId}
                 >
                     Seleccionar
                 </button>

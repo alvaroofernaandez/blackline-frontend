@@ -4,6 +4,7 @@ import { useCitasStore } from '../../stores/citasStore';
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
 import { toast } from 'sonner';
 import DiseñosModal from './DiseñosModal';
+import { de } from 'date-fns/locale';
 
 const FormPideCita = () => {
   const user = useAuthStore((state) => state.user);
@@ -14,6 +15,7 @@ const FormPideCita = () => {
   const [formData, setFormData] = useState({
     name: user?.username || '',
     email: user?.email || '',
+    design: design?.id || null,
     date: '',
     time: '',
     notes: '',
@@ -22,6 +24,8 @@ const FormPideCita = () => {
   const [tramosHorarios, setTramosHorarios] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedDesign, setSelectedDesign] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,6 +76,13 @@ const FormPideCita = () => {
       }
     });
   }, [tramosHorarios]);
+
+  useEffect(() => {
+  if (selectedDesign) {
+    setFormData((prev) => ({ ...prev, design: selectedDesign.id }));
+  }
+  }, [selectedDesign]);
+
   
 
   const nextStep = () => setStep(step + 1);
@@ -115,7 +126,7 @@ const FormPideCita = () => {
 
     const citaPayload = {
       solicitante: user.id,
-      design: design?.id ?? null,
+      design: formData.design,
       fecha: formData.date,
       hora: formData.time,
       descripcion: formData.notes,
@@ -199,12 +210,26 @@ const FormPideCita = () => {
                   />
                 </label>
 
-                <label className="block">
-                  <span className="block text-sm font-medium text-neutral-400">Diseño:</span>
-                  <button type='button' onClick={() => setSelectedDesign('placeholder')} className='w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md'>
-                    Añadir Diseño
-                  </button>
-                </label>
+              <label className="block">
+                <span className="block text-sm font-medium text-neutral-400">Diseño:</span>
+
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md flex items-center gap-2" 
+                  name='design'
+                  value={selectedDesign?.id || ''}
+                >
+                  {selectedDesign != null ? (
+                    <>
+                      <img src={selectedDesign.image || '/foto.jpeg'} alt="Diseño seleccionado" className="w-10 h-10 rounded" />
+                      <span>{selectedDesign.titulo || 'Diseño seleccionado'}</span>
+                    </>
+                  ) : (
+                    'Añadir Diseño'
+                  )}
+                </button>
+              </label>
               </div>
               <div className="flex justify-end mt-6">
                 <button
@@ -302,7 +327,7 @@ const FormPideCita = () => {
           )}
         </form>
       </div>
-      <DiseñosModal isOpen={!!selectedDesign} onClose={() => setSelectedDesign(null)} />
+      <DiseñosModal isOpen={isModalOpen} onClose={(design) => { if (design) setSelectedDesign(design); setIsModalOpen(false); }} />
     </div>
   );
 };
