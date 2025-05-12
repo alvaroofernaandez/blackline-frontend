@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import CardDiseñoModal from './CardDiseñoModal';
+import { se } from 'date-fns/locale';
 
 const DiseñosModal = ({ isOpen, onClose }) => {
     const [data, setData] = useState([]);
+    const [selectedId, setSelectedId] = useState(null);
+
 
     useEffect(() => {
         if (isOpen) {
@@ -17,6 +20,10 @@ const DiseñosModal = ({ isOpen, onClose }) => {
                 });
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        console.log('Selected ID:', selectedId);
+    }, [selectedId]);
 
     if (!isOpen) return null;
 
@@ -43,13 +50,15 @@ const DiseñosModal = ({ isOpen, onClose }) => {
                     <h1 className="text-2xl font-semibold text-white">Selecciona un diseño</h1>
                     <hr className="border border-neutral-600" />
                     <div className="flex flex-wrap gap-4 items-center justify-center h-[35rem] md:h-[45rem] lg:h-[35rem] overflow-y-auto p-2">
-                        {data.length > 0 ? (
-                            data.map((diseño, index) => (
-                                <CardDiseñoModal key={index} diseño={diseño} />
-                            ))
-                        ) : (
-                            <p className="text-neutral-400">No hay diseños disponibles.</p>
-                        )}
+                        {data.map((diseño) => (
+                        <CardDiseñoModal
+                            key={diseño.id}
+                            diseño={diseño}
+                            isSelected={selectedId === diseño.id}
+                            onSelect={() => setSelectedId(diseño.id)}
+                        />
+                        ))}
+
                     </div>
                 </div>
                 <button
