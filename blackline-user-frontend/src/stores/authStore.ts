@@ -64,7 +64,6 @@ const removeCookie = (name: string): void => {
   document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
 };
 
-// 🔧 Ajustado para JSON con estructura { usuario: { ... } }
 const fetchUserDetailsById = async (id: number, token: string) => {
   try {
     const res = await fetch(`http://localhost:8000/api/usuario_por_id/${id}`, {
