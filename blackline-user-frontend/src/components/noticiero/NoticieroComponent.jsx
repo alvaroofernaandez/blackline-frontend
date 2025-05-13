@@ -26,14 +26,12 @@ const Noticiero = () => {
     useEffect(() => {
         const fetchNoticias = async () => {
             try {
-            const token = document.cookie
-                .split("; ")
-                .find((row) => row.startsWith("accessToken="))
-                ?.split("=")[1];
-            if (!token) throw new Error("Token no encontrado");
-
             const res = await fetch("http://127.0.0.1:8000/api/noticias", {
-                headers: { Authorization: `Bearer ${token}` },
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
             });
             const raw = await res.json();
             const validadas = raw.map((n) => noticiaSchema.parse(n));
