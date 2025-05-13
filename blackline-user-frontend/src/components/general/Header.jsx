@@ -116,7 +116,7 @@ const Header = () => {
             </div>
           </div>
         ) : (
-          <a href="/login">¡Inicia sesión!</a>
+          <a className="p-2 hover:bg-neutral-700/50 rounded-xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300 animate-fade-in-down md:mt-1 lg:mt-0" href="/login">¡Inicia sesión!</a>
         )}
       </div>
     </header>
