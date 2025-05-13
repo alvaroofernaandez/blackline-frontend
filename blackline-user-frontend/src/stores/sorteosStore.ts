@@ -14,7 +14,7 @@ type Sorteo = {
     instagram_username: string;
     requirements: boolean;
   }[];
-  usuarioActualParticipando?: boolean; // Nuevo campo
+  usuarioActualParticipando?: boolean; 
 };
 
 type SorteosState = {
@@ -28,24 +28,18 @@ export const useSorteosStore = create<SorteosState>((set) => ({
   sorteosActivos: [],
   fetchSorteos: async () => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
       const response = await fetch("http://localhost:8000/api/sorteos/", {
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Accept": "application/json",
         },
       });
       const data = await response.json();
 
-      // Obtener el usuario actual desde el authStore
       const currentUser = useAuthStore.getState().user;
       const currentInstagramUsername = currentUser?.instagram_username;
 
-      // Marcar si el usuario actual está participando
       const sorteosConParticipacion = data.map((sorteo: Sorteo) => ({
         ...sorteo,
         usuarioActualParticipando: sorteo.participantes.some(

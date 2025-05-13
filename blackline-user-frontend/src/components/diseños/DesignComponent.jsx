@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import CardDiseños from './CardDiseños.jsx'; 
+import { toast } from 'sonner';
 
 const DesignSchema = z.object({
   id: z.number(),
@@ -41,6 +42,10 @@ const DesignComponent = () => {
         }));
 
         setDesigns(adaptedDesigns);
+
+        if (adaptedDesigns.length === 0) {
+          toast.info('No hay diseños disponibles en este momento.');
+        }
       } catch (err) {
         setError(err.message);
       } finally {
