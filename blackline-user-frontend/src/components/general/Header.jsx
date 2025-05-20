@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { FaBars, FaTimes } from "react-icons/fa";
 import { useAuthStore } from '../../stores/authStore'; 
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
 
@@ -28,7 +27,10 @@ const Header = () => {
           className="text-white text-2xl md:hidden ml-2 p-2"
           onClick={handleMobileMenuToggle}
         >
-          {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          {isMobileMenuOpen 
+          ? <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-x-icon lucide-circle-x"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+          : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu-icon lucide-menu"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg>
+          }
         </button>
         <ul
           className={`${
@@ -95,6 +97,7 @@ const Header = () => {
                 src={useAuthStore.getState().getAvatarUrl()}
                 alt="User Avatar"
                 className="w-10 h-10 rounded-full"
+                loading='lazy'
               />
             </button>
             <div className={`absolute right-0 mt-2 w-48 bg-neutral-900 bg-opacity-30 border border-neutral-700 backdrop-blur shadow-lg ${isMenuOpen ? 'block' : 'hidden'}`}>

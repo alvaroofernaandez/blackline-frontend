@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSorteosStore } from '../../../stores/sorteosStore';
 import Button from '../../general/Button';
 import { navigate } from 'astro/virtual-modules/transitions-router.js';

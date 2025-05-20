@@ -4,9 +4,6 @@ import { navigate } from 'astro/virtual-modules/transitions-router.js';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-// src/hooks/useAuth.jsx
-
-// --- Zod Schemas ---
 export const registerSchema = z.object({
   email: z.string().email('El email no es válido'),
   username: z.string().min(3, 'El nombre de usuario debe tener al menos 3 caracteres'),

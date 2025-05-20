@@ -1,5 +1,5 @@
 ---
-import FormularioInicioSesion from "../sections/auth/FormularioInicioSesion.astro";
+import InicioSesionUsuario from "../components/auth/InicioSesionUsuario";
 ---
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ import FormularioInicioSesion from "../sections/auth/FormularioInicioSesion.astr
 <body class="bg-neutral-950 bg-cover bg-center bg-black/80 bg-blend-overlay animate-blurred-fade-in">
     <img src="/bg.avif" transition:name="image" alt="" loading="lazy" class="absolute inset-0 opacity-20 object-cover w-full h-full -z-10" />
     <main>
-        <FormularioInicioSesion />
+        <InicioSesionUsuario client:only="react" />
     </main>
 </body>
 </html>

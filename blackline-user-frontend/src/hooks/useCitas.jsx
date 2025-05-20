@@ -49,7 +49,6 @@ export function useDiseñosModal(isOpen) {
   };
 }
 
-// Hook para la lógica del formulario de pedir cita
 export function useFormPideCita({ user, token, initialDesign }) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -65,20 +64,17 @@ export function useFormPideCita({ user, token, initialDesign }) {
   const [selectedDesign, setSelectedDesign] = useState(initialDesign || null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Actualiza formData cuando cambia el diseño seleccionado
   useEffect(() => {
     if (selectedDesign) {
       setFormData((prev) => ({ ...prev, design: selectedDesign.id }));
     }
   }, [selectedDesign]);
 
-  // Maneja cambios en los inputs
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   }, []);
 
-  // Obtiene tramos horarios disponibles para una fecha
   const fetchTramosHorarios = useCallback(async (selectedDate) => {
     const res = await fetch(`http://localhost:8000/api/citas_tramo_horario/?fecha=${selectedDate}`, {
       method: 'GET',
@@ -92,7 +88,6 @@ export function useFormPideCita({ user, token, initialDesign }) {
     setTramosHorarios(data);
   }, [token]);
 
-  // Maneja el cambio de fecha y valida fines de semana
   const handleDateChange = useCallback((e) => {
     const dateStr = e.target.value;
     const date = new Date(dateStr);
@@ -106,7 +101,6 @@ export function useFormPideCita({ user, token, initialDesign }) {
     fetchTramosHorarios(dateStr);
   }, [handleChange, fetchTramosHorarios]);
 
-  // Habilita/deshabilita opciones de horario según disponibilidad
   useEffect(() => {
     if (!tramosHorarios || Object.keys(tramosHorarios).length === 0) return;
     const select = document.querySelector('select[name="time"]');
@@ -123,11 +117,9 @@ export function useFormPideCita({ user, token, initialDesign }) {
     });
   }, [tramosHorarios]);
 
-  // Avanza o retrocede pasos del formulario
   const nextStep = () => setStep((s) => s + 1);
   const prevStep = () => setStep((s) => s - 1);
 
-  // Enviar correo personalizado
   const enviarCorreoPersonalizado = useCallback(async ({ correo, asunto, mensaje, nombre }) => {
     try {
       setLoading(true);
@@ -159,7 +151,6 @@ export function useFormPideCita({ user, token, initialDesign }) {
     }
   }, []);
 
-  // Envía la cita
   const handleSubmit = useCallback(async (e, navigate) => {
     e.preventDefault();
     const citaPayload = {

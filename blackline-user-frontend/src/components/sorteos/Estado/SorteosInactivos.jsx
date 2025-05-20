@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SorteosInactivos = () => {
     return (
         <div className="max-w-2xl mx-auto py-24 px-4 text-center">
@@ -9,7 +7,7 @@ const SorteosInactivos = () => {
             </p>
             <img 
                 alt='Gato' 
-                src="/gato.png" 
+                src="/gato.avif" 
                 className="w-full max-w-xs mx-auto animate-slide-in-top duration-200" 
                 loading="lazy"
             />
