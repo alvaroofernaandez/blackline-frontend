@@ -3,13 +3,7 @@
     src: url('/fonts/Inter-VariableFont_opsz,wght.woff2') format('woff2');
     font-weight: 100 800;
     font-display: swap;
-}
-
-.img-gradient {
-    mask-image: linear-gradient(
-        black 90%,
-        transparent
-    );
+    font-style: normal;
 }
 
 body {
@@ -21,17 +15,19 @@ body {
     font-weight: 100 800;
 }
 
+.img-gradient {
+    mask-image: linear-gradient(
+        black 90%,
+        transparent
+    );
+}
+
 * {
 box-sizing: inherit;
 }
 
 h1, h2, h3, h4, h5, h6 {
-margin: 0;
 font-weight: 700;
-}
-
-p {
-margin: 0;
 }
 
 textarea {
