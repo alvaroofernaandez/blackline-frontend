@@ -26,12 +26,10 @@ const AnadirNoticia = () => {
       const mensaje = `Se ha publicado una nueva noticia: ${noticia.titulo}\n\nDescripción: ${noticia.descripcion}`;
       const nombre = "Administrador";
 
-      const correoExito = await enviarCorreosMasivos({ asunto, mensaje, nombre });
-      if (correoExito) {
-        setTimeout(() => navigate("/noticias"), 1000);
-      } else {
-        setCargando(false);
-      }
+      enviarCorreosMasivos({ asunto, mensaje, nombre })
+        .finally(() => {
+          setTimeout(() => navigate("/noticias"), 1000);
+        });
     } else {
       setCargando(false);
     }

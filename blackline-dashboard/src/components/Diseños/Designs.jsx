@@ -2,7 +2,7 @@ import { useDiseños } from "../../hooks/useDiseños";
 import CardDiseño from "./DesignCard";
 
 const TablaDiseños = () => {
-  const { diseños, loading, crearDiseño, actualizarDiseño, eliminarDiseño } = useDiseños();
+  const { diseños, loading} = useDiseños();
 
   if (loading) return <p className="text-center">Cargando diseños...</p>;
   if (diseños.length === 0)

@@ -33,7 +33,7 @@ const PerfilUsuario = () => {
         throw new Error('Failed to update email preference');
       } else {
         const data = await response.json();
-        toast.success(`Preferencia de correo actualizada a ${data.can_receive_emails ? 'Recibir' : 'No recibir'}`);
+        toast.success("Preferencia de correo actualizada");
         setTimeout(() => {
           navigate('/perfil');
         }, 1300);
