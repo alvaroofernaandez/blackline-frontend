@@ -3,13 +3,6 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { useAuthStore } from '../../stores/authStore'; 
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
 
-import { GoHome } from "react-icons/go";
-import { LuNewspaper } from "react-icons/lu";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { BsGift } from "react-icons/bs";
-import { HiOutlinePaintBrush } from "react-icons/hi2";
-
-
 const Header = () => {
   const { isLoggedIn, user, logout } = useAuthStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,15 +35,17 @@ const Header = () => {
             isMobileMenuOpen ? 'block' : 'hidden'
           } justify-items-center md:flex justify-center items-center p-4 gap-5 md:gap-2 text-white md:static absolute top-24 left-0 w-full bg-neutral-800/80 animate-slide-in-top md:backdrop-blur-none md:bg-transparent`}
         >
-        <a href="/">          
-          <img src="/favicon.svg" alt="logo" className='size-20 hover:scale-105 transition-transform duration-500 cursor-pointer md:mr-5' />
-        </a>
+          <li>
+            <a href="/">          
+              <img src="/favicon.svg" alt="logo" className='size-20 hover:scale-105 transition-transform duration-500 cursor-pointer md:mr-5' />
+            </a>
+          </li>
           <li>
             <a
               className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/"
             >
-              <GoHome className="inline-block size-5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
               Inicio
             </a>
           </li>
@@ -59,7 +54,7 @@ const Header = () => {
               className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/noticiero"
             >
-              <LuNewspaper className="inline-block size-5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-newspaper-icon lucide-newspaper"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg>
               Noticiero
             </a>
           </li>
@@ -68,7 +63,7 @@ const Header = () => {
               className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/pidetucita"
             >
-              <FaRegCalendarAlt className="inline-block size-5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-calendar-plus-icon lucide-calendar-plus"><path d="M16 19h6"/><path d="M16 2v4"/><path d="M19 16v6"/><path d="M21 12.598V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5"/><path d="M3 10h18"/><path d="M8 2v4"/></svg>
               Pide tu cita
             </a>
           </li>
@@ -77,7 +72,7 @@ const Header = () => {
               className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/sorteos"
             >
-              <BsGift className="inline-block size-5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-gift-icon lucide-gift"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
               Sorteos
             </a>
           </li>
@@ -86,7 +81,7 @@ const Header = () => {
               className="flex items-center gap-2 p-4 md:p-2 lg:p-4 hover:bg-neutral-700/50 rounded-2xl border hover:border-neutral-600/50 text-base md:text-xs lg:text-sm border-transparent transition-all duration-300"
               href="/diseños"
             >
-              <HiOutlinePaintBrush className="inline-block size-5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-images-icon lucide-images"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></svg>
               Diseños
             </a>
           </li>

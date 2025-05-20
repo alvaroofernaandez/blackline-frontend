@@ -1,18 +1,5 @@
-import React, { useState } from 'react';
-import Cookies from 'js-cookie'; 
-import { navigate } from 'astro/virtual-modules/transitions-router.js';
-import { z } from 'zod';
-
-const schema = z.object({
-  email: z.string().email('El email no es válido'),
-  username: z.string().min(3, 'El nombre de usuario debe tener al menos 3 caracteres'),
-  password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
-  confirmPassword: z.string(),
-  recibirNotificaciones: z.boolean(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: 'Las contraseñas no coinciden',
-  path: ['confirmPassword'],
-});
+import { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth'; 
 
 const RegistroUsuario = () => {
   const [formData, setFormData] = useState({
@@ -23,8 +10,7 @@ const RegistroUsuario = () => {
     recibirNotificaciones: false,
   });
 
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
+  const { error, setError, successMessage, setSuccessMessage, register } = useAuth();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -32,66 +18,13 @@ const RegistroUsuario = () => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
+    setError(null);
+    setSuccessMessage(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-    setSuccessMessage(null);
-
-    try {
-      schema.parse(formData);
-
-      const response = await fetch('http://localhost:8000/api/usuarios/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          username: formData.username,
-          password: formData.password,
-          can_receive_emails: formData.recibirNotificaciones,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error en la solicitud');
-      }
-
-      const data = await response.json();
-      console.log('Usuario registrado:', data);
-
-      const tokenResponse = await fetch('http://localhost:8000/api/token/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      if (!tokenResponse.ok) {
-        throw new Error('Error al obtener el token');
-      }
-
-      const tokenData = await tokenResponse.json();
-      console.log('Token:', tokenData);
-
-      Cookies.set('accessToken', tokenData.access, { expires: 1 });
-
-      setSuccessMessage('Usuario registrado con éxito');
-      navigate('/');
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        setError(error.errors[0].message);
-      } else {
-        console.error('Error al registrar usuario:', error);
-        setError(error.message);
-      }
-    }
+    await register(formData);
   };
 
   return (

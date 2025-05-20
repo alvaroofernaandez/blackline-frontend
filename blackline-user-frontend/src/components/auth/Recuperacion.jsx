@@ -1,47 +1,14 @@
 import { useState } from 'react';
-import { toast } from 'sonner';
-import { z } from 'zod';
-
-
-const schema = z.object({
-  correo: z.string().email('El email no es válido'),
-});
+import { useAuth } from '../../hooks/useAuth';
 
 const RecuperacionForm = () => {
   const [correo, setCorreo] = useState('');
-  const [error, setError] = useState(null);
+  const { error, setError, sendRecoveryEmail } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
-    const data = {
-      correo,
-    };
-
-    const validation = schema.safeParse(data);
-    if (!validation.success) {
-      setError(validation.error.errors[0].message);
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:8000/api/change_password/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al enviar correo de recuperación');
-      }
-
-      toast.success('Correo de recuperación enviado con éxito. Revisa tu bandeja de entrada.');
-    } catch (err) {
-      setError(err.message);
-    }
+    await sendRecoveryEmail(correo);
   };
 
   return (

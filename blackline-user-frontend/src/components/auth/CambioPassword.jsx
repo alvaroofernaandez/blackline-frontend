@@ -1,26 +1,15 @@
-import { navigate } from 'astro/virtual-modules/transitions-router.js';
 import { useState } from 'react';
-import { toast } from 'sonner';
-import { z } from 'zod';
-
-const schema = z
-  .object({
-    password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Las contraseñas no coinciden',
-    path: ['confirmPassword'],
-  });
+import { useAuth } from '../../hooks/useAuth';
 
 const NuevaPassword = () => {
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: '',
   });
-  const [error, setError] = useState(null);
+  const [localError, setLocalError] = useState(null);
 
-  // Obtener el token de la query param
+  const { changePassword, error } = useAuth();
+
   const getTokenFromQuery = () => {
     const params = new URLSearchParams(window.location.search);
     return params.get('token');
@@ -32,40 +21,13 @@ const NuevaPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-
-    const validation = schema.safeParse(formData);
-    if (!validation.success) {
-      setError(validation.error.errors[0].message);
-      return;
-    }
-
+    setLocalError(null);
     const token = getTokenFromQuery();
     if (!token) {
-      setError('Token no encontrado en la URL');
+      setLocalError('Token no encontrado en la URL');
       return;
     }
-
-    try {
-      const response = await fetch('http://localhost:8000/api/modificar_contrasena/', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ nueva_contrasena: formData.password, token }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al cambiar la contraseña');
-      }
-
-      toast.loading('Contraseña cambiada con éxito. Redirigiendo...');
-      setTimeout(() => {
-        navigate('/login');
-      }, 1500);
-    } catch (err) {
-      setError(err.message);
-    }
+    await changePassword(formData, token);
   };
 
   return (
@@ -98,7 +60,9 @@ const NuevaPassword = () => {
             required
           />
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {(localError || error) && (
+            <p className="text-red-500 text-sm">{localError || error}</p>
+          )}
 
           <button
             type="submit"

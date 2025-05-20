@@ -1,4 +1,3 @@
-// components/SorteosMain.tsx
 import { useEffect } from 'react';
 import SorteosInactivos from './Estado/SorteosInactivos';
 import SorteosActivos from './Estado/SorteosActivos';

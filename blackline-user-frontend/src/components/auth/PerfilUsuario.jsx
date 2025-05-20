@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { navigate } from 'astro/virtual-modules/transitions-router.js';
 import { useAuthStore } from '../../stores/authStore';
-import { FiLogOut } from "react-icons/fi";
-import { toast } from 'sonner';
+import { useAuth } from '../../hooks/useAuth';
 
 const PerfilUsuario = () => {
   const { user, isLoggedIn, logout } = useAuthStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newInstagramUsername, setNewInstagramUsername] = useState('');
+  const { changeEmailPreference, changeInstagramUsername } = useAuth();
 
   if (!isLoggedIn || !user) {
     return (
@@ -17,61 +16,13 @@ const PerfilUsuario = () => {
     );
   }
 
-  const changeEmailPreference = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/api/modificar_recibir_correos/', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          id: user.id, 
-          can_receive_emails: !user.can_receive_emails 
-        }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to update email preference');
-      } else {
-        const data = await response.json();
-        toast.success("Preferencia de correo actualizada");
-        setTimeout(() => {
-          navigate('/perfil');
-        }, 1300);
-      }
-    } catch (error) {
-      toast.error('Error al actualizar la preferencia de correo: ' + error.message);
-    }
+  const handleChangeEmailPreference = () => {
+    changeEmailPreference(user);
   };
 
-  const handleInstagramChange = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/api/modificar_nombre_instagram/', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          id: user.id, 
-          instagram_username: newInstagramUsername 
-        }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to update Instagram username');
-      } else {
-        toast.success('Nombre de Instagram actualizado correctamente');
-        setIsModalOpen(false);
-        setTimeout(() => {
-          navigate('/perfil');
-        }, 1300);
-      }
-    } catch (error) {
-      toast.error('Error al actualizar el nombre de Instagram: ' + error.message);
-    }
+  const handleInstagramChange = () => {
+    changeInstagramUsername(user, newInstagramUsername, () => setIsModalOpen(false));
   };
-
-  function handleChangeEmailPreference() {
-    changeEmailPreference();
-  }
 
   return (
     <div className="text-white px-8 pt-24">
@@ -90,7 +41,7 @@ const PerfilUsuario = () => {
             onClick={logout}
             className="bg-red-900 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition duration-200 text-sm flex items-center gap-2"
           >
-            <FiLogOut />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
           </button>
         </div>
 

@@ -1,4 +1,3 @@
-// stores/citasStore.js
 import { create } from 'zustand';
 
 export const useCitasStore = create((set) => ({

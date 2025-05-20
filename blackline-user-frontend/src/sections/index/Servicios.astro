@@ -1,74 +1,152 @@
 ---
-
-import { FaNewspaper, FaPaintBrush, FaCalendarAlt } from "react-icons/fa";
-import { IoIosGift } from "react-icons/io";
 ---
 
 <section class="max-w-[90%] lg:max-w-[65%] mx-auto grid lg:grid-cols-1">
   <div class="pt-8 px-8 pb-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-5 justify-center items-center">
-      <a href="/diseños" class="
-        relative rounded-3xl overflow-hidden
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-5 justify-center items-center"
+    >
+      <a
+        href="/diseños"
+        class="relative rounded-3xl overflow-hidden
         bg-gradient-to-br from-neutral-900/60 via-neutral-800/50 to-neutral-900/70
         border border-neutral-600 shadow-lg shadow-neutral-700
         flex flex-col items-start
         hover:scale-105 hover:contrast-125
         transition
         group
-        md:col-span-2 p-10 min-h-[240px]
-            ">
-        <FaPaintBrush className="absolute -right-1 -bottom-1 -rotate-6 size-28 group-hover:-rotate-45 group-hover:scale-125 transition-transform" />
+        md:col-span-2 p-10 min-h-[240px]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-paintbrush-icon lucide-paintbrush absolute -right-1 -bottom-1 -rotate-6 size-28 group-hover:-rotate-45 group-hover:scale-125 transition-transform"
+          ><path d="m14.622 17.897-10.68-2.913"></path><path
+            d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"
+          ></path><path
+            d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"
+          ></path></svg
+        >
         <span
-          class="absolute bottom-4 left-6 font-bold text-3xl group-hover:-translate-y-1 transition-transform">Diseños Personalizados</span>
-        <span class="absolute top-4 left-6 text-sm border rounded-xl px-2 py-1">Arte único para ti</span>
-            </a>
+          class="absolute bottom-4 left-6 font-bold text-3xl group-hover:-translate-y-1 transition-transform"
+          >Diseños Personalizados</span
+        >
+        <span class="absolute top-4 left-6 text-sm border rounded-xl px-2 py-1"
+          >Arte único para ti</span
+        >
+      </a>
 
-            <a href="/pidetucita" class="
-        relative rounded-3xl overflow-hidden
+      <a
+        href="/pidetucita"
+        class="relative rounded-3xl overflow-hidden
         bg-gradient-to-br from-neutral-800 via-neutral-800/50 to-neutral-900/70
         border border-neutral-600 shadow-lg shadow-neutral-700
         flex flex-col items-start
         hover:scale-105 hover:contrast-125
         transition
         group
-        md:col-span-1 p-10 min-h-[240px]
-            ">
-        <FaCalendarAlt className="absolute -right-1 -bottom-1 -rotate-6 size-28 group-hover:-rotate-45 group-hover:scale-125 transition-transform" />
+        md:col-span-1 p-10 min-h-[240px]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-calendar-days-icon lucide-calendar-days absolute -right-1 -bottom-1 -rotate-6 size-28 group-hover:-rotate-45 group-hover:scale-125 transition-transform"
+          ><path d="M8 2v4"></path><path d="M16 2v4"></path><rect
+            width="18"
+            height="18"
+            x="3"
+            y="4"
+            rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"
+          ></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path
+            d="M8 18h.01"></path><path d="M12 18h.01"></path><path
+            d="M16 18h.01"></path></svg
+        >
         <span
-          class="absolute bottom-4 left-6 font-bold text-3xl group-hover:-translate-y-1 transition-transform">Citas</span>
-        <span class="absolute top-4 left-6 text-sm border rounded-xl px-2 py-1">Reserva tu sesión</span>
-            </a>
+          class="absolute bottom-4 left-6 font-bold text-3xl group-hover:-translate-y-1 transition-transform"
+          >Citas</span
+        >
+        <span class="absolute top-4 left-6 text-sm border rounded-xl px-2 py-1"
+          >Reserva tu sesión</span
+        >
+      </a>
 
-            <a href="/noticiero" class="
-        relative rounded-3xl overflow-hidden
+      <a
+        href="/noticiero"
+        class="relative rounded-3xl overflow-hidden
         bg-gradient-to-br from-neutral-800 via-neutral-800/50 to-neutral-900/70
         border border-neutral-600 shadow-lg shadow-neutral-700
         flex flex-col items-start
         hover:scale-105 hover:contrast-125
         transition
         group
-        md:col-span-1 p-10 min-h-[240px]
-            ">
-        <FaNewspaper className="absolute -right-1 -bottom-1 -rotate-6 size-28 group-hover:-rotate-45 group-hover:scale-125 transition-transform" />
+        md:col-span-1 p-10 min-h-[240px]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-newspaper-icon lucide-newspaper absolute -right-1 -bottom-1 -rotate-6 size-28 group-hover:-rotate-45 group-hover:scale-125 transition-transform"
+          ><path d="M15 18h-5"></path><path d="M18 14h-8"></path><path
+            d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"
+          ></path><rect width="8" height="4" x="10" y="6" rx="1"></rect></svg
+        >
         <span
-          class="absolute bottom-4 left-6 font-bold text-3xl group-hover:-translate-y-1 transition-transform">Noticias</span>
-        <span class="absolute top-4 left-6 text-sm border rounded-xl px-2 py-1">Mantente informado</span>
-            </a>
+          class="absolute bottom-4 left-6 font-bold text-3xl group-hover:-translate-y-1 transition-transform"
+          >Noticias</span
+        >
+        <span class="absolute top-4 left-6 text-sm border rounded-xl px-2 py-1"
+          >Mantente informado</span
+        >
+      </a>
 
-            <a href="/sorteos" class="
-        relative rounded-3xl overflow-hidden
-        bg-gradient-to-br from-neutral-800 via-neutral-800/50 to-neutral-900/70
-        border border-neutral-600 shadow-lg shadow-neutral-700
-        flex flex-col items-start
-        hover:scale-105 hover:contrast-125
-        transition
-        group
-        md:col-span-2 p-10 min-h-[240px]
-      ">
-        <IoIosGift className="absolute -right-1 -bottom-1 -rotate-6 size-28 group-hover:-rotate-45 group-hover:scale-125 transition-transform" />
+      <a
+        href="/sorteos"
+        class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-neutral-800 via-neutral-800/50 to-neutral-900/70 border border-neutral-600 shadow-lg shadow-neutral-700 flex flex-col items-start hover:scale-105 hover:contrast-125 transition group md:col-span-2 p-10 min-h-[240px]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-gift-icon lucide-gift absolute -right-1 -bottom-1 -rotate-6 size-28 group-hover:-rotate-45 group-hover:scale-125 transition-transform"
+          ><rect x="3" y="8" width="18" height="4" rx="1"></rect><path
+            d="M12 8v13"></path><path
+            d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path
+            d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"
+          ></path></svg
+        >
         <span
-          class="absolute bottom-4 left-6 font-bold text-3xl group-hover:-translate-y-1 transition-transform">Sorteos</span>
-        <span class="absolute top-4 left-6 text-sm border rounded-xl px-2 py-1">Participa y gana</span>
+          class="absolute bottom-4 left-6 font-bold text-3xl group-hover:-translate-y-1 transition-transform"
+          >Sorteos</span
+        >
+        <span class="absolute top-4 left-6 text-sm border rounded-xl px-2 py-1"
+          >Participa y gana</span
+        >
       </a>
     </div>
   </div>

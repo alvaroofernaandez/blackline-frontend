@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Noticia = ({ titulo, descripcion, fecha, imagen }) => {
     return (
         <div className="flex flex-col md:flex-row items-center gap-4 border border-white p-4 rounded-lg bg-black bg-opacity-20 w-full transition duration-300 ease-in-out shadow-md hover:scale-[1.01] hover:bg-opacity-30 hover:border-gray-400 animate-fade-in-right">

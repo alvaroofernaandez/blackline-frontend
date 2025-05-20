@@ -1,53 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth'; 
 import { useAuthStore } from '../../stores/authStore';
-import { navigate } from 'astro/virtual-modules/transitions-router.js';
-import { z } from 'zod';
-
-const schema = z.object({
-  email: z.string().email('El email no es válido'),
-  password: z.string().min(4, 'La contraseña debe tener al menos 6 caracteres'),
-});
 
 const InicioSesionUsuario = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const login = useAuthStore((state) => state.login);
+  const { login, error, setError } = useAuth(); 
+  const loginStore = useAuthStore((state) => state.login);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
-    const data = {
-      email,
-      password,
-    };
-
-    const validation = schema.safeParse(data);
-    if (!validation.success) {
-      setError(validation.error.errors[0].message);
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:8000/api/token/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al iniciar sesión');
-      }
-
-      const result = await response.json();
-      login(result.access, true);
-      navigate('/');
-    } catch (err) {
-      setError(err.message);
-    }
+    await login(email, password, loginStore); 
   };
 
   return (
