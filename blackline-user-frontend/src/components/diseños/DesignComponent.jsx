@@ -23,7 +23,19 @@ const DesignComponent = () => {
   useEffect(() => {
     const fetchDesigns = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/diseños/');
+        const token = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+        if (!token) throw new Error("Token no encontrado");
+        const response = await fetch('http://localhost:8000/api/diseños/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch designs');
         }

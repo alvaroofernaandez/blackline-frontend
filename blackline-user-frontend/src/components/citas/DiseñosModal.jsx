@@ -9,15 +9,34 @@ const DiseñosModal = ({ isOpen, onClose }) => {
 
     useEffect(() => {
         if (isOpen) {
-            fetch('http://127.0.0.1:8000/api/diseños')
-                .then((response) => response.json())
-                .then((data) => {
-                    setData(data);
-                    console.log(data);
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
+        const fetchData = async () => {
+            const token = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith("accessToken="))
+                ?.split("=")[1];
+            if (!token) {
+                console.error("Token no encontrado");
+                return;
+            }
+            try {
+                const response = await fetch('http://localhost:8000/api/diseños/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
                 });
+                if (!response.ok) {
+                    throw new Error('Error al obtener los diseños');
+                }
+                const result = await response.json();
+                setData(result);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
         }
     }, [isOpen]);
 

@@ -1,31 +1,11 @@
 import { FaEuroSign } from "react-icons/fa";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { IoTimeOutline } from "react-icons/io5";
-import { useCitasStore } from "../../stores/citasStore";
-import { navigate } from "astro/virtual-modules/transitions-router.js";
-import Button from "../general/Button";
 
 const CardDiseños = ({ id, title, description, price, size, time, imageUrl }) => {
-    const setSelectedDesign = useCitasStore((state) => state.setSelectedDesign);
-    const design = useCitasStore((state) => state.selectedDesign);
-
-    const handleReservarClick = () => {
-        setSelectedDesign({
-            id,
-            title,
-            description,
-            price,
-            size,
-            time,
-            imageUrl
-        });
-        navigate("/pidetucita");
-    };
-    
-
     return (
         <div className="rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden w-full max-w-xs text-white border border-neutral-700">
-            <div className="h-[150px] w-full overflow-hidden">
+            <div className="h-[200px] w-full overflow-hidden">
                 <img
                     src={imageUrl}
                     alt={title}
@@ -51,11 +31,6 @@ const CardDiseños = ({ id, title, description, price, size, time, imageUrl }) =
                         <span>{time}</span>
                     </span>
                 </div>
-                    <Button
-                        label="Reservar"
-                        onClick={handleReservarClick}
-                        className="mt-3"
-                    />
             </div>
         </div>
     );

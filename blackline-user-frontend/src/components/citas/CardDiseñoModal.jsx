@@ -1,4 +1,3 @@
-import { useState } from 'react';
 
 function CardDiseñoModal({ diseño, isSelected, onSelect }) {
   return (
@@ -19,12 +18,6 @@ function CardDiseñoModal({ diseño, isSelected, onSelect }) {
       <h4 className="absolute bottom-2 right-2 bg-opacity-75 bg-black text-white px-2 py-1 rounded">
         {diseño.precio ? `${diseño.precio} €` : '(Precio) €'}
       </h4>
-      <a
-        href={`/diseños/${diseño.id || ''}`}
-        className="absolute bottom-2 left-2 bg-opacity-75 bg-black text-white px-2 py-1 rounded font-semibold underline hover:text-neutral-300 transition-colors duration-300"
-      >
-        Ver detalles
-      </a>
     </button>
   );
 }
