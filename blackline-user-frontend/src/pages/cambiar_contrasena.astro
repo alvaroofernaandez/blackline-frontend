@@ -1,0 +1,22 @@
+---
+import { Toaster } from "sonner";
+import CambioPassword from "../components/auth/CambioPassword";
+
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar contraseña</title>
+</head>
+<body class="bg-neutral-950 bg-cover bg-center bg-black/80 bg-blend-overlay animate-blurred-fade-in">
+    <img src="/bg.avif" transition:name="image" alt="" loading="lazy" class="absolute inset-0 opacity-20 object-cover w-full h-full -z-10" />
+    <main>
+        <CambioPassword client:only="react" />
+        <Toaster position='bottom-right' richColors style={{ marginBottom: '150px' }} client:only="react"/>
+    </main>
+</body>
+</html>
+

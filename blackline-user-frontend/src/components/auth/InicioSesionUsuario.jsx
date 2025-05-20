@@ -87,6 +87,11 @@ const InicioSesionUsuario = () => {
 
           <br />
 
+          <span className="text-sm mt-2 animate-fade-in-right animate-delay-500">¿Has olvidado tu contraseña?</span>
+          <a href="/recuperacion" className="text-blue-400 ml-2 text-sm hover:underline animate-fade-in-right animate-delay-500">
+            Restablecer aquí
+          </a>
+
           <button
             type="submit"
             className="mt-7 bg-neutral-500 hover:bg-neutral-600 transition-all duration-300 text-white p-2 rounded w-full animate-fade-in-down animate-delay-500"
