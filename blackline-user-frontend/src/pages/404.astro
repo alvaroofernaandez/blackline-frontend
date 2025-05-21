@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Link from '../components/general/Link';
+import Image from 'astro/components/Image.astro';
 ---
 
 <!DOCTYPE html>
@@ -11,12 +12,12 @@ import Link from '../components/general/Link';
     <title>Ruta no encontrada</title>
 </head>
 <body class="bg-neutral-950 bg-cover bg-center bg-black/80 bg-blend-overlay animate-blurred-fade-in">
-    <img 
+    <Image 
         src="/bg.avif" 
         alt="Fondo" 
         loading="lazy" 
-        width="100%"
-        height="100%"
+        width="100"
+        height="100"
         class="absolute inset-0 opacity-20 object-cover w-full h-full -z-10" />
     <main>
         <div class="flex flex-col items-center justify-center h-screen">

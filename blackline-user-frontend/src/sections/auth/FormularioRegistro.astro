@@ -1,19 +1,20 @@
 ---
+import Image from "astro/components/Image.astro";
 import RegistroUsuario from "../../components/auth/RegistroUsuario";
 import "../../styles/global.css";
 ---
 
 <section class="grid lg:flex justify-center items-center min-h-screen">
   <div class="flex justify-center items-center">
-    <img
+    <Image
       src="/logo.avif"
       alt="Logo"
       width="384"
-      height="auto"
+      height="384"
       class="w-96 animate-blurred-fade-in animate-delay-200"
       loading="lazy"
     />
   </div>
 
-  <RegistroUsuario client:only="react" />
+  <RegistroUsuario client:only="react" server:defer />
 </section>

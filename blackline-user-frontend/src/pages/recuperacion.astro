@@ -1,6 +1,7 @@
 ---
 import { Toaster } from "sonner";
 import RecuperacionForm from "../components/auth/Recuperacion";
+import Image from "astro/components/Image.astro";
 ---
 
 <!DOCTYPE html>
@@ -11,15 +12,15 @@ import RecuperacionForm from "../components/auth/Recuperacion";
     <title>Recuperar contraseña</title>
 </head>
 <body class="bg-neutral-950 bg-cover bg-center bg-black/80 bg-blend-overlay animate-blurred-fade-in">
-    <img 
+    <Image 
         src="/bg.avif" 
         alt="fondo" 
         loading="lazy" 
-        width="100%"
-        height="100%"
+        width="100"
+        height="100"
         class="absolute inset-0 opacity-20 object-cover w-full h-full -z-10" />
     <main>
-        <RecuperacionForm client:idle />
+        <RecuperacionForm client:idle server:defer/>
         <Toaster position='bottom-right' richColors style={{ marginBottom: '150px' }} client:visible/>
     </main>
 </body>

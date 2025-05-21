@@ -206,7 +206,7 @@ const Header = () => {
                 src={useAuthStore.getState().getAvatarUrl()}
                 alt="User Avatar"
                 className="w-10 h-10 rounded-full"
-                loading="lazy"
+                loading="eager"
               />
             </button>
             <div

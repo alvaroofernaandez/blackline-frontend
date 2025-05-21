@@ -8,6 +8,6 @@ const { id } = Astro.params;
 ---
 
 <Layout title='Apuntarse al Sorteo'>
-  <AuthGuard client:only="react" />
-  <SorteosApuntarseForm id={id} client:only="react" />
+  <AuthGuard client:only="react" server:defer/>
+  <SorteosApuntarseForm id={id} client:only="react" server:defer />
 </Layout>
