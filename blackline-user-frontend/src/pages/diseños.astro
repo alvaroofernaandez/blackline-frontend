@@ -1,14 +1,15 @@
 ---
+import Image from "astro/components/Image.astro";
 import DesignComponent from "../components/diseños/DesignComponent";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Maez Ink - Diseños">
-  <img
+  <Image
     src="/logo.avif"
     alt="logo"
     width="128"
-    height="auto"
+    height="128"
     class="mt-28 mx-auto w-32 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg animate-blurred-fade-in"
     loading="lazy"
   />
@@ -23,5 +24,5 @@ import Layout from "../layouts/Layout.astro";
     <div class="flex flex-col justify-center items-center mt-10">
       <DesignComponent client:visible />
     </div>
-  </div></Layout
->
+  </div>
+</Layout>

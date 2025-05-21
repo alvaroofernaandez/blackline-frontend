@@ -1,3 +1,7 @@
+---
+import Image from "astro/components/Image.astro";
+---
+
 <footer
   class="w-full bg-gradient-to-t from-black via-neutral-900 to-neutral-800 text-gray-400 px-6 py-10 mt-auto"
 >
@@ -6,11 +10,11 @@
     class="max-w-7xl mx-auto flex flex-col md:flex-row items-center text-center justify-between gap-12 text-sm"
   >
     <div class="flex flex-col items-center space-y-3 min-w-[180px]">
-      <img
+      <Image
         src="/logo.avif"
         alt="Logo"
         height="64"
-        width="auto"
+        width="64"
         class="h-16 w-auto opacity-90 mx-auto"
         loading="lazy"
       />
@@ -34,7 +38,7 @@
         rel="noopener noreferrer"
         class="hover:opacity-100 opacity-60 transition-opacity"
       >
-        <img
+        <Image
           src="/svg/whatsapp.svg"
           alt="WhatsApp"
           class="h-5 w-5"
@@ -48,7 +52,7 @@
         target="_blank"
         class="hover:opacity-100 opacity-60 transition-opacity"
       >
-        <img
+        <Image
           src="/svg/instagram.svg"
           alt="Instagram"
           class="h-5 w-5"
@@ -63,7 +67,7 @@
         rel="noopener noreferrer"
         class="hover:opacity-100 opacity-60 transition-opacity"
       >
-        <img
+        <Image
           src="/svg/tiktok.svg"
           alt="TikTok"
           width="20"
