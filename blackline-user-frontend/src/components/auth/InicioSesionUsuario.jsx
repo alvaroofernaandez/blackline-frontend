@@ -20,9 +20,10 @@ const InicioSesionUsuario = () => {
         <div className="w-96 p-8 text-white">
           <div className="flex justify-center">
             <img
-              src="/favicon.svg"
+              src="/logo.avif"
               alt="Logo"
               className="w-64 animate-blurred-fade-in animate-delay-200"
+              loading="lazy"
             />
           </div>
           <input

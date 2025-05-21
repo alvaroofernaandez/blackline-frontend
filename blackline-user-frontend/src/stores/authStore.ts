@@ -88,7 +88,7 @@ const fetchUserDetailsById = async (id: number, token: string) => {
       };
     });    
   } catch (error) {
-    console.error('Error al obtener datos del usuario:', error);
+    console.log('Error fetching user details:', error);
   }
 };
 

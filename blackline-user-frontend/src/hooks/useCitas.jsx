@@ -13,7 +13,7 @@ export function useDiseñosModal(isOpen) {
         .find((row) => row.startsWith("accessToken="))
         ?.split("=")[1];
       if (!token) {
-        console.error("Token no encontrado");
+        console.log("Token no encontrado");
         return;
       }
       try {
@@ -29,7 +29,7 @@ export function useDiseñosModal(isOpen) {
         const result = await response.json();
         setData(result);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
     fetchData();
@@ -183,7 +183,7 @@ export function useFormPideCita({ user, token, initialDesign }) {
         }, 1800);
       }
     } catch (error) {
-      console.error('Error al enviar cita:', error);
+      console.log('Error al enviar cita:', error);
       toast.error('Error al enviar la cita. Por favor, inténtalo de nuevo.');
     }
   }, [user, formData, token, enviarCorreoPersonalizado]);

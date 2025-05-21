@@ -1,8 +1,8 @@
-import { useAuthStore } from '../../stores/authStore';
-import { useCitasStore } from '../../stores/citasStore';
-import { navigate } from 'astro/virtual-modules/transitions-router.js';
-import DiseñosModal from './DiseñosModal';
-import { useFormPideCita } from '../../hooks/useCitas';
+import { useAuthStore } from "../../stores/authStore";
+import { useCitasStore } from "../../stores/citasStore";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
+import DiseñosModal from "./DiseñosModal";
+import { useFormPideCita } from "../../hooks/useCitas";
 
 const FormPideCita = () => {
   const user = useAuthStore((state) => state.user);
@@ -42,16 +42,22 @@ const FormPideCita = () => {
         </div>
         {design && (
           <div className="mb-6 text-sm text-neutral-400">
-            <p>Diseño seleccionado: <strong>{design.title}</strong></p>
+            <p>
+              Diseño seleccionado: <strong>{design.title}</strong>
+            </p>
           </div>
         )}
         <form onSubmit={(e) => handleSubmit(e, navigate)} className="space-y-6">
           {step === 1 && (
             <div>
-              <h3 className="text-xl font-semibold mb-4">Información Personal</h3>
+              <h3 className="text-xl font-semibold mb-4">
+                Información Personal
+              </h3>
               <div className="space-y-4">
                 <label className="block">
-                  <span className="block text-sm font-medium text-neutral-400">Nombre:</span>
+                  <span className="block text-sm font-medium text-neutral-400">
+                    Nombre:
+                  </span>
                   <input
                     type="text"
                     name="name"
@@ -63,7 +69,9 @@ const FormPideCita = () => {
                   />
                 </label>
                 <label className="block">
-                  <span className="block text-sm font-medium text-neutral-400">Email:</span>
+                  <span className="block text-sm font-medium text-neutral-400">
+                    Email:
+                  </span>
                   <input
                     type="email"
                     name="email"
@@ -75,21 +83,32 @@ const FormPideCita = () => {
                   />
                 </label>
                 <label className="block">
-                  <span className="block text-sm font-medium text-neutral-400">Diseño:</span>
+                  <span className="block text-sm font-medium text-neutral-400">
+                    Diseño:
+                  </span>
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
                     className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md flex items-center gap-2"
-                    name='design'
-                    value={selectedDesign?.id || ''}
+                    name="design"
+                    value={selectedDesign?.id || ""}
                   >
                     {selectedDesign != null ? (
                       <>
-                        <img src={selectedDesign.image || '/foto.avif'} alt="Diseño seleccionado" className="w-10 h-10 rounded" />
-                        <span>{selectedDesign.titulo || 'Diseño seleccionado'}</span>
+                        <img
+                          src={selectedDesign.image || "/foto.avif"}
+                          alt="Diseño seleccionado"
+                          width="40"
+                          height="40"
+                          className="w-10 h-10 rounded"
+                          loading="lazy"
+                        />
+                        <span>
+                          {selectedDesign.titulo || "Diseño seleccionado"}
+                        </span>
                       </>
                     ) : (
-                      'Añadir Diseño'
+                      "Añadir Diseño"
                     )}
                   </button>
                 </label>
@@ -111,7 +130,9 @@ const FormPideCita = () => {
               <h3 className="text-xl font-semibold mb-4">Fecha y Hora</h3>
               <div className="space-y-4">
                 <label className="block">
-                  <span className="block text-sm font-medium text-neutral-400">Fecha:</span>
+                  <span className="block text-sm font-medium text-neutral-400">
+                    Fecha:
+                  </span>
                   <input
                     type="date"
                     name="date"
@@ -122,15 +143,19 @@ const FormPideCita = () => {
                   />
                 </label>
                 <label className="block">
-                  <span className="block text-sm font-medium text-neutral-400">Hora:</span>
+                  <span className="block text-sm font-medium text-neutral-400">
+                    Hora:
+                  </span>
                   <select
-                    className='w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md'
+                    className="w-full mt-1 p-2 bg-neutral-700 border border-neutral-600 rounded-md"
                     name="time"
                     value={formData.time}
                     onChange={handleChange}
                     required
                   >
-                    <option value="0" disabled>Selecciona una hora</option>
+                    <option value="0" disabled>
+                      Selecciona una hora
+                    </option>
                     <option value="1">09:00-11:00</option>
                     <option value="2">11:00-13:00</option>
                     <option value="3">15:00-17:00</option>
@@ -161,7 +186,9 @@ const FormPideCita = () => {
             <div>
               <h3 className="text-xl font-semibold mb-4">Notas Adicionales</h3>
               <label className="block">
-                <span className="block text-sm font-medium text-neutral-400">Notas:</span>
+                <span className="block text-sm font-medium text-neutral-400">
+                  Notas:
+                </span>
                 <textarea
                   name="notes"
                   value={formData.notes}
@@ -189,7 +216,13 @@ const FormPideCita = () => {
           )}
         </form>
       </div>
-      <DiseñosModal isOpen={isModalOpen} onClose={(design) => { if (design) setSelectedDesign(design); setIsModalOpen(false); }} />
+      <DiseñosModal
+        isOpen={isModalOpen}
+        onClose={(design) => {
+          if (design) setSelectedDesign(design);
+          setIsModalOpen(false);
+        }}
+      />
     </div>
   );
 };

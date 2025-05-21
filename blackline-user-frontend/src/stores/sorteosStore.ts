@@ -53,7 +53,7 @@ export const useSorteosStore = create<SorteosState>((set) => ({
 
       set({ sorteos: sorteosConParticipacion, sorteosActivos: activos });
     } catch (error) {
-      console.error("Error al obtener los sorteos:", error);
+      console.log("Error fetching sorteos:", error);
     }
   },
 }));

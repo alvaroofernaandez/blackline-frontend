@@ -7,6 +7,13 @@ import AuthGuard from "../components/auth/AuthGuard";
 
 <Layout title="Maez Ink - Pide tu cita">
   <AuthGuard client:only="react" />
-  <img src="/favicon.svg" transition:name="vtImg" alt="logo" class="mt-28 mx-auto w-32 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg animate-blurred-fade-in" loading="lazy">
-  <Form/>
+  <img
+    src="/logo.avif"
+    alt="logo"
+    width="128"
+    height="auto"
+    class="mt-28 mx-auto w-32 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg animate-blurred-fade-in"
+    loading="lazy"
+  />
+  <Form />
 </Layout>

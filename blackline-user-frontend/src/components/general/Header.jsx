@@ -40,11 +40,13 @@ const Header = () => {
           <li>
             <a href="/">          
               <img 
-                src="/favicon.svg" 
+                src="/logo.avif" 
                 alt="logo" 
                 width="80"
                 height="80"
-                className="w-20 h-20 cursor-pointer will-change-transform hover:scale-105 transition-transform duration-500" />
+                className="w-20 h-20 cursor-pointer will-change-transform hover:scale-105 transition-transform duration-500" 
+                loading="eager"
+                />
             </a>
           </li>
           <li>

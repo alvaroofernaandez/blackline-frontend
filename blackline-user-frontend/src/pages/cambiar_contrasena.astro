@@ -11,7 +11,12 @@ import CambioPassword from "../components/auth/CambioPassword";
     <title>Cambiar contraseña</title>
 </head>
 <body class="bg-neutral-950 bg-cover bg-center bg-black/80 bg-blend-overlay animate-blurred-fade-in">
-    <img src="/bg.avif" transition:name="image" alt="" loading="lazy" class="absolute inset-0 opacity-20 object-cover w-full h-full -z-10" />
+    <img src="/bg.avif" 
+        alt="Fondo" 
+        loading="lazy" 
+        width="100%"
+        height="100%"
+        class="absolute inset-0 opacity-20 object-cover w-full h-full -z-10" />
     <main>
         <CambioPassword client:idle />
         <Toaster position='bottom-right' richColors style={{ marginBottom: '150px' }} client:visible/>

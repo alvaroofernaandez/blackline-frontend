@@ -1,11 +1,18 @@
 ---
-import RegistroUsuario from '../../components/auth/RegistroUsuario';
-import '../../styles/global.css';
+import RegistroUsuario from "../../components/auth/RegistroUsuario";
+import "../../styles/global.css";
 ---
 
 <section class="grid lg:flex justify-center items-center min-h-screen">
   <div class="flex justify-center items-center">
-    <img src="/favicon.svg" transition:name="vtImg" alt="Logo" class="w-96 animate-blurred-fade-in animate-delay-200" />
+    <img
+      src="/logo.avif"
+      alt="Logo"
+      width="384"
+      height="auto"
+      class="w-96 animate-blurred-fade-in animate-delay-200"
+      loading="lazy"
+    />
   </div>
 
   <RegistroUsuario client:only="react" />

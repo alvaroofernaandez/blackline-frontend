@@ -6,6 +6,7 @@ const Noticia = ({ titulo, descripcion, fecha, imagen }) => {
                     src={imagen}
                     alt="Imagen de la noticia"
                     className="w-full md:w-32 h-32 object-cover rounded-lg shadow-sm"
+                    loading="lazy"
                 />
             )}
 

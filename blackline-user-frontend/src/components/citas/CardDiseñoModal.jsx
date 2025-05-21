@@ -14,6 +14,7 @@ function CardDiseñoModal({ diseño, isSelected, onSelect }) {
         src={diseño.image}
         alt={`Imagen del diseño ${diseño.nombre || ''}`}
         className="w-52 h-64 rounded-xl object-cover"
+        loading="lazy"
       />
       <h4 className="absolute bottom-2 right-2 bg-opacity-75 bg-black text-white px-2 py-1 rounded">
         {diseño.precio ? `${diseño.precio} €` : '(Precio) €'}
