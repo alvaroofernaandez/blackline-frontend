@@ -1,4 +1,3 @@
-import { FaDownload, FaEye } from "react-icons/fa";
 import { useFacturas } from "../../hooks/useFacturas";
 import { z } from "zod";
 
@@ -32,7 +31,7 @@ const InvoiceCard = (props) => {
           onClick={handleVerFactura}
           className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-blue-400 transition-all duration-300 flex items-center gap-2"
         >
-          <FaEye />
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-icon lucide-eye h-4 w-4"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
           Ver
         </button>
         <button
@@ -41,7 +40,7 @@ const InvoiceCard = (props) => {
           onClick={handleDescargarFactura}
           className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-green-400 transition-all duration-300 flex items-center gap-2"
         >
-          <FaDownload />
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-down-to-line-icon lucide-arrow-down-to-line h-4 w-4"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg>
           Descargar
         </button>
       </div>

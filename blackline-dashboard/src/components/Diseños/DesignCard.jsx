@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { AiFillEdit } from "react-icons/ai";
 import Modal from "../General/Modal";
 import { z } from "zod";
 import { useDiseños } from "../../hooks/useDiseños";
@@ -71,9 +69,9 @@ const CardDiseño = (props) => {
             type="button"
             aria-label="Editar diseño"
             onClick={() => (navigate(`/actualizar-diseño/${id}`))}
-            className="bg-[#abd373] text-gray-900 font-bold py-2 px-4 rounded-lg text-sm hover:bg-[#92b950] transition-all duration-300"
+            className="bg-[#abd373] text-gray-900 font-bold py-2 px-4 rounded-lg text-sm hover:bg-[#d2ff85] transition-all duration-300"
           >
-            <AiFillEdit className="size-5" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-square-pen-icon lucide-square-pen w-4 h-4"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></svg>
           </button>
           <button
             type="button"
@@ -81,7 +79,7 @@ const CardDiseño = (props) => {
             onClick={() => setShowModal(true)}
             className="bg-neutral-600 dark:bg-neutral-800 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-neutral-700 dark:hover:bg-neutral-700 transition-all duration-300"
           >
-            <FaRegTrashAlt className="size-5" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2-icon lucide-trash-2 w-4 h-4"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
           </button>
         </div>
       </div>

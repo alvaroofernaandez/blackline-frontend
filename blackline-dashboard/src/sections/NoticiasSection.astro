@@ -1,8 +1,7 @@
 ---
-import { FaPlus } from "react-icons/fa6";
 import TablaNoticias from "../components/Noticias/News";
 ---
 
 <section class="flex flex-col gap-4">
-  <TablaNoticias client:only="react"/>
+  <TablaNoticias client:visible server:defer/>
 </section>

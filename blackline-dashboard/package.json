@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.1.2",
     "@astrojs/tailwind": "^5.1.4",
     "@midudev/tailwind-animations": "^0.2.0",
@@ -24,7 +25,6 @@
     "lucide-react": "^0.483.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0",
     "react-router-dom": "^7.5.2",
     "sonner": "^2.0.3",
     "tailwindcss": "^3.4.17",
