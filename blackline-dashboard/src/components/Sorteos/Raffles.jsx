@@ -2,7 +2,7 @@ import { useSorteos } from "../../hooks/useSorteos";
 import CardSorteo from "./RaffleCard";
 
 const TablaSorteos = () => {
-  const { sorteos, loading, crearSorteo, actualizarSorteo, eliminarSorteo } = useSorteos();
+  const { sorteos, loading} = useSorteos();
 
   if (loading) return <p className="text-center">Cargando sorteos...</p>;
   if (sorteos.length === 0)

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { useAuthStore } from "../stores/authStore";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 export const useCorreos = () => {

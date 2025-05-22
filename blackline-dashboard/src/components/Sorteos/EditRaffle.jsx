@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { useSorteos } from "../../hooks/useSorteos";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
 

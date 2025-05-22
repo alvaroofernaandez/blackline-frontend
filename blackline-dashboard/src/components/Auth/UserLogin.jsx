@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Cookies from 'js-cookie'; 
 import { navigate } from 'astro/virtual-modules/transitions-router.js';
 import { z } from 'zod';
