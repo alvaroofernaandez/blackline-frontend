@@ -18,9 +18,9 @@ const Noticiero = () => {
     };
 
     return (
-        <div className='flex flex-col gap-5 max-w-4xl mx-auto my-32'>
-            <h1 className='text-4xl text-white font-bold'>Noticias</h1>
-            <hr />
+        <div className='flex flex-col gap-5 max-w-4xl mx-auto my-32 justify-center'>
+            <h1 className='text-4xl text-white font-bold text-center lg:text-start'>Noticias</h1>
+            <hr/>
             {cargando ? (
                 <span className="text-white">Cargando...</span>
             ) : (

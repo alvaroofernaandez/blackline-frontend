@@ -15,7 +15,7 @@ const SorteosActivos = () => {
             {sorteosActivos.map((sorteo) => (
                 <div
                     key={sorteo.id}
-                    className="max-w-2xl mx-auto mt-28 px-6 py-12 bg-neutral-900 border border-neutral-700 rounded-xl shadow-xl text-white space-y-8"
+                    className="max-w-sm md:max-w-2xl mx-auto mt-28 px-6 py-12 bg-neutral-900 border border-neutral-700 rounded-xl shadow-xl text-white space-y-8"
                 >
                     <div className="text-center">
                         <h1 className="text-4xl font-bold tracking-tight mb-3">{sorteo.titulo}</h1>
