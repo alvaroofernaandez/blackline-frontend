@@ -29,17 +29,16 @@ const CrearDiseño = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const diseño = {
-      titulo: formData.titulo.trim(),
-      descripcion: formData.descripcion.trim(),
-      precio: formData.precio.trim(),
-      image: formData.image.trim(),
-      alto: parseFloat(formData.alto),
-      ancho: parseFloat(formData.ancho),
-      duracion: formData.duracion ? parseFloat(formData.duracion) : 0,
-    };
+    const formDataToSend = new FormData();
+    formDataToSend.append("titulo", formData.titulo.trim());
+    formDataToSend.append("descripcion", formData.descripcion.trim());
+    formDataToSend.append("precio", formData.precio.trim());
+    formDataToSend.append("alto", parseFloat(formData.alto));
+    formDataToSend.append("ancho", parseFloat(formData.ancho));
+    formDataToSend.append("duracion", formData.duracion ? parseFloat(formData.duracion) : 0);
+    formDataToSend.append("image", formData.image);
 
-    const success = await crearDiseño(diseño);
+    const success = await crearDiseño(formDataToSend);
     if (success) {
       // Enviar correos masivos
       await enviarCorreosMasivos({
@@ -70,7 +69,7 @@ const CrearDiseño = () => {
           value={formData.titulo}
           onChange={handleChange}
           className="border border-gray-300 p-2 rounded-lg text-black w-full mb-4"
-          required
+           
         />
 
         <label htmlFor="descripcion" className="block mb-2">
@@ -83,7 +82,7 @@ const CrearDiseño = () => {
           value={formData.descripcion}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-          required
+           
         ></textarea>
 
         <label htmlFor="precio" className="block mb-2">
@@ -100,17 +99,19 @@ const CrearDiseño = () => {
         />
 
         <label htmlFor="image" className="block mb-2">
-          URL de la imagen:
+          Imagen:
         </label>
         <input
-          type="text"
+          type="file"
           id="image"
           name="image"
-          placeholder="Escribe la URL de la imagen aquí..."
-          value={formData.image}
-          onChange={handleChange}
+          accept="image/*"
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, image: e.target.files[0] }))
+          }
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         />
+
 
         <label htmlFor="alto" className="block mb-2">
           Alto (cm):
@@ -123,7 +124,7 @@ const CrearDiseño = () => {
           value={formData.alto}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-          required
+           
         />
 
         <label htmlFor="ancho" className="block mb-2">
@@ -137,7 +138,7 @@ const CrearDiseño = () => {
           value={formData.ancho}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-          required
+           
         />
 
         <button
