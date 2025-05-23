@@ -7,7 +7,7 @@ const diseñoSchema = z.object({
   titulo: z.string().min(1, "El título es obligatorio."),
   descripcion: z.string().min(1, "La descripción es obligatoria."),
   precio: z.string().optional(),
-  image: z.string().optional(),
+  image: z.file().optional(),
   alto: z.number().min(1, "El alto debe ser un número positivo."),
   ancho: z.number().min(1, "El ancho debe ser un número positivo."),
   duracion: z.number().min(1, "La duración debe ser un número positivo."), 
