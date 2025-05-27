@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -9,44 +10,69 @@ const noticiaSchema = z.object({
   fecha: z.string().refine((fecha) => !isNaN(Date.parse(fecha)), {
     message: "La fecha debe ser válida",
   }),
-  imagen: z.string().url("La URL de la imagen debe ser válida").optional(),
+  imagen_url: z.string().url("La URL de la imagen debe ser válida").optional().nullable(),
+  imagen_original_name: z.string().optional(),
 });
 
 export const useNoticias = () => {
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const getToken = () => {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+    if (!token) throw new Error("Token no encontrado");
+    return token;
+  };
+
   const fetchNoticias = async () => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
+      const token = getToken();
 
-      const res = await fetch("http://localhost:8000/api/noticias", {
+      const res = await fetch("http://localhost:8000/api/noticias/", {
         headers: { Authorization: `Bearer ${token}` },
       });
+      
+      if (!res.ok) {
+        throw new Error(`Error ${res.status}: ${res.statusText}`);
+      }
+      
       const raw = await res.json();
-      const validadas = raw.map((n) => noticiaSchema.parse(n));
+      console.log("Datos recibidos del API:", raw); // Para debug
+      
+      const validadas = raw.map((n) => {
+        try {
+          return noticiaSchema.parse(n);
+        } catch (error) {
+          console.error("Error validando noticia:", n, error);
+          // Retornar una versión "limpia" si falla la validación
+          return {
+            id: n.id,
+            titulo: n.titulo || "Sin título",
+            descripcion: n.descripcion || "Sin descripción",
+            fecha: n.fecha || new Date().toISOString(),
+            imagen_url: n.imagen_url || null,
+            imagen_original_name: n.imagen_original_name || null,
+          };
+        }
+      });
+      
       setNoticias(validadas);
     } catch (err) {
+      console.error("Error completo:", err);
       toast.error("Error cargando noticias: " + err.message);
     } finally {
       setLoading(false);
     }
   };
 
-
   const obtenerNoticiaPorId = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
+      const token = getToken();
 
-      const respuesta = await fetch(`http://127.0.0.1:8000/api/noticias_por_id/${id}/`, {
+      const respuesta = await fetch(`http://localhost:8000/api/noticias/${id}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,28 +90,33 @@ export const useNoticias = () => {
     }
   };
 
-  const crearNoticia = async (noticia) => {
+  const crearNoticia = async (data, isFormData = false) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
+      const token = getToken();
 
-      const validation = noticiaSchema.safeParse(noticia);
-      if (!validation.success) {
-        const errorMessages = validation.error.errors.map((err) => err.message);
-        errorMessages.forEach((msg) => toast.error(msg));
-        return false;
+      // Si no es FormData, validar con el schema
+      if (!isFormData) {
+        const validation = noticiaSchema.safeParse(data);
+        if (!validation.success) {
+          const errorMessages = validation.error.errors.map((err) => err.message);
+          errorMessages.forEach((msg) => toast.error(msg));
+          return false;
+        }
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      // Si no es FormData, agregar Content-Type
+      if (!isFormData) {
+        headers["Content-Type"] = "application/json";
       }
 
       const res = await fetch("http://localhost:8000/api/noticias/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(validation.data),
+        headers,
+        body: isFormData ? data : JSON.stringify(data),
       });
 
       if (res.ok) {
@@ -93,37 +124,45 @@ export const useNoticias = () => {
         fetchNoticias(); 
         return true;
       } else {
-        toast.error("Error al crear la noticia");
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Error del servidor:", errorData);
+        toast.error("Error al crear la noticia: " + (errorData.detail || res.statusText));
         return false;
       }
     } catch (err) {
+      console.error("Error al crear noticia:", err);
       toast.error("Error al crear la noticia: " + err.message);
       return false;
     }
   };
 
-  const actualizarNoticia = async (id, noticia) => {
+  const actualizarNoticia = async (id, data, isFormData = false) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
+      const token = getToken();
 
-      const validation = noticiaSchema.safeParse(noticia);
-      if (!validation.success) {
-        const errorMessages = validation.error.errors.map((err) => err.message);
-        errorMessages.forEach((msg) => toast.error(msg));
-        return false;
+      // Si no es FormData, validar con el schema
+      if (!isFormData) {
+        const validation = noticiaSchema.safeParse(data);
+        if (!validation.success) {
+          const errorMessages = validation.error.errors.map((err) => err.message);
+          errorMessages.forEach((msg) => toast.error(msg));
+          return false;
+        }
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      // Si no es FormData, agregar Content-Type
+      if (!isFormData) {
+        headers["Content-Type"] = "application/json";
       }
 
       const res = await fetch(`http://localhost:8000/api/noticias/${id}/`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(validation.data),
+        headers,
+        body: isFormData ? data : JSON.stringify(data),
       });
 
       if (res.ok) {
@@ -131,10 +170,13 @@ export const useNoticias = () => {
         fetchNoticias();
         return true;
       } else {
-        toast.error("Error al actualizar la noticia");
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Error del servidor:", errorData);
+        toast.error("Error al actualizar la noticia: " + (errorData.detail || res.statusText));
         return false;
       }
     } catch (err) {
+      console.error("Error al actualizar noticia:", err);
       toast.error("Error al actualizar la noticia: " + err.message);
       return false;
     }
@@ -142,12 +184,9 @@ export const useNoticias = () => {
 
   const eliminarNoticia = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
+      const token = getToken();
 
-      const res = await fetch(`${"http://localhost:8000/api/noticias"}/${id}/`, {
+      const res = await fetch(`http://localhost:8000/api/noticias/${id}/`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -160,11 +199,14 @@ export const useNoticias = () => {
         setNoticias((prev) => prev.filter((n) => n.id !== id));
         return true;
       } else {
-        toast.error("Error al eliminar la noticia");
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Error del servidor:", errorData);
+        toast.error("Error al eliminar la noticia: " + (errorData.detail || res.statusText));
         return false;
       }
-    } catch {
-      toast.error("Error al eliminar la noticia");
+    } catch (err) {
+      console.error("Error al eliminar noticia:", err);
+      toast.error("Error al eliminar la noticia: " + err.message);
       return false;
     }
   };
@@ -172,7 +214,7 @@ export const useNoticias = () => {
   useEffect(() => {
     fetchNoticias();
   }, []);
-
+  
   return { noticias, loading, crearNoticia, actualizarNoticia, eliminarNoticia, obtenerNoticiaPorId };
 };
 

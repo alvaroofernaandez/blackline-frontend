@@ -25,7 +25,7 @@ const Home = () => {
 
         const [sorteosRes, noticiasRes] = await Promise.all([
           fetch("http://127.0.0.1:8000/api/sorteos/", { headers: authHeader }),
-          fetch("http://127.0.0.1:8000/api/noticias/", { headers: authHeader }),
+          fetch("http://127.0.0.1:8000/api/noticias/"),
         ]);
 
         if (!sorteosRes.ok || !noticiasRes.ok) {

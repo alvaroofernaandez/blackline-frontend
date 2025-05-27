@@ -46,7 +46,7 @@ const TablaNoticias = () => {
                 <td className="p-3 border text-gray-600">{formatearFecha(fila.fecha)}</td>
                 <td className="p-3 border">
                   <img
-                    src={fila.imagen}
+                    src={fila.imagen_url}
                     alt="Imagen de noticia"
                     className="max-w-full h-auto rounded-lg border"
                     style={{ maxHeight: "40px", objectFit: "contain" }}

@@ -7,7 +7,6 @@ const ActualizarNoticia = ({ id }) => {
   const [formData, setFormData] = useState({
     titulo: "",
     descripcion: "",
-    imagen: "",
     fecha: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -68,17 +67,6 @@ const ActualizarNoticia = ({ id }) => {
           className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
           required
         ></textarea>
-
-        <label htmlFor="imagen" className="block mb-2">
-          Imagen URL:
-        </label>
-        <input
-          id="imagen"
-          name="imagen"
-          value={formData.imagen}
-          onChange={handleChange}
-          className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
-        />
 
         <button
           type="submit"

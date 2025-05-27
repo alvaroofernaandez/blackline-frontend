@@ -8,22 +8,63 @@ const AnadirNoticia = () => {
   const { crearNoticia } = useNoticias();
   const { enviarCorreosMasivos } = useCorreos();
   const [cargando, setCargando] = useState(false);
+  const [imagenPreview, setImagenPreview] = useState(null);
+  const [archivoImagen, setArchivoImagen] = useState(null);
+
+  const manejarCambioImagen = (e) => {
+    const archivo = e.target.files[0];
+    if (archivo) {
+      // Validar tipo de archivo
+      const tiposPermitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      if (!tiposPermitidos.includes(archivo.type)) {
+        alert('Por favor selecciona un archivo de imagen válido (JPG, PNG, GIF, WEBP)');
+        return;
+      }
+
+      // Validar tamaño (10MB máximo)
+      if (archivo.size > 10 * 1024 * 1024) {
+        alert('El archivo es demasiado grande. Máximo 10MB permitido.');
+        return;
+      }
+
+      setArchivoImagen(archivo);
+      
+      // Crear preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagenPreview(e.target.result);
+      };
+      reader.readAsDataURL(archivo);
+    }
+  };
+
+  const limpiarImagen = () => {
+    setArchivoImagen(null);
+    setImagenPreview(null);
+    // Limpiar el input file
+    const inputFile = document.getElementById('imagen');
+    if (inputFile) {
+      inputFile.value = '';
+    }
+  };
 
   const enviar = async (e) => {
     e.preventDefault();
     setCargando(true);
 
-    const noticia = {
-      titulo: e.target.titulo.value,
-      descripcion: e.target.descripcion.value,
-      imagen: e.target.imagen.value,
-      fecha: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
-    };
+    const formData = new FormData();
+    formData.append('titulo', e.target.titulo.value);
+    formData.append('descripcion', e.target.descripcion.value);
+    formData.append('fecha', format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+    
+    if (archivoImagen) {
+      formData.append('imagen', archivoImagen);
+    }
 
-    const exito = await crearNoticia(noticia);
+    const exito = await crearNoticia(formData, true); // true indica que es FormData
     if (exito) {
-      const asunto = `Nueva noticia: ${noticia.titulo}`;
-      const mensaje = `Se ha publicado una nueva noticia: ${noticia.titulo}\n\nDescripción: ${noticia.descripcion}`;
+      const asunto = `Nueva noticia: ${e.target.titulo.value}`;
+      const mensaje = `Se ha publicado una nueva noticia: ${e.target.titulo.value}\n\nDescripción: ${e.target.descripcion.value}`;
       const nombre = "Administrador";
 
       enviarCorreosMasivos({ asunto, mensaje, nombre })
@@ -62,15 +103,36 @@ const AnadirNoticia = () => {
         ></textarea>
 
         <label htmlFor="imagen" className="block mb-2">
-          Imagen URL:
+          Imagen:
         </label>
         <input
-          type="text"
+          type="file"
           id="imagen"
-          placeholder="Escribe la URL de la imagen..."
           name="imagen"
-          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          accept="image/*"
+          onChange={manejarCambioImagen}
+          className="border border-gray-300 bg-white rounded-lg text-gray-400 p-2 w-full mb-4"
         />
+
+        {imagenPreview && (
+          <div className="mb-4">
+            <p className="text-sm dark:text-white mb-2">Vista previa:</p>
+            <div className="relative inline-block">
+              <img
+                src={imagenPreview}
+                alt="Preview"
+                className="max-w-full max-h-48 rounded-lg"
+              />
+              <button
+                type="button"
+                onClick={limpiarImagen}
+                className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600 transition-colors"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        )}
 
         <button
           type="submit"
