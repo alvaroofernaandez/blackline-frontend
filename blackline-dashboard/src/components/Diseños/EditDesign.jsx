@@ -8,7 +8,6 @@ const EditarDiseño = ({ id }) => {
     titulo: "",
     descripcion: "",
     precio: "",
-    image: "",
     alto: "",
     ancho: "",
     duracion: "",
@@ -22,7 +21,6 @@ const EditarDiseño = ({ id }) => {
         titulo: diseño.titulo || "",
         descripcion: diseño.descripcion || "",
         precio: diseño.precio || "",
-        image: diseño.image || "",
         alto: diseño.alto?.toString() || "",
         ancho: diseño.ancho?.toString() || "",
         duracion: diseño.duracion?.toString() || "",
@@ -52,7 +50,6 @@ const EditarDiseño = ({ id }) => {
       titulo: formData.titulo.trim(),
       descripcion: formData.descripcion.trim(),
       precio: formData.precio.trim(),
-      image: formData.image.trim(),
       alto: parseFloat(formData.alto),
       ancho: parseFloat(formData.ancho),
       duracion: formData.duracion ? parseFloat(formData.duracion) : 0,
@@ -102,18 +99,6 @@ const EditarDiseño = ({ id }) => {
           id="precio"
           name="precio"
           value={formData.precio}
-          onChange={handleChange}
-          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-        />
-
-        <label htmlFor="image" className="block mb-2">
-          URL de la imagen:
-        </label>
-        <input
-          type="text"
-          id="image"
-          name="image"
-          value={formData.image}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
         />

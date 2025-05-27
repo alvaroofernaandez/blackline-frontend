@@ -1,3 +1,4 @@
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -7,7 +8,7 @@ const diseñoSchema = z.object({
   titulo: z.string().min(1, "El título es obligatorio."),
   descripcion: z.string().min(1, "La descripción es obligatoria."),
   precio: z.string().optional(),
-  image: z.file().optional(),
+  image: z.string().optional(),
   alto: z.number().min(1, "El alto debe ser un número positivo."),
   ancho: z.number().min(1, "El ancho debe ser un número positivo."),
   duracion: z.number().min(1, "La duración debe ser un número positivo."), 
@@ -74,26 +75,38 @@ export const useDiseños = () => {
         ?.split("=")[1];
       if (!token) throw new Error("Token no encontrado");
 
-      const validation = diseñoSchema.safeParse(diseño);
-      if (!validation.success) {
-        const errorMessages = validation.error.errors.map((err) => err.message);
-        errorMessages.forEach((msg) => toast.error(msg));
-        return false;
+      let body = diseño;
+      let headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      if (!(diseño instanceof FormData)) {
+        const validation = diseñoSchema.safeParse(diseño);
+        if (!validation.success) {
+          const errorMessages = validation.error.errors.map((err) => err.message);
+          errorMessages.forEach((msg) => toast.error(msg));
+          return false;
+        }
+        body = JSON.stringify(validation.data);
+        headers["Content-Type"] = "application/json";
       }
 
       const res = await fetch("http://127.0.0.1:8000/api/diseños/", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(validation.data),
+        headers,
+        body,
       });
 
       if (res.ok) {
         toast.success("Diseño creado con éxito");
         fetchDiseños();
+        setTimeout(() => {
+          navigate("/diseños");
+        }, 800);  
         return true;
       } else {
+        const errorData = await res.json();
+        console.error("Error detalle:", errorData);
         toast.error("Error al crear el diseño");
         return false;
       }
@@ -102,6 +115,7 @@ export const useDiseños = () => {
       return false;
     }
   };
+
 
   const actualizarDiseño = async (id, diseño) => {
     try {
@@ -130,6 +144,9 @@ export const useDiseños = () => {
       if (res.ok) {
         toast.success("Diseño actualizado con éxito");
         fetchDiseños();
+        setTimeout(() => {
+          navigate("/diseños");
+        }, 800);  
         return true;
       } else {
         toast.error("Error al actualizar el diseño");

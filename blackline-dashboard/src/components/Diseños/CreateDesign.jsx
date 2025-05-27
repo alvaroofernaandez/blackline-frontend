@@ -40,7 +40,6 @@ const CrearDiseño = () => {
 
     const success = await crearDiseño(formDataToSend);
     if (success) {
-      // Enviar correos masivos
       await enviarCorreosMasivos({
         asunto: "¡Nuevos diseños disponibles!",
         mensaje: `Se ha añadido un nuevo diseño: ${diseño.titulo}. Visita nuestra página para más detalles.`,
@@ -69,7 +68,7 @@ const CrearDiseño = () => {
           value={formData.titulo}
           onChange={handleChange}
           className="border border-gray-300 p-2 rounded-lg text-black w-full mb-4"
-           
+          required
         />
 
         <label htmlFor="descripcion" className="block mb-2">
@@ -82,7 +81,7 @@ const CrearDiseño = () => {
           value={formData.descripcion}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-           
+          required
         ></textarea>
 
         <label htmlFor="precio" className="block mb-2">
@@ -96,6 +95,7 @@ const CrearDiseño = () => {
           value={formData.precio}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          required
         />
 
         <label htmlFor="image" className="block mb-2">
@@ -109,9 +109,9 @@ const CrearDiseño = () => {
           onChange={(e) =>
             setFormData((prev) => ({ ...prev, image: e.target.files[0] }))
           }
-          className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
+          className="border border-gray-300 bg-white rounded-lg text-gray-400 p-2 w-full mb-4"
+          required
         />
-
 
         <label htmlFor="alto" className="block mb-2">
           Alto (cm):
@@ -124,7 +124,7 @@ const CrearDiseño = () => {
           value={formData.alto}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-           
+          required
         />
 
         <label htmlFor="ancho" className="block mb-2">
@@ -138,7 +138,7 @@ const CrearDiseño = () => {
           value={formData.ancho}
           onChange={handleChange}
           className="border border-gray-300 rounded-lg text-black p-2 w-full mb-4"
-           
+          required  
         />
 
         <button
