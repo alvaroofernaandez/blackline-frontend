@@ -91,6 +91,15 @@ export function useFormPideCita({ user, token, initialDesign }) {
   const handleDateChange = useCallback((e) => {
     const dateStr = e.target.value;
     const date = new Date(dateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (date < today) {
+      toast.warning('No se pueden seleccionar fechas anteriores a hoy');
+      setFormData((prev) => ({ ...prev, date: '' }));
+      return;
+    }
+
     const day = date.getDay();
     if (day === 0 || day === 6) {
       toast.warning('No se pueden seleccionar citas para fines de semana');
