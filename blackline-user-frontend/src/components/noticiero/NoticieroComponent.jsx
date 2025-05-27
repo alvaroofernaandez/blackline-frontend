@@ -30,7 +30,7 @@ const Noticiero = () => {
                         titulo={noticia.titulo}
                         descripcion={noticia.descripcion}
                         fecha={formatearFecha(noticia.fecha)}
-                        imagen={noticia.imagen}
+                        imagen_url={noticia.imagen_url}
                     />
                 ))
             )}

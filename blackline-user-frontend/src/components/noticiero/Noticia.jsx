@@ -1,9 +1,9 @@
-const Noticia = ({ titulo, descripcion, fecha, imagen }) => {
+const Noticia = ({ titulo, descripcion, fecha, imagen_url }) => {
     return (
         <div className="flex flex-col md:flex-row items-center gap-4 border border-white p-4 rounded-lg bg-black bg-opacity-20 w-full transition duration-300 ease-in-out shadow-md hover:scale-[1.01] hover:bg-opacity-30 hover:border-gray-400 animate-fade-in-right max-w-sm md:max-w-xl lg:max-w-4xl mx-auto">
-            {imagen && (
+            {imagen_url && (
                 <img
-                    src={imagen}
+                    src={imagen_url}
                     alt="Imagen de la noticia"
                     className="w-full md:w-32 h-32 object-cover rounded-lg shadow-sm"
                     loading="lazy"

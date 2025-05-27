@@ -9,7 +9,7 @@ const noticiaSchema = z.object({
   titulo: z.string(),
   descripcion: z.string(),
   fecha: z.string(),
-  imagen: z.string().optional(),
+  imagen_url: z.string().optional(),
 });
 
 export function useNoticias() {
