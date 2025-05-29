@@ -17,17 +17,8 @@ export const useUsuarios = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch("http://127.0.0.1:8000/api/usuarios/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch("/api/usuarios");
+      if (!res.ok) throw new Error("No autorizado o error en la carga");
       const raw = await res.json();
       const validados = raw.map((usuario) => usuarioSchema.parse(usuario));
       setUsuarios(validados);
@@ -40,23 +31,10 @@ export const useUsuarios = () => {
 
   const obtenerUsuarioPorId = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch(`http://127.0.0.1:8000/api/usuarios/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.ok) {
-        const datos = await res.json();
-        return usuarioSchema.parse(datos[0]);
-      } else {
-        throw new Error("Error al cargar el usuario.");
-      }
+      const res = await fetch(`/api/usuarios/${id}`);
+      if (!res.ok) throw new Error("Error al cargar el usuario.");
+      const datos = await res.json();
+      return usuarioSchema.parse(datos);
     } catch (err) {
       toast.error("No se pudo cargar el usuario.");
       return null;
@@ -65,19 +43,9 @@ export const useUsuarios = () => {
 
   const eliminarUsuario = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch(`http://127.0.0.1:8000/api/usuarios/${id}/`, {
+      const res = await fetch(`/api/usuarios/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
-
       if (res.ok) {
         toast.success("Usuario eliminado con éxito");
         setUsuarios((prev) => prev.filter((usuario) => usuario.id !== id));

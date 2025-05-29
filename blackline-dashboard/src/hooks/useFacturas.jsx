@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-
 const facturaSchema = z.object({
   id: z.number().optional(),
   cliente: z.number().min(1, "El cliente es obligatorio."),
@@ -21,20 +20,10 @@ export const useFacturas = () => {
 
   const fetchFacturas = async () => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch("http://localhost:8000/api/facturas/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch("/api/facturas");
+      if (!res.ok) throw new Error("No autorizado o error en la API");
       const raw = await res.json();
-      const validadas = raw.map((factura) => facturaSchema.parse(factura));
-      setFacturas(validadas);
+      setFacturas(raw);
     } catch (err) {
       toast.error("Error cargando facturas: " + err.message);
     } finally {
@@ -44,26 +33,17 @@ export const useFacturas = () => {
 
   const obtenerFacturaPorId = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      window.location.href = `http://127.0.0.1:8000/api/detalle_facturas/?id=${id}`;
+      const res = await fetch(`/api/detalle_facturas/?id=${id}`);
+      if (!res.ok) throw new Error("No autorizado o error en la API");
+      window.open(`/api/detalle_facturas/?id=${id}`, "_blank");
     } catch (err) {
-      toast.error("No se pudo redirigir a la factura.");
+      toast.error("No se pudo obtener la factura.");
+      return null;
     }
   };
 
   const crearFactura = async (factura) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
       const validation = facturaSchema.safeParse(factura);
       if (!validation.success) {
         const errorMessages = validation.error.errors.map((err) => err.message);
@@ -71,11 +51,10 @@ export const useFacturas = () => {
         return false;
       }
 
-      const res = await fetch("http://localhost:8000/api/facturas/", {
+      const res = await fetch("/api/facturas", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(validation.data),
       });
@@ -84,7 +63,12 @@ export const useFacturas = () => {
         fetchFacturas();
         return true;
       } else {
-        toast.error("Error al crear la factura");
+        const errorData = await res.json().catch(() => ({}));
+        toast.error(
+          errorData?.errors?.join(", ") ||
+            errorData?.message ||
+            "Error al crear la factura"
+        );
         return false;
       }
     } catch (err) {

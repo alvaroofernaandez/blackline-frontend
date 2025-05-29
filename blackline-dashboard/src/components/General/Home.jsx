@@ -1,51 +1,13 @@
-import { useEffect, useState } from "react";
-import { navigate } from "astro/virtual-modules/transitions-router.js";
-import HomeLoginButton from "../General/HomeLoginButton";
 import { useCitas } from "../../hooks/useCitas";
+import { useSorteos } from "../../hooks/useSorteos";
+import { useNoticias } from "../../hooks/useNoticias";
+import HomeLoginButton from "../General/HomeLoginButton";
+import { navigate } from "astro/virtual-modules/transitions-router.js";
 
 const Home = () => {
-  const [sorteos, setSorteos] = useState([]);
-  const [noticias, setNoticias] = useState([]);
-  const { citas, loading, obtenerNombreSolicitante } = useCitas();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("accessToken="))
-          ?.split("=")[1];
-        if (!token) {
-          throw new Error("Token no encontrado en las cookies");
-        }
-
-        const authHeader = {
-          Authorization: `Bearer ${token}`,
-        };
-
-        const [sorteosRes, noticiasRes] = await Promise.all([
-          fetch("http://127.0.0.1:8000/api/sorteos/", { headers: authHeader }),
-          fetch("http://127.0.0.1:8000/api/noticias/"),
-        ]);
-
-        if (!sorteosRes.ok || !noticiasRes.ok) {
-          throw new Error("Error al cargar los datos");
-        }
-
-        const [sorteosData, noticiasData] = await Promise.all([
-          sorteosRes.json(),
-          noticiasRes.json(),
-        ]);
-
-        setSorteos(sorteosData.slice(0, 2));
-        setNoticias(noticiasData.slice(0, 4));
-      } catch (error) {
-        toast.error("Error al cargar los datos");
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { citas, loading: loadingCitas, obtenerNombreSolicitante } = useCitas();
+  const { sorteos, loading: loadingSorteos } = useSorteos();
+  const { noticias, loading: loadingNoticias } = useNoticias();
 
   const handleNavigate = (path) => navigate(path);
 
@@ -92,17 +54,19 @@ const Home = () => {
 
   const NoticiaMiniCard = ({ noticia }) => {
     const truncateText = (text, maxLength) => {
-      return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+      return text && text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     };
 
     return (
       <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in hover:scale-105 transition-transform duration-300 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
-        <img
-          src={noticia.imagen}
-          alt={noticia.titulo}
-          className="w-full h-36 object-cover rounded mb-2"
-          loading="eager"
-        />
+        {noticia.imagen_url && (
+          <img
+            src={noticia.imagen_url}
+            alt={noticia.titulo}
+            className="w-full h-36 object-cover rounded mb-2"
+            loading="eager"
+          />
+        )}
         <h4 className="font-bold dark:text-white text-gray-700">
           {truncateText(noticia.titulo, 25)}
         </h4>
@@ -118,14 +82,13 @@ const Home = () => {
 
   return (
     <div className="p-8 text-white ">  
-
       <div className="justify-center flex items-center mb-4">
         <HomeLoginButton client:only="react" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
         <Card title="Citas" path="/citas">
-          {loading ? (
+          {loadingCitas ? (
             <p>Cargando...</p>
           ) : (
             citas.slice(0, 2).map((c) => (
@@ -134,17 +97,25 @@ const Home = () => {
           )}
         </Card>
         <Card title="Sorteos" path="/sorteos">
-          {sorteos.map((s) => (
-            <SorteoMiniCard key={s.id} sorteo={s} />
-          ))}
+          {loadingSorteos ? (
+            <p>Cargando...</p>
+          ) : (
+            sorteos.slice(0, 2).map((s) => (
+              <SorteoMiniCard key={s.id} sorteo={s} />
+            ))
+          )}
         </Card>
       </div>
 
       <div> 
         <Card title="Noticias" path="/noticias">
-          {noticias.map((n) => (
-            <NoticiaMiniCard key={n.id} noticia={n} />
-          ))}
+          {loadingNoticias ? (
+            <p>Cargando...</p>
+          ) : (
+            noticias.slice(0, 4).map((n) => (
+              <NoticiaMiniCard key={n.id} noticia={n} />
+            ))
+          )}
         </Card>
       </div>
     </div>

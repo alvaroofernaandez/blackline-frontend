@@ -13,7 +13,10 @@ const Modal = ({ setShowModal, eliminarObjeto, id }) => {
             Cancelar
           </button>
           <button
-            onClick={() => eliminarObjeto(id)}
+            onClick={() => {
+              eliminarObjeto(id);
+              setShowModal(false);
+            }}
             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
           >
             Eliminar

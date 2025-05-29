@@ -24,17 +24,8 @@ export const useCitas = () => {
 
   const fetchCitas = async () => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch("http://localhost:8000/api/citas/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch("/api/citas");
+      if (!res.ok) throw new Error("Error al cargar citas");
       const raw = await res.json();
       const validadas = raw.map((cita) => citaSchema.parse(cita));
       setCitas(validadas);
@@ -62,121 +53,21 @@ export const useCitas = () => {
 
   const obtenerCitaPorId = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch(`http://localhost:8000/api/cita_por_id/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (res.ok) {
-        const datos = await res.json();
-        return citaSchema.parse(datos);
-      } else {
-        throw new Error("Error al cargar la cita.");
-      }
+      const res = await fetch(`/api/citas/${id}`);
+      if (!res.ok) throw new Error("Error al cargar la cita.");
+      const datos = await res.json();
+      return citaSchema.parse(datos);
     } catch (err) {
       toast.error("No se pudo cargar la cita.");
       return null;
     }
   };
 
-  const crearCita = async (cita) => {
-    try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const validation = citaSchema.safeParse(cita);
-      if (!validation.success) {
-        const errorMessages = validation.error.errors.map((err) => err.message);
-        errorMessages.forEach((msg) => toast.error(msg));
-        return false;
-      }
-
-      const res = await fetch("http://localhost:8000/api/citas/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(validation.data),
-      });
-
-      if (res.ok) {
-        toast.success("Cita creada con éxito");
-        fetchCitas();
-        return true;
-      } else {
-        toast.error("Error al crear la cita");
-        return false;
-      }
-    } catch (err) {
-      toast.error("Error al crear la cita: " + err.message);
-      return false;
-    }
-  };
-
-  const actualizarCita = async (id, cita) => {
-    try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const validation = citaSchema.safeParse(cita);
-      if (!validation.success) {
-        const errorMessages = validation.error.errors.map((err) => err.message);
-        errorMessages.forEach((msg) => toast.error(msg));
-        return false;
-      }
-
-      const res = await fetch(`http://localhost:8000/api/cita_por_id/${id}/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(validation.data),
-      });
-
-      if (res.ok) {
-        toast.success("Cita actualizada con éxito");
-        fetchCitas();
-        return true;
-      } else {
-        toast.error("Error al actualizar la cita");
-        return false;
-      }
-    } catch (err) {
-      toast.error("Error al actualizar la cita: " + err.message);
-      return false;
-    }
-  };
-
   const eliminarCita = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch(`http://localhost:8000/api/cita_por_id/${id}/`, {
+      const res = await fetch(`/api/citas/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
-
       if (res.ok) {
         toast.success("Cita eliminada con éxito");
         setCitas((prev) => prev.filter((cita) => cita.id !== id));
@@ -198,11 +89,10 @@ export const useCitas = () => {
   return {
     citas,
     loading,
-    crearCita,
-    actualizarCita,
     eliminarCita,
     obtenerCitaPorId,
     obtenerNombreSolicitante,
     obtenerRangoHora,
   };
 };
+

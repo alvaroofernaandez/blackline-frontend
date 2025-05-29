@@ -15,7 +15,7 @@ const InvoiceCard = (props) => {
   };
 
   const handleDescargarFactura = async () => {
-    window.location.href = `http://127.0.0.1:8000/api/detalle_facturas/?id=${id}&download=${id}`;
+    window.location.href = `/api/detalle_facturas?id=${id}&download=1`;
   };
 
   return (

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -18,36 +17,16 @@ export const useNoticias = () => {
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getToken = () => {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("accessToken="))
-      ?.split("=")[1];
-    if (!token) throw new Error("Token no encontrado");
-    return token;
-  };
-
   const fetchNoticias = async () => {
     try {
-      const token = getToken();
-
-      const res = await fetch("http://localhost:8000/api/noticias/", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      
-      if (!res.ok) {
-        throw new Error(`Error ${res.status}: ${res.statusText}`);
-      }
-      
+      const res = await fetch(`/api/noticias`);
+      if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
       const raw = await res.json();
-      console.log("Datos recibidos del API:", raw); // Para debug
-      
       const validadas = raw.map((n) => {
         try {
           return noticiaSchema.parse(n);
         } catch (error) {
           console.error("Error validando noticia:", n, error);
-          // Retornar una versión "limpia" si falla la validación
           return {
             id: n.id,
             titulo: n.titulo || "Sin título",
@@ -58,7 +37,6 @@ export const useNoticias = () => {
           };
         }
       });
-      
       setNoticias(validadas);
     } catch (err) {
       console.error("Error completo:", err);
@@ -70,14 +48,7 @@ export const useNoticias = () => {
 
   const obtenerNoticiaPorId = async (id) => {
     try {
-      const token = getToken();
-
-      const respuesta = await fetch(`http://localhost:8000/api/noticias/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      const respuesta = await fetch(`/api/noticias/${id}`);
       if (respuesta.ok) {
         const datos = await respuesta.json();
         return datos;
@@ -92,9 +63,6 @@ export const useNoticias = () => {
 
   const crearNoticia = async (data, isFormData = false) => {
     try {
-      const token = getToken();
-
-      // Si no es FormData, validar con el schema
       if (!isFormData) {
         const validation = noticiaSchema.safeParse(data);
         if (!validation.success) {
@@ -104,16 +72,12 @@ export const useNoticias = () => {
         }
       }
 
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
-      // Si no es FormData, agregar Content-Type
+      const headers = {};
       if (!isFormData) {
         headers["Content-Type"] = "application/json";
       }
 
-      const res = await fetch("http://localhost:8000/api/noticias/", {
+      const res = await fetch(`/api/noticias`, {
         method: "POST",
         headers,
         body: isFormData ? data : JSON.stringify(data),
@@ -121,7 +85,7 @@ export const useNoticias = () => {
 
       if (res.ok) {
         toast.success("Noticia creada con éxito");
-        fetchNoticias(); 
+        fetchNoticias();
         return true;
       } else {
         const errorData = await res.json().catch(() => ({}));
@@ -138,9 +102,6 @@ export const useNoticias = () => {
 
   const actualizarNoticia = async (id, data, isFormData = false) => {
     try {
-      const token = getToken();
-
-      // Si no es FormData, validar con el schema
       if (!isFormData) {
         const validation = noticiaSchema.safeParse(data);
         if (!validation.success) {
@@ -150,16 +111,12 @@ export const useNoticias = () => {
         }
       }
 
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
-      // Si no es FormData, agregar Content-Type
+      const headers = {};
       if (!isFormData) {
         headers["Content-Type"] = "application/json";
       }
 
-      const res = await fetch(`http://localhost:8000/api/noticias/${id}/`, {
+      const res = await fetch(`/api/noticias/${id}`, {
         method: "PUT",
         headers,
         body: isFormData ? data : JSON.stringify(data),
@@ -184,13 +141,10 @@ export const useNoticias = () => {
 
   const eliminarNoticia = async (id) => {
     try {
-      const token = getToken();
-
-      const res = await fetch(`http://localhost:8000/api/noticias/${id}/`, {
+      const res = await fetch(`/api/noticias/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -214,7 +168,6 @@ export const useNoticias = () => {
   useEffect(() => {
     fetchNoticias();
   }, []);
-  
+
   return { noticias, loading, crearNoticia, actualizarNoticia, eliminarNoticia, obtenerNoticiaPorId };
 };
-

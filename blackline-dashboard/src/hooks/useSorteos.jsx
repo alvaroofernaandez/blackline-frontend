@@ -24,17 +24,8 @@ export const useSorteos = () => {
 
   const fetchSorteos = async () => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch("http://127.0.0.1:8000/api/sorteos/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch("/api/sorteos");
+      if (!res.ok) throw new Error("No autorizado o error de red");
       const raw = await res.json();
       const validados = raw.map((sorteo) => sorteoSchema.parse(sorteo));
       setSorteos(validados);
@@ -47,18 +38,7 @@ export const useSorteos = () => {
 
   const obtenerSorteoPorId = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch(`http://127.0.0.1:8000/api/sorteo_por_id/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      const res = await fetch(`/api/sorteos/${id}`);
       if (res.ok) {
         const datos = await res.json();
         return sorteoSchema.parse(datos);
@@ -73,26 +53,15 @@ export const useSorteos = () => {
 
   const crearSorteo = async (nuevoSorteo) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-  
       if (!nuevoSorteo.titulo || !nuevoSorteo.descripcion) {
         toast.error("Título y descripción son obligatorios.");
         return false;
       }
-  
-      const response = await fetch("http://127.0.0.1:8000/api/sorteos/", {
+      const response = await fetch("/api/sorteos", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(nuevoSorteo),
       });
-  
       if (response.ok) {
         toast.success("Sorteo creado con éxito.");
         fetchSorteos();
@@ -114,32 +83,21 @@ export const useSorteos = () => {
       toast.error("Error al crear el sorteo: " + err.message);
       return false;
     }
-  };  
+  };
 
   const actualizarSorteo = async (id, sorteo) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
       const validation = sorteoSchema.safeParse(sorteo);
       if (!validation.success) {
         const errorMessages = validation.error.errors.map((err) => err.message);
         errorMessages.forEach((msg) => toast.error(msg));
         return false;
       }
-
-      const res = await fetch(`http://127.0.0.1:8000/api/sorteos/${id}/`, {
+      const res = await fetch(`/api/sorteos/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(validation.data),
       });
-
       if (res.ok) {
         toast.success("Sorteo actualizado con éxito");
         fetchSorteos();
@@ -156,19 +114,9 @@ export const useSorteos = () => {
 
   const eliminarSorteo = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch(`http://127.0.0.1:8000/api/sorteos/${id}/`, {
+      const res = await fetch(`/api/sorteos/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
-
       if (res.ok) {
         toast.success("Sorteo eliminado con éxito");
         setSorteos((prev) => prev.filter((sorteo) => sorteo.id !== id));
@@ -185,24 +133,11 @@ export const useSorteos = () => {
 
   const asignarPremio = async (id, premio) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/sorteos_asignar_premio/${id}/`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ premio }),
-        }
-      );
-
+      const res = await fetch(`/api/sorteos_asignar_premio/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ premio }),
+      });
       if (res.ok) {
         toast.success("Premio asignado con éxito");
         setTimeout(() => {
@@ -222,26 +157,12 @@ export const useSorteos = () => {
 
   const seleccionarGanador = async (id) => {
     try {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="))
-        ?.split("=")[1];
-      if (!token) throw new Error("Token no encontrado");
-
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/sorteos_seleccionar_ganador/${id}/`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
+      const res = await fetch(`/api/sorteos_seleccionar_ganador/${id}`, {
+        method: "PATCH",
+      });
       if (res.ok) {
         const { ganador } = await res.json();
         toast.success(`Ganador seleccionado con éxito: ${ganador}`);
-      
         confetti({
           particleCount: 150,
           spread: 120,
@@ -254,11 +175,9 @@ export const useSorteos = () => {
           angle: 120,
           origin: { x: 1, y: 0.6 },
         });
-      
         setTimeout(() => {
           navigate("/sorteos");
         }, 1200);
-      
         fetchSorteos();
         return true;
       } else {

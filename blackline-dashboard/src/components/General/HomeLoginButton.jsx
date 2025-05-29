@@ -2,7 +2,7 @@ import { useAuthStore } from "../../stores/authStore";
 
 export default function HomeLoginButton() {
   const { isLoggedIn, user, logout } = useAuthStore();
-
+  
   return (
     <div className="flex items-center space-x-4 animate-fade-in-down animate-delay-200">
       {isLoggedIn ? (
