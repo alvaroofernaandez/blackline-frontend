@@ -98,7 +98,7 @@ const Home = () => {
     return (
       <div className="dark:bg-neutral-950 bg-neutral-100 animate-blurred-fade-in hover:scale-105 transition-transform duration-300 shadow-lg shadow-neutral-300 dark:shadow-neutral-800 p-4 rounded-xl">
         <img
-          src={noticia.imagen}
+          src={noticia.imagen_url}
           alt={noticia.titulo}
           className="w-full h-36 object-cover rounded mb-2"
           loading="eager"
